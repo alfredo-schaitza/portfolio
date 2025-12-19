@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portfólio – Alfredo Schaitza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- IBM Plex Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- Fundo global -->
+    <div class="bg-root">
+      <div class="bg-glow"></div>
+    </div>
+
+    <!-- HERO (SEM fade-section) -->
+    <header class="hero" id="hero">
+      <div class="hero-inner">
+        <img id="hero-bg" class="hero-bg" src="assets/portrait.png" alt="" />
+        <img
+          id="hero-bg-next"
+          class="hero-bg"
+          src="assets/portrait.png"
+          alt=""
+        />
+
+        <nav class="hero-menu-vertical" aria-label="Navegação principal">
+          <ul class="hero-menu-list" id="menu-links">
+            <li class="menu-item" data-image="sobre">
+              <a href="#sobre">SOBRE MIM</a>
+            </li>
+            <li class="menu-item" data-image="trajetoria">
+              <a href="#trajetoria">TRAJETÓRIA</a>
+            </li>
+            <li class="menu-item" data-image="case">
+              <a href="#case">CASE DE SUCESSO</a>
+            </li>
+            <li class="menu-item" data-image="publicacoes">
+              <a href="#publicacoes">PUBLICAÇÕES</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="page">
+      <!-- =======================
+           SOBRE (fade-section)
+           ======================= -->
+      <section
+        class="section section-about fade-section"
+        id="sobre"
+        aria-labelledby="about-title"
+      >
+        <div class="section-inner about-inner">
+          <div class="about-label-vertical">
+            <span>UM NACO SOBRE MIM</span>
+          </div>
+
+          <div class="about-layout">
+            <!-- Coluna 1 – fotos -->
+            <div class="about-photos-grid">
+              <!-- Drink -->
+              <div class="about-photo-rect has-icon about-photo-drink">
+                <img src="assets/drink.png" alt="Drink em copo baixo" />
+                <div class="about-photo-icon"></div>
+              </div>
+
+              <!-- Crossfit -->
+              <div class="about-photo-rect has-icon about-photo-crossfit">
+                <img src="assets/crossfit.png" alt="Crossfit" />
+                <div class="about-photo-icon"></div>
+              </div>
+            </div>
+
+            <!-- Coluna 2 -->
+            <div class="about-content">
+              <div class="about-card-group">
+                <article class="about-card about-card-main">
+                  <h2 class="about-name" id="about-title">
+                    Alfredo Moniz de Aragão Schaitza
+                  </h2>
+                  <p class="about-contact">
+                    alfredo.schaitza@gmail.com<br />
+                    41 98440-7409<br />
+                   <a
+  href="https://www.linkedin.com/in/alfredoschaitza"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  LinkedIn
+</a>
+
+                  </p>
+                </article>
+
+                <article class="about-card about-card-secondary">
+                  <p>
+                    Mixologista amador /<br />
+                    Crossfiteiro /<br />
+                    Pai e marido /
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <!-- Coluna 3 -->
+            <div class="about-main-photo">
+              <div class="about-main-photo-pill has-icon">
+                <img src="assets/family.png" alt="Família" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================
+           TRAJETÓRIA (fade-section)
+           ======================= -->
+      <section
+        class="section section-timeline fade-section"
+        id="trajetoria"
+        aria-labelledby="timeline-title"
+      >
+        <div class="timeline-fullwidth">
+          <h2 class="timeline-heading" id="timeline-title">
+            Minha trajetória conecta criatividade, craft, operações e
+            estratégia.
+          </h2>
+          <div class="timeline" id="timeline">
+            <!-- preenchido via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================
+           CASE (fade-section)
+           ======================= -->
+      <section
+        class="section section-case fade-section"
+        id="case"
+        aria-labelledby="case-title"
+      >
+        <div class="section-inner">
+          <article class="case-card">
+            <div class="case-icon-wrapper">
+              <img
+                src="assets/Logotipo DSGB.svg"
+                alt="Logo Flora DS"
+              />
+            </div>
+
+            <div class="case-content">
+              <h2 class="case-title" id="case-title">
+                FLORA / DESIGN <br /><span class="case-title-strike"
+                  >SYSTEM</span
+                >
+                LANGUAGE
+              </h2>
+              <p class="case-description">
+                Conheça a linguagem de design que criou consistência, velocidade
+                e eficiência...
+              </p>
+            </div>
+
+            <div class="case-cta">
+             <a
+  href="https://www.figma.com/proto/jjK3iqrFSQHlgJcydntPzJ/Flora-Design-Language?node-id=748-2364&p=f&t=pyLJN2YR8m6QqaUw-1&scaling=contain&content-scaling=fixed&page-id=748%3A2269"
+  class="pill-button case-button"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  VEJA O CASE
+</a>
+
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- =======================
+           PUBLICAÇÕES (fade-section)
+           ======================= -->
+      <section
+        class="section section-articles fade-section"
+        id="publicacoes"
+        aria-labelledby="articles-title"
+      >
+        <div class="section-inner articles-inner">
+          <div class="articles-left">
+            <h2 class="articles-heading" id="articles-title">
+              Um pouco sobre o <br />que tenho a dizer
+            </h2>
+            <img
+              src="assets/medium-logo-icon 1.svg"
+              alt="Medium"
+              class="medium-logo"
+            />
+          </div>
+
+          <div class="articles-right">
+            <div class="carousel">
+              <div class="carousel-viewport">
+                <div class="carousel-track" id="carousel-track"></div>
+              </div>
+
+              <div class="carousel-bottom">
+                <div class="carousel-dots" id="carousel-progress"></div>
+
+                <div class="carousel-nav">
+                  <button
+                    id="carousel-prev"
+                    class="icon-button"
+                    aria-label="Anterior"
+                  >
+                    <svg
+                      width="48"
+                      height="48"
+                      viewBox="0 0 48 48"
+                      class="icon-svg"
+                    >
+                      <path
+                        d="M38 24H10M10 24L24 38M10 24L24 10"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+
+                  <button
+                    id="carousel-next"
+                    class="icon-button"
+                    aria-label="Próxima"
+                  >
+                    <svg
+                      width="48"
+                      height="48"
+                      viewBox="0 0 48 48"
+                      class="icon-svg"
+                    >
+                      <path
+                        d="M10 24H38M38 24L24 10M38 24L24 38"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
