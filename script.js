@@ -861,70 +861,71 @@ function buildCarousel() {
   if (!track || !dotsContainer || !btnPrev || !btnNext) return;
 
   const articlesPT = [
-    {
-      id: "03",
-      tagImage: "assets/ux-collective.png",
-      lang: "PT",
-      cover: "assets/piramide.png",
-      title: "A pirâmide de métricas como partitura para orquestração de produtos digitais",
-      description:
-        "Métricas bem compostas orquestram times com harmonia; mal alinhadas, viram ruído. Este artigo afina essa orquestra.",
-      link: "#",
-    },
-    {
-      id: "02",
-      tagImage: "assets/bootcamp.png",
-      lang: "EN",
-      cover: "assets/pyramid.png",
-      title: "The Metrics Pyramid as a score for orchestrating digital products",
-      description:
-        "Metrics are like musical scores: when well composed, they orchestrate teams with harmony and purpose. But when each instrument plays its own tune...",
-      link: "#",
-    },
-    {
-      id: "01",
-      tagImage: "assets/GB-tech.png",
-      lang: "PT",
-      cover: "assets/ds-article.png",
-      title: "Cultivando Design Systems no Grupo Boticário",
-      description:
-        "Nossa história com DS começa como a de diversas outras ...e desenvolvedoras apaixonadas pela construção de interfaces...",
-      link: "#",
-    },
-  ];
+  {
+    id: "03",
+    tagImage: "assets/ux-collective.png",
+    lang: "PT",
+    cover: "assets/piramide.png",
+    title: "A pirâmide de métricas como partitura para orquestração de produtos digitais",
+    description:
+      "Métricas bem compostas orquestram times com harmonia; mal alinhadas, viram ruído. Este artigo afina essa orquestra.",
+    link: "https://brasil.uxdesign.cc/a-piramide-de-metricas-como-partitura-para-orquestracao-de-produtos-digitais-e52557986cd2",
+  },
+  {
+    id: "02",
+    tagImage: "assets/bootcamp.png",
+    lang: "EN",
+    cover: "assets/pyramid.png",
+    title: "The Metrics Pyramid as a score for orchestrating digital products",
+    description:
+      "Metrics are like musical scores: when well composed, they orchestrate teams with harmony and purpose. But when each instrument plays its own tune...",
+    link: "https://medium.com/design-bootcamp/the-metrics-pyramid-as-a-score-for-orchestrating-digital-products-0df2643118c8",
+  },
+  {
+    id: "01",
+    tagImage: "assets/GB-tech.png",
+    lang: "PT",
+    cover: "assets/ds-article.png",
+    title: "Cultivando Design Systems no Grupo Boticário",
+    description:
+      "Nossa história com Design Systems começa como a de diversas outras equipes apaixonadas pela construção de interfaces...",
+    link: "https://medium.com/gbtech/cultivando-design-systems-no-grupo-botic%C3%A1rio-6a6c57dfe137",
+  },
+];
 
   const articlesEN = [
-    {
-      id: "03",
-      tagImage: "assets/ux-collective.png",
-      lang: "PT",
-      cover: "assets/piramide.png",
-      title: "The Metrics Pyramid as a score for orchestrating digital products (PT)",
-      description:
-        "A Portuguese version about using a pragmatic metrics hierarchy to orchestrate product decisions and team alignment.",
-      link: "#",
-    },
-    {
-      id: "02",
-      tagImage: "assets/bootcamp.png",
-      lang: "EN",
-      cover: "assets/pyramid.png",
-      title: "The Metrics Pyramid as a score for orchestrating digital products",
-      description:
-        "Metrics are like musical scores: when well composed, they orchestrate teams with harmony and purpose. But when each instrument plays its own tune...",
-      link: "#",
-    },
-    {
-      id: "01",
-      tagImage: "assets/GB-tech.png",
-      lang: "PT",
-      cover: "assets/ds-article.png",
-      title: "Design Systems at Grupo Boticário (PT)",
-      description:
-        "A Portuguese article about how we grew and matured a multi-brand Design System and the organization around it.",
-      link: "#",
-    },
-  ];
+  {
+    id: "03",
+    tagImage: "assets/ux-collective.png",
+    lang: "PT",
+    cover: "assets/piramide.png",
+    title: "The Metrics Pyramid as a score for orchestrating digital products (PT)",
+    description:
+      "A Portuguese article about using a pragmatic metrics hierarchy to orchestrate product decisions and team alignment.",
+    link: "https://brasil.uxdesign.cc/a-piramide-de-metricas-como-partitura-para-orquestracao-de-produtos-digitais-e52557986cd2",
+  },
+  {
+    id: "02",
+    tagImage: "assets/bootcamp.png",
+    lang: "EN",
+    cover: "assets/pyramid.png",
+    title: "The Metrics Pyramid as a score for orchestrating digital products",
+    description:
+      "Metrics are like musical scores: when well composed, they orchestrate teams with harmony and purpose. But when each instrument plays its own tune...",
+    link: "https://medium.com/design-bootcamp/the-metrics-pyramid-as-a-score-for-orchestrating-digital-products-0df2643118c8",
+  },
+  {
+    id: "01",
+    tagImage: "assets/GB-tech.png",
+    lang: "PT",
+    cover: "assets/ds-article.png",
+    title: "Design Systems at Grupo Boticário (PT)",
+    description:
+      "A Portuguese article about how we grew and matured a multi-brand Design System and the organization around it.",
+    link: "https://medium.com/gbtech/cultivando-design-systems-no-grupo-botic%C3%A1rio-6a6c57dfe137",
+  },
+];
+
 
   const articles = LOCALE === "pt" ? articlesPT : articlesEN;
 
