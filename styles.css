@@ -1,1315 +1,847 @@
-/* RESET BÁSICO */
+/* =========================================================
+   Reset + Base
+   ========================================================= */
+*{ margin:0; padding:0; box-sizing:border-box; }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+:root{
+  --edge-offset: 5rem;        /* 80px */
+  --text-rail-offset: 5rem;   /* +80px apenas para texto/menu */
+  --trajectory-col-year: 18rem;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  background: #1a1a1a;
-  color: #f5f5f5;
-  line-height: 1.5;
+body{
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  background: #fff;
+  color: #000;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Quem rola é o .main */
+  overflow: hidden;
 }
 
-img {
-  max-width: 100%;
+.container{
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================================================
+   Sidebar
+   ========================================================= */
+.sidebar{
+  width: 220px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: #fff;
+  z-index: 10;
+  padding-left: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-top{ padding-top: calc(var(--edge-offset) + var(--text-rail-offset)); }
+.sidebar-bottom{ padding-bottom: calc(var(--edge-offset) + var(--text-rail-offset)); }
+
+.sidebar-row{
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.sidebar-rail{
+  flex: 0 0 2px;
+  width: 2px;
+  background: #000;
+  border-radius: 2px;
   display: block;
 }
 
-a {
-  color: inherit;
+.sidebar-rail-top{ min-height: 176px; }
+.sidebar-rail-bottom{ min-height: 32px; }
+
+.sidebar-content{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar-smile{
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 32px;
+  height: 32px;
+}
+
+.sidebar-smile svg{ display:block; }
+
+/* Menu */
+.menu{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.menu-item{
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 1rem;           /* 16px */
+  line-height: 1.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #8a8a8a;
+  font-weight: 400;
+
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.menu-item:hover{ color:#000; }
+
+.menu-item.is-active{
+  color:#000;
+  font-weight: 500;
+}
+
+/* Redes sociais */
+.social{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-icon{
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
 }
 
-/* ============================================================
-   BACKGROUND GRADIENT + GLOW FLUTUANTE
-   ============================================================ */
+.social-icon svg{ display:block; }
 
-.bg-root {
-  position: fixed;
-  inset: 0;
-  background: #1a1a1a;
-  z-index: 0;
+/* =========================================================
+   Main (scroll container)
+   ========================================================= */
+.main{
+  margin-left: 220px;
+  width: calc(100% - 220px);
+
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scroll-snap-type: none; /* controlado por JS */
+  scroll-behavior: smooth;
 }
 
-.bg-glow {
-  position: fixed;
-  width: 1400px;
-  height: 1400px;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(162, 189, 165, 0.28),
-    rgba(162, 189, 165, 0) 70%
-  );
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  transition: transform 18s ease-in-out;
+.main.snap-enabled{
+  scroll-snap-type: y mandatory;
 }
 
-/* ============================================================
-   LAYOUT GERAL
-   ============================================================ */
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--edge-offset) 80px var(--edge-offset);
+  background: #fff;
 
-.page {
-  position: relative;
-  z-index: 1;
-  width: 100vw;         /* sempre ocupar a largura da viewport */
-  max-width: none;      /* sem container fixo */
-  margin: 0 0 64px;     /* só margem inferior */
-  padding: 0;           /* sem padding lateral aqui */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
-.section {
-  padding-block: 56px;
-}
-
-.section-inner {
+.hero-content{
+  display: flex;
+  align-items: stretch;
+  gap: 80px;
   width: 100%;
-  max-width: none;      /* sem limite fixo */
-  margin: 0;
-  padding: 0 80px;      /* respiro lateral padrão (igual hero/case) */
-  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  height: calc(100vh - (var(--edge-offset) * 2));
 }
 
-/* ============================================================
-   HERO
-   ============================================================ */
+.hero-image{
+  width: 520px;
+  height: 80vh;
+  max-height: 720px;
+  min-height: 520px;
 
-.hero {
-  position: relative;
-  z-index: 1;
-  height: calc(100vh - 80px);
-  min-height: 640px;
-  margin: 40px;
-}
-
-.hero-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  border-radius: 999px;
   overflow: hidden;
-  transform: translateY(var(--hero-parallax, 0px));
-  transition: transform 0.2s ease-out;
+  flex-shrink: 0;
 }
 
-/* IMAGENS DO HERO */
-
-/* IMAGEM BASE DO HERO – SEMPRE VISÍVEL POR PADRÃO */
-#hero-bg {
-  position: absolute;
-  inset: 0;
+.hero-image img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  mix-blend-mode: luminosity;
-  filter: grayscale(100%);
-  /* 👇 hero visível por padrão */
-  clip-path: inset(0 0 0 0);
-  opacity: 1;
-  /* Wipe mais lento e suave */
-  transition:
-    clip-path 1.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.8s ease;
+  object-position: center;
 }
 
-/* IMAGEM NOVA (para wipe entre seções) – COMEÇA ESCONDIDA */
-#hero-bg-next {
-  position: absolute;
-  inset: 0;
+.hero-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  padding-top: var(--text-rail-offset);
+  padding-bottom: var(--text-rail-offset);
+}
+
+.hero-header{
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-text h1{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 2.5rem;        /* 40px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3.5rem;      /* 56px */
+  letter-spacing: 0.4rem;   /* 6.4px */
+  text-transform: uppercase;
+}
+
+.hero-subtitle{
+  color: #6C6C6C;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;          /* 16px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.16rem;  /* 2.56px */
+  text-transform: uppercase;
+
+  margin-top: 1.75rem;      /* 28px */
+}
+
+.btn-primary{
+  display: inline-flex;
+  padding: 16px 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  border-radius: 100px;
+  background: #005FC2;
+  color: #fff;
+  text-decoration: none;
+
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+  width: fit-content;
+}
+
+.btn-primary:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.btn-arrow{
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* =========================================================
+   Gallery (Sobre Mim)
+   ========================================================= */
+.gallery{
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-item{
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.gallery-item img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  mix-blend-mode: luminosity;
-  filter: grayscale(100%);
-  clip-path: inset(0 100% 0 0); /* escondida */
-  opacity: 1;
-  /* Wipe mais lento e suave */
-  transition:
-    clip-path 1.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.8s ease;
+
+  transform: scale(1) translate3d(0,0,0);
+  transition: transform 4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
-/* quando revelamos a imagem (wipe inicial ou transição) */
-.hero-bg-revealed,
-.hero-bg-wipe-in {
-  clip-path: inset(0 0 0 0);
+.gallery-item:hover img{
+  transform: scale(1.08) translate3d(-12px, -10px, 0);
 }
 
-
-
-
-/* ============================================================
-   HERO – MENU VERTICAL SOBREPOSTO
-   ============================================================ */
-
-.hero-menu-vertical {
+.gallery-overlay{
   position: absolute;
   inset: 0;
-  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  z-index: 1;
+  padding: 0 0 28px 28px;
   pointer-events: none;
 }
 
-.hero-menu-list {
+.gallery-overlay p{
+  font-weight: 300;
+  line-height: 22px;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 2.56px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.gallery-item:hover .gallery-overlay p{
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   Trajetória
+   ========================================================= */
+.trajectory{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-left: 5rem;
+  padding-right: 0;
+
+  margin: 0;
+  width: 100%;
+  background: #fff;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.trajectory-item{
+  width: 100%;
+  border-top: 1px solid #e6e6e6;
+}
+
+.trajectory-item:last-child{
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.trajectory-item:hover{
+  background: rgba(0,0,0,0.03);
+}
+
+.trajectory-header{
+  width: 100%;
+  cursor: pointer;
+
+  display: grid;
+  align-items: center;
+
+  /* Ano mais largo; Cargo pode quebrar; Empresa com respiro; Seta com folga */
+ grid-template-columns: var(--trajectory-col-year) minmax(18rem, 1fr) 14rem 4rem;
+  column-gap: 2.5rem;
+
+  padding: 1.5rem 0;
+}
+
+.trajectory-period{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 2rem;          /* 32px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3rem;        /* 48px */
+  letter-spacing: 0.32rem;  /* 5.12px */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.trajectory-role,
+.trajectory-company{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;          /* 16px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.02rem;
+  text-transform: none;
+}
+
+.trajectory-company{
+  text-align: right;
+}
+
+.trajectory-toggle{
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: none;
+  background: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+}
+
+.trajectory-arrow{
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 300ms ease;
+}
+
+/* colapsado: seta para baixo */
+.trajectory-item:not(.expanded) .trajectory-arrow{
+  transform: rotate(180deg);
+}
+
+.trajectory-content{
+  display: none;
+  padding-top: 1.5rem;
+   padding-left: var(--trajectory-col-year);
+  padding-right: 5rem;
+
+}
+
+.trajectory-item.expanded .trajectory-content{
+  display: block;
+  padding-bottom: 2rem; /* respiro antes do próximo item */
+}
+
+.trajectory-block + .trajectory-block{
+  margin-top: 1.75rem;
+}
+
+.trajectory-label{
+  font-size: 1rem;          /* 16px */
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.16rem;  /* 2.56px */
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #6c6c6c;
+  margin: 0 0 0.75rem 0;
+}
+
+.trajectory-list{
   list-style: none;
   margin: 0;
   padding: 0;
-  position: absolute;
-  top: 50%;
-  left: 40px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-  pointer-events: auto;
-}
-
-.hero-menu-list .menu-item {
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 7rem; /* ≈112px */
-  line-height: 1;
-  letter-spacing: 0.18em;
-  color: white;
-  white-space: nowrap;
-
-  opacity: 0;
-  transform: translateX(-24px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
-.hero-menu-list .menu-item.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* dimming */
-.hero-menu-list.is-dimmed .menu-item {
-  opacity: 0.2;
-}
-.hero-menu-list.is-dimmed .menu-item.is-active {
-  opacity: 1;
-}
-
-/* ============================================================
-   SOBRE MIM
-   ============================================================ */
-
-.section-about {
-  padding-top: 56px;
-}
-
-.about-inner {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 40px;
-  align-items: center;
-
-  transform: translateY(var(--about-parallax-offset, 0px));
-  transition: transform 0.5s ease-out;
+  gap: 0.75rem;
 }
 
-.about-label-vertical {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-label-vertical span {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.26em;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* GRID DO MOSAICO */
-.about-layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr 1.1fr;
-  column-gap: 24px;
-  align-items: stretch;
-}
-
-/* fotos */
-.about-photos-grid {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  row-gap: 16px;
-}
-
-.about-photo-rect {
-  border-radius: 22px;
-}
-
-.about-main-photo-pill {
-  border-radius: 999px;
-  width: 100%;
-  height: 100%;
-}
-
-/* zoom-in */
-.about-photo-rect img,
-.about-main-photo-pill img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 4s ease;
-}
-
-.about-photo-rect:hover img,
-.about-main-photo-pill:hover img {
-  transform: scale(1.08);
-}
-
-/* CARD CENTRAL */
-.about-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.about-card-group {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  border-radius: 0;
-}
-
-/* parte superior */
-.about-card-main {
-  padding: 24px 28px;
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-bottom: none;
-}
-
-/* parte inferior */
-.about-card-secondary {
-  padding: 24px 28px 32px;
-  background: white;
-  color: #1a1a1a;
-  flex-grow: 1;
-
-  display: flex;
-  align-items: flex-end;
-}
-
-/* links */
-.about-name {
-  margin: 0 0 12px;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  font-weight: 300 !important;
-}
-
-.about-contact {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.about-contact a {
-  border-bottom: 1px dashed #ffffff;
-  color: #ffffff;
-}
-
-/* content animado */
-.about-curiosity {
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-.about-curiosity.is-leaving {
-  opacity: 0;
-  transform: translateY(6px);
-}
-.about-curiosity.is-entering {
-  opacity: 0;
-  transform: translateY(-6px);
-}
-.about-curiosity.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Ícone sobre as fotos do mosaico */
-.about-photo-rect.has-icon,
-.about-main-photo-pill.has-icon {
+.trajectory-list li{
   position: relative;
-}
-
-.about-photo-icon {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  opacity: 0.9;
-}
-
-.about-photo-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* Ícone da imagem pílula — centralizado horizontalmente */
-.pill-icon {
-  right: 50%;
-  transform: translateX(50%);
-}
-
-.about-curiosity-title strong {
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-/* ============================================================
-   TIMELINE – TRAJETÓRIA (VERSÃO CORRIGIDA)
-   ============================================================ */
-
-.section-timeline {
-  padding-top: 64px;
-}
-
-/* container da timeline – ocupa a largura total do viewport */
-.timeline-fullwidth {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  padding: 0;
-}
-
-
-/* Cabeçalho alinhado à direita, texto leve e em caixa alta */
-.timeline-header {
-  text-align: right;
-  width: 100%;
-  padding: 0 80px;
-  margin-bottom: 40px;
-}
-
-.timeline-heading {
-  max-width: 800px;
-  margin-left: auto;
-  font-size: 1.8rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 32px; /* respiro entre título e accordions */
-}
-
-/* Faixa da timeline */
-.timeline {
-  width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-}
-
-/* Cada item */
-.timeline-item {
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  width: 100%;
-  transition: background 0.25s ease;
-}
-
-/* item aberto com fundo chapado */
-.timeline-item.is-open {
-  background: #000;
-}
-
-/* Linha base: período / cargo / empresa / seta */
-.timeline-row {
-  display: grid;
-  grid-template-columns: 1.2fr 1.4fr 1.2fr auto;
-  padding: 48px 80px;            /* <- dobro do respiro vertical */
-  column-gap: 32px;
-  align-items: center;
-  cursor: pointer;
-}
-
-
-/* centraliza o conteúdo de cada coluna pelo meio */
-.timeline-period,
-.timeline-role,
-.timeline-company {
-  line-height: 1.2;
-  display: flex;
-  align-items: center;         /* alinha texto ao centro da célula */
-}
-
-/* Tamanhos de fonte (layout) */
-.timeline-period {
-  font-size: 32px;          /* 2.1 */
-  font-weight: 300;
-  text-transform: uppercase;
- 
-}
-
-.timeline-role {
-  font-size: 16px;          /* 2.2 */
-  font-weight: 300;
-  
-}
-
-.timeline-company {
-  font-size: 16px;          /* 2.3 */
-  font-weight: 300;
-  opacity: 0.85;
- 
-}
-
-/* Botão da seta (já funciona com os SVGs 48x48 do JS que você tem) */
-/* botão da seta no grid */
-.timeline .icon-button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* SVG da seta – pronto para animar rotação */
-.timeline .icon-svg {
-  width: 48px;
-  height: 48px;
-  display: block;
-  transition: transform 0.25s ease;
-  transform-origin: 50% 50%;
-}
-
-/* quando o item está aberto, rotaciona 180° (aponta pra cima) */
-.timeline-item.is-open .icon-svg {
-  transform: rotate(180deg);
-}
-
-
-.timeline .icon-svg {
-  width: 48px;
-  height: 48px;
-  display: block;
-}
-
-/* Hover só em itens fechados */
-.timeline-item:not(.is-open):hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-/* ------------------------------------------------------------
-   DETALHES – ALINHADOS AO CARGO
-   ------------------------------------------------------------ */
-
-/* Aqui vem o truque: usamos a MESMA grade da linha para alinhar
-   o bloco de texto exatamente sob a coluna do cargo (coluna 2). */
-.timeline-details {
-  display: grid;
-  grid-template-columns: 1.2fr 1.4fr 1.2fr auto;
-  padding: 0 80px 0;          /* 👈 sem espaço embaixo quando fechado */
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transform: translateY(4px);
-  transition: all 0.3s ease;
-}
-
-
-/* Quando aberto, revelamos o conteúdo */
-.timeline-item.is-open .timeline-details {
-  max-height: 800px;
-  opacity: 1;
-  padding-bottom: 44px;       /* 👈 dobra o respiro da lista quando aberta */
-}
-
-
-/* Este wrapper é posicionado na coluna 2 – exatamente onde está o cargo */
-.timeline-details-inner {
-  grid-column: 2 / 3;   /* ⭐ agora a lista começa alinhada ao cargo */
-  margin-left: 0;
-}
-
-/* Lista de bullets */
-.timeline-details ul {
-  margin: 0;
-  padding-left: 0;
-  list-style-position: outside;
-}
-
-.timeline-details li {
-  font-size: 16px;      /* 2.4 */
-  font-weight: 300;
-  line-height: 1.45;
-  margin-bottom: 10px;
-}
-
-
-
-
-/* ============================================================
-   PUBLICAÇÕES
-   ============================================================ */
-
-.section-articles {
-  padding: 96px 0 80px;
-}
-
-.section-articles .section-inner {
-  padding-right: 0;     /* esquerda com 80px, direita encostando na viewport */
-}
-
-.articles-inner {
-  display: grid;
-  grid-template-columns: 0.9fr 1.6fr;
-  gap: 64px;
-  align-items: flex-start;
-}
-
-/* título da seção – já harmonizado com demais via regra global */
-.articles-heading {
-  margin: 0;
-  letter-spacing: 0.18em;
-  line-height: 1.5;
-}
-
-.articles-left {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.articles-logo {
-  width: 132px;
-  height: 132px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.articles-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ------------------------------------------------------------
-   CARROSSEL
-   ------------------------------------------------------------ */
-
-.articles-right {
-  display: flex;
-  align-items: center;
-}
-
-.carousel {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-}
-
-.carousel-viewport {
-  overflow: hidden;
-  width: 100%;
-}
-
-.carousel-track {
-  display: flex;
-  will-change: transform;
-  transition: transform 0.4s ease;
-}
-
-/* 4 – card "vaza" a tela: largura < viewport */
-.carousel-item {
-  /* Card ~30% mais estreito */
-  flex: 0 0 52%;
-  margin-right: 32px;
-}
-
-/* card em si: link clicável, branco, sem raio */
-.carousel-link {
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  color: #111111;
-  text-decoration: none;
-  border-radius: 0; /* 5 – sem borda arredondada */
-  overflow: hidden;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
-  height: 100%;
-}
-
-/* topo: selo + idioma */
-.carousel-tag-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 40px 12px;
-}
-
-.carousel-tag-row img {
-  height: 32px;
-  width: auto;
-}
-
-.carousel-lang {
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-/* imagem de capa com altura fixa – 3 cards iguais */
-/* container fixo, igual para os 3 cards */
-.carousel-cover {
-  width: 100%;
-  height: 260px;               /* altura fixa e consistente */
-  overflow: hidden;
-  display: block;
-  background: #000;            /* fallback */
-}
-
-.carousel-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;           /* 🔥 PREENCHE O CONTAINER SEM DISTORCER */
-  display: block;
-}
-
-
-/* 1 & 3 – título do card: all caps, peso 300 + margens 40px */
-.carousel-body-title {
-  margin: 24px 40px 12px;
-  font-size: 1.1rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-}
-
-/* descrição com "margem 40px" e respiro inferior */
-.carousel-body-text {
-  margin: 0 40px 40px;
+  padding-left: 1rem;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #444444;
+  font-weight: 400;
+  color: #000;
+  opacity: 0.85;
 }
 
-/* ------------------------------------------------------------
-   NAVEGAÇÃO INFERIOR – TRAÇOS + SETAS
-   ------------------------------------------------------------ */
-
-/* A barra de navegação deve ter a MESMA largura do card em destaque.
-   O card usa flex: 0 0 52%, então usamos width: 52% aqui também. */
-.carousel-bottom {
-  width: 52%;                     /* 👈 mesma largura do .carousel-item */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0 0;              /* sem padding lateral */
-  box-sizing: border-box;
-}
-
-/* TRAÇOS DE PROGRESSO – alinhados à ESQUERDA do card */
-.carousel-dots {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.carousel-dot {
-  height: 4px;
-  width: 20px;                    /* steps "apagados" */
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.2);
-  opacity: 0.2;
-  transition: all 0.25s ease;
-}
-
-.carousel-dot.is-active {
-  width: 40px;                    /* step ativo mais longo */
-  opacity: 1;
-  background: #ffffff;
-}
-
-/* SETAS – alinhadas à DIREITA do card */
-.carousel-nav {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.carousel-nav .icon-button {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;      /* mesma espessura do stroke dos SVG */
-  background: transparent;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.carousel-nav .icon-button .icon-svg {
-  width: 28px;
-  height: 28px;
-  display: block;
-}
-
-
-/* ------------------------------------------------------------
-   RESPONSIVO
-   ------------------------------------------------------------ */
-
-@media (max-width: 1024px) {
-  .articles-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .articles-right {
-    width: 100%;
-  }
-
-  .carousel-item {
-    flex-basis: 88%;
-  }
-
-  .carousel-bottom {
-    width: 88%;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-articles {
-    padding-top: 72px;
-  }
-
-  .articles-heading {
-    font-size: 1.6rem;
-  }
-
-  .carousel-item {
-    flex-basis: 100%;
-    margin-right: 20px;
-  }
-
-  .carousel-bottom {
-    width: 100%;
-  }
-
-  .carousel-link {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-}
-
-
-
-/* ============================================================
-   CASE FLORA – REFINADO
-   ============================================================ */
-
-.section-case {
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  width: 100vw;
-
-  height: calc(100vh - 80px);
-  min-height: 640px;
-
-  display: flex;
-  align-items: center;
-  padding: 0;
-}
-
-/* 👇 ESTA É A PARTE CRÍTICA */
-.section-case .section-inner {
-  max-width: none;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-
-  padding: 80px;             /* 👈 margem interna igual em todos os lados */
-
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-
-
-
-/* garante que o card use toda a largura disponível */
-.case-card {
-  width: 100%;
-  height: 100%;
-
-  padding: 80px;             /* 👈 padding interno simétrico */
-  box-sizing: border-box;
-
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 0;
-
-  display: grid;
-  grid-template-columns: 0.7fr 1.5fr auto;
-  gap: 56px;
-  align-items: center;
-}
-
-
-
-
-/* ícone à esquerda */
-.case-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-/* título + descrição centralizados verticalmente na coluna */
-.case-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* 2. título com peso 300 */
-.case-title {
-  font-size: 3.4rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  margin: 0 0 24px;
-}
-
-.case-title-strike {
-  text-decoration: line-through;
-}
-
-/* 4. distribuição da chamada */
-.case-description {
-  margin: 0;
-  font-size: 1rem;
-  max-width: 460px;
-  line-height: 1.6;
-}
-
-/* CTA à direita, centralizado verticalmente */
-.case-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 5. botão branco com texto preto */
-.pill-button.case-button {
-  background: #ffffff;
-  color: #000000;
-  border-radius: 999px;
-  border: 1px solid #ffffff;
-  padding: 12px 32px;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-}
-
-/* hover de leve */
-.pill-button.case-button:hover {
-  background: #f0f0f0;
-}
-
-/* responsivo básico */
-@media (max-width: 900px) {
-  .case-card {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .case-cta {
-    justify-content: flex-start;
-  }
-
-  .case-title {
-    font-size: 2.4rem;
-  }
-}
-
-
-/* ============================================================
-   ANIMAÇÃO – FADE-IN SOBRE MIM
-   ============================================================ */
-
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.9s ease-out;
-}
-
-.fade-in-up.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================================
-   RESPONSIVO
-   ============================================================ */
-
-@media (max-width: 1100px) {
-  .timeline-header {
-    padding-right: 40px;
-  }
-
-  .timeline-row,
-  .timeline-details {
-    padding-inline: 40px;
-  }
-
-  .timeline-details-inner {
-    margin-left: 8%;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero {
-    margin: 24px;
-  }
-
-  .hero-menu-list {
-    left: 24px;
-  }
-
-  .hero-menu-list .menu-item {
-    font-size: clamp(32px, 9vw, 80px);
-  }
-
-  .page {
-    padding-inline: 16px;
-  }
-
-  .about-inner {
-    grid-template-columns: 1fr;
-    row-gap: 24px;
-  }
-
-  .about-label-vertical span {
-    writing-mode: horizontal-tb;
-    transform: none;
-  }
-
-  .articles-inner {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .timeline-row {
-    grid-template-columns: 1fr auto;
-    row-gap: 8px;
-  }
-
-  .timeline-company {
-    grid-column: 1 / 2;
-  }
-
-  .timeline-details {
-    padding-inline: 24px;
-  }
-
-  .timeline-details-inner {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero {
-    margin: 16px;
-  }
-
-  .hero-menu-list .menu-item {
-    font-size: 38px;
-  }
-}
-.timeline .icon-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.timeline .icon-svg {
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  opacity: 1;
-}
-
-.timeline .icon-svg.exiting {
-  opacity: 0;
-  transform: translateY(-4px);
-}
-
-.timeline .icon-svg.entering {
-  opacity: 0;
-  transform: translateY(4px);
-}
-
-.timeline .icon-svg.entering.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-.timeline-item:not(.is-open):hover {
-  background: rgba(0,0,0,0.8);
-  transition: background 0.25s ease;
-}
-.timeline-details ul {
-  padding-left: 0;
-}
-.timeline-period,
-.timeline-role,
-.timeline-company {
-  line-height: 1.2; /* controla a caixa de linha uniformemente */
-  display: flex;
-  align-items: center; /* centraliza verticalmente o texto no grid */
-}
-.timeline .icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Títulos principais das seções */
-.about-label-vertical span,
-.timeline-heading,
-.articles-heading {
-  font-size: 1.8rem;
-  font-weight: 300;
-}
-
-/* Mantém caixa alta onde já existia */
-.timeline-heading,
-.articles-heading {
-  text-transform: uppercase;
-}
-
-/* Títulos das seções principais */
-.about-label-vertical span,
-.timeline-heading,
-.articles-heading {
-  font-size: 1.8rem;
-  font-weight: 300;
-}
-
-/* mantém caixa alta onde faz sentido */
-.timeline-heading,
-.articles-heading {
-  text-transform: uppercase;
-}
-
-/* ============================================================
-   ANIMAÇÕES GLOBAIS DE ENTRADA E SAÍDA
-   ============================================================ */
-
-.section-block {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  will-change: opacity, transform;
-}
-
-.section-block.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.section-block.is-hidden {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* ============================================================
-   PARALLAX
-   ============================================================ */
-
-.parallax {
-  position: relative;
-  background-size: cover;
-  background-attachment: fixed; /* fallback simples */
-  background-position: center;
-  z-index: 0;
-}
-
-.parallax-layer {
+.trajectory-list li::before{
+  content: "•";
   position: absolute;
-  top: 0;
   left: 0;
-  width: 100%;
-  height: 140%;       /* maior para permitir deslocamento */
-  background-size: cover;
-  background-position: center;
-  pointer-events: none;
-  will-change: transform;
-}
-
-/* ============================================================
-   FADE IN / FADE OUT DAS SEÇÕES (exceto hero)
-   ============================================================ */
-
-.fade-section {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
-  will-change: opacity, transform;
-}
-
-.fade-section.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-section.is-hidden {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.medium-logo-wrapper {
-  width: 104px;
-  height: 104px;
-}
-
-.medium-logo {
-  width: 104px;
-  height: 104px;
-  object-fit: contain;
-  display: block;
-}
-
-/* Revela a imagem inicial ao carregar a página */
-.hero-bg-revealed {
-  clip-path: inset(0 0 0 0);
-}
-
-/* ============================================================
-   SOBRE MIM – fit em 80vh SEM reduzir fonte (reduz só as mídias)
-   ============================================================ */
-
-/* Mantém o bloco contido, sem sobrepor a seção seguinte */
-.section.section-about {
-  max-height: 80vh;      /* limite */
-  overflow: hidden;      /* não vaza */
-}
-
-/* Travamos a altura do conteúdo principal do bloco */
-.section.section-about .section-inner.about-inner {
-  height: 100%;
-}
-
-/* Define a altura alvo do mosaico (setada via JS) */
-.section.section-about .about-layout {
-  height: var(--about-layout-h, auto);
-  align-items: stretch;
-}
-
-/* As colunas de fotos passam a respeitar alturas explícitas */
-.section.section-about .about-photos-grid {
-  grid-template-rows: repeat(2, var(--about-row-h, 1fr));
-}
-
-/* Cada foto vira uma “caixa” com altura controlada */
-.section.section-about .about-photo-rect {
-  height: var(--about-row-h, auto);
-}
-
-/* A pílula fica com a altura total do mosaico */
-.section.section-about .about-main-photo-pill {
-  height: var(--about-layout-h, auto);
-}
-
-/* Estabiliza o card para não “dançar” no hover */
-.section.section-about .about-card-group {
-  height: var(--about-layout-h, auto);
-  min-height: 0;
-}
-
-/* Se o texto variar, rola dentro da área branca (sem mudar layout) */
-.section.section-about .about-card-secondary {
-  min-height: 0;
-  overflow: auto;
-}
-
-/* ============================================================
-   SOBRE MIM – remover máscara/clip
-   ============================================================ */
-
-.section.section-about {
-  overflow: visible !important;   /* remove o recorte */
-  max-height: none !important;    /* se existir max-height/80vh aqui, não recorta */
-}
-
-/* importante: não deixe o parallax empurrar e recortar por acidente */
-.section.section-about .about-inner {
-  overflow: visible;
-}
-
-/* ============================================================
-   SOBRE MIM – restaurar arredondamento das imagens (sem mascarar a seção)
-   ============================================================ */
-
-/* Mantém a seção SEM clip (para o parallax não cortar) */
-.section.section-about {
-  overflow: visible !important;
-}
-
-/* Mas garante que cada imagem seja “recortada” pela sua moldura */
-.about-photo-rect,
-.about-main-photo-pill {
-  overflow: hidden !important;   /* recorta o <img> dentro do raio */
-  border-radius: 22px;           /* retângulos */
-}
-
-/* pílula */
-.about-main-photo-pill {
-  border-radius: 999px !important;
-}
-
-/* garante que o <img> respeite a moldura e não crie gaps */
-.about-photo-rect img,
-.about-main-photo-pill img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ============================================================
-   TIMELINE – títulos sem bullet
-   ============================================================ */
-
-.timeline-details li.timeline-section-title {
-  list-style: none;          /* remove o bullet */
-  padding-left: 0;
-  margin-top: 24px;
-  margin-bottom: 8px;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  top: 0;
   opacity: 0.7;
 }
 
-/* remove qualquer marcador residual */
-.timeline-details li.timeline-section-title::marker {
+/* =========================================================
+   Case
+   ========================================================= */
+.case{
+  padding: 80px 80px;
+  background: #fff;
+}
+
+.case-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  gap: 24px;
+}
+
+h2{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1.5rem;        /* 24px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.5rem;      /* 40px */
+  letter-spacing: 0.24rem;  /* 3.84px */
+  text-transform: uppercase;
+}
+
+
+
+.btn-secondary{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #1f76b4;
+  color: #fff;
+  text-decoration: none;
+
+  padding: 12px 20px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.case-content{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.case-image{
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.case-image img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
+   Publications
+   ========================================================= */
+.publications{
+  padding: 80px 80px 120px;
+  background: #fff;
+}
+
+.publications h2{
+  margin-bottom: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.carousel{
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Mantém o carrossel “contido”, mas sem cortar sombra */
+  overflow: visible;
+  padding: 18px 18px 24px 18px; /* respiro para sombra */
+}
+
+
+.carousel-track{
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s ease;
+
+  /* evita scroll horizontal por sombra/padding */
+  padding-bottom: 6px;
+}
+
+
+.article-card{
+  width: clamp(320px, 42vw, 560px); /* menor, proporcional e responsivo */
+  flex-shrink: 0;
+  background: #fff;
+
+  border-radius: 0;      /* (2) sem arredondamento */
+  overflow: visible;     /* (3) evita “cortar” sombra */
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+
+.article-header{
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.article-lang{
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  font-weight: 300;
+}
+
+.article-logo{
+  height: 28px;
+  width: auto;
+}
+
+.article-image{
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.article-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card h3{
+  padding: 20px 20px 8px;
+
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;        
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;      
+  letter-spacing: 0.08rem; /* 1.92px */
+  text-transform: uppercase;
+}
+
+
+.article-card p{
+  padding: 0 20px 24px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6c6c6c;
+  font-weight: 300;
+}
+
+.carousel-controls{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.carousel-dots{
+  display: flex;
+  gap: 10px;
+}
+
+.dot{
+  width: 36px;
+  height: 3px;
+  border: none;
+  background: #d9d9d9;
+  cursor: pointer;
+}
+
+.dot.active{ background: #000; }
+
+.carousel-buttons{
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carousel-btn img{
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================================================
+   Cursor custom da Trajetória
+   ========================================================= */
+.traj-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+.traj-cursor::before,
+.traj-cursor::after{
   content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+}
+
+.traj-cursor.is-plus::after{
+  width: 2px;
+  height: 22px;
+}
+
+.traj-cursor.is-minus::after{ display:none; }
+
+.trajectory.cursor-active,
+.trajectory.cursor-active *{
+  cursor: none !important;
+}
+
+/* =========================================================
+   Publicações: cards clicáveis + cursor custom (olho)
+   ========================================================= */
+
+.article-card{
+  cursor: none; /* o cursor real vai aparecer via .publications.cursor-active */
+}
+
+.article-card:focus{
+  outline: 2px solid rgba(0,0,0,0.25);
+  outline-offset: 6px;
+}
+
+/* Hover sutil opcional (reforça interatividade sem exagero) */
+
+/* Cursor custom da seção Publicações */
+.pub-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+/* “Olho” em branco (construído com CSS) */
+.pub-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG do olho */
+.pub-cursor svg{
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.pub-cursor path{
+  stroke: #fff;
+}
+
+
+.article-card.cursor-active,
+.article-card.cursor-active *{
+  cursor: none !important;
+}
+
+
+/* =========================================================
+   Responsivo
+   ========================================================= */
+@media (max-width: 1200px){
+  .hero-content{ gap: 48px; }
+  .hero{ padding: 60px 48px; }
+
+  .case, .publications{ padding-left: 48px; padding-right: 48px; }
+
+  /* Trajetória: mantém direita zerada */
+  .trajectory{ padding-left: 48px; padding-right: 0; }
+}
+
+@media (max-width: 960px){
+  .sidebar{ width: 180px; padding-left: 24px; }
+  .main{ margin-left: 180px; width: calc(100% - 180px); }
+
+  .hero-content{ flex-direction: column; align-items: flex-start; }
+  .hero-image{ width: 320px; height: 320px; min-height: 320px; }
+
+  .gallery-grid{ grid-template-columns: 1fr; }
+
+  .trajectory-header{
+    grid-template-columns: 16rem minmax(14rem, 1fr) 12rem 4rem;
+    column-gap: 1.5rem;
+  }
+
+  .trajectory-content{ padding-left: 0; }
+}
+
+@media (max-width: 640px){
+  .sidebar{ display:none; }
+  .main{ margin-left: 0; width: 100%; }
+
+  .hero, .case, .publications{ padding-left: 20px; padding-right: 20px; }
+
+  /* Trajetória no mobile: sem sidebar, pode encostar */
+  .trajectory{ padding-left: 20px; padding-right: 20px; }
 }

@@ -1,270 +1,408 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Portfólio – Alfredo Schaitza</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfredo Moniz de Aragão Schaitza</title>
 
-    <!-- IBM Plex Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <!-- Fundo global -->
-    <div class="bg-root">
-      <div class="bg-glow"></div>
-    </div>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Menu lateral">
+      <!-- BLOCO SUPERIOR -->
+      <div class="sidebar-top">
+        <div class="sidebar-row">
+          <div class="sidebar-rail sidebar-rail-top" aria-hidden="true"></div>
 
-    <!-- HERO (SEM fade-section) -->
-    <header class="hero" id="hero">
-      <div class="hero-inner">
-        <img id="hero-bg" class="hero-bg" src="assets/portrait.png" alt="" />
-        <img
-          id="hero-bg-next"
-          class="hero-bg"
-          src="assets/portrait.png"
-          alt=""
-        />
+          <div class="sidebar-content">
+            <!-- Smile: âncora para o topo/abertura -->
+            <a href="#topo" class="sidebar-smile" aria-label="Voltar ao topo">
+              <svg width="18" height="18" viewBox="0 0 24 24" role="img" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                <path d="M8.2 14.2c1 1.3 2.3 2 3.8 2s2.8-.7 3.8-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </a>
 
-        <nav class="hero-menu-vertical" aria-label="Navegação principal">
-          <ul class="hero-menu-list" id="menu-links">
-            <li class="menu-item" data-image="sobre">
-              <a href="#sobre">SOBRE MIM</a>
-            </li>
-            <li class="menu-item" data-image="trajetoria">
-              <a href="#trajetoria">TRAJETÓRIA</a>
-            </li>
-            <li class="menu-item" data-image="case">
-              <a href="#case">CASE DE SUCESSO</a>
-            </li>
-            <li class="menu-item" data-image="publicacoes">
-              <a href="#publicacoes">PUBLICAÇÕES</a>
-            </li>
-          </ul>
-        </nav>
+            <nav class="menu" aria-label="Navegação principal">
+              <a href="#topo" class="menu-item">Abertura</a>
+              <a href="#sobre-mim" class="menu-item">Sobre mim</a>
+              <a href="#trajetoria" class="menu-item">Trajetória</a>
+              <a href="#case-sucesso" class="menu-item">Case de sucesso</a>
+              <a href="#publicacoes" class="menu-item">Publicações</a>
+            </nav>
+          </div>
+        </div>
       </div>
-    </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="page">
-      <!-- =======================
-           SOBRE (fade-section)
-           ======================= -->
-      <section
-        class="section section-about fade-section"
-        id="sobre"
-        aria-labelledby="about-title"
-      >
-        <div class="section-inner about-inner">
-          <div class="about-label-vertical">
-            <span>UM NACO SOBRE MIM</span>
-          </div>
+      <!-- BLOCO INFERIOR -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-row">
+          <div class="sidebar-rail sidebar-rail-bottom" aria-hidden="true"></div>
 
-          <div class="about-layout">
-            <!-- Coluna 1 – fotos -->
-            <div class="about-photos-grid">
-              <!-- Drink -->
-              <div class="about-photo-rect has-icon about-photo-drink">
-                <img src="assets/drink.png" alt="Drink em copo baixo" />
-                <div class="about-photo-icon"></div>
-              </div>
+          <div class="social" aria-label="Redes sociais">
+            <a
+              href="https://www.linkedin.com/in/alfredoschaitza"
+              class="social-icon"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect width="32" height="32" fill="#6C6C6C"/>
+                <path d="M11.6129 13.2614H8.26964V23.9229H11.6129V13.2614Z" fill="white"/>
+                <path d="M20.6567 13.0304C20.5335 13.015 20.4025 13.0073 20.2716 12.9996C18.3996 12.9225 17.3443 14.0318 16.9745 14.5094C16.8744 14.6404 16.8281 14.7174 16.8281 14.7174V13.2923H13.6312V23.9538H16.9745C16.9745 22.8676 16.9745 21.7891 16.9745 20.7029C16.9745 20.1175 16.9745 19.532 16.9745 18.9466C16.9745 18.2225 16.9206 17.4521 17.2826 16.7896C17.5908 16.235 18.1454 15.9577 18.7694 15.9577C20.6182 15.9577 20.6567 17.6293 20.6567 17.7834C20.6567 17.7911 20.6567 17.7988 20.6567 17.7988V24H24V17.0438C24 14.6635 22.7906 13.2615 20.6567 13.0304Z" fill="white"/>
+                <path d="M9.94125 11.8825C11.0134 11.8825 11.8825 11.0134 11.8825 9.94126C11.8825 8.86913 11.0134 8 9.94125 8C8.86913 8 8 8.86913 8 9.94126C8 11.0134 8.86913 11.8825 9.94125 11.8825Z" fill="white"/>
+              </svg>
+            </a>
 
-              <!-- Crossfit -->
-              <div class="about-photo-rect has-icon about-photo-crossfit">
-                <img src="assets/crossfit.png" alt="Crossfit" />
-                <div class="about-photo-icon"></div>
-              </div>
-            </div>
-
-            <!-- Coluna 2 -->
-            <div class="about-content">
-              <div class="about-card-group">
-                <article class="about-card about-card-main">
-                  <h2 class="about-name" id="about-title">
-                    Alfredo Moniz de Aragão Schaitza
-                  </h2>
-                  <p class="about-contact">
-                    alfredo.schaitza@gmail.com<br />
-                    41 98440-7409<br />
-                   <a
-  href="https://www.linkedin.com/in/alfredoschaitza"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  LinkedIn
-</a>
-
-                  </p>
-                </article>
-
-                <article class="about-card about-card-secondary">
-                  <p>
-                    Mixologista amador /<br />
-                    Crossfiteiro /<br />
-                    Pai e marido /
-                  </p>
-                </article>
-              </div>
-            </div>
-
-            <!-- Coluna 3 -->
-            <div class="about-main-photo">
-              <div class="about-main-photo-pill has-icon">
-                <img src="assets/family.png" alt="Família" />
-              </div>
-            </div>
+            <a
+              href="https://medium.com/@alfredoschaitza"
+              class="social-icon"
+              aria-label="Medium"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect width="32" height="32" fill="#6C6C6C"/>
+                <path d="M32 22.023V24.9292C31.8175 24.9469 31.63 24.9559 31.4375 24.9559C28.0019 24.9559 26.0677 22.0942 25.9842 18.5135C25.9818 18.375 25.9828 18.2375 25.9858 18.1009C25.9877 18.0157 25.9911 17.9307 25.9954 17.8461C25.9975 17.8009 25.9996 17.7584 26.0031 17.711C26.0064 17.6636 26.0098 17.6162 26.0139 17.5689C26.1376 15.9879 26.6465 14.581 27.4865 13.5401C28.0083 12.8939 28.6354 12.4016 29.3466 12.0724C29.9712 11.7579 30.8491 11.5843 31.5647 11.5843H31.5956C31.7305 11.5843 31.8654 11.5888 32 11.5978V12.3974C31.8578 12.3584 31.7056 12.3375 31.5438 12.3348C30.0964 12.3647 29.2339 14.0983 29.1265 16.5002H32V17.1772H29.0616L29.0607 17.1778C28.9282 19.5181 30.2091 21.4959 32 22.023ZM26.1286 7.64454L26.1538 7.63898V7.4436H21.0004L16.2153 18.6901L11.4303 7.4436H5.87687V7.63898L5.90175 7.64454C6.84238 7.85685 7.32 8.17348 7.32 9.31535V22.6835C7.32 23.8254 6.84056 24.142 5.89994 24.3543L5.875 24.3599V24.5559H9.64281V24.3605L9.61788 24.3549C8.67725 24.1426 8.19969 23.826 8.19969 22.6841V10.0908L14.3466 24.5559H14.6953L21.0213 9.68735V23.0142C20.9408 23.9162 20.4675 24.1946 19.6157 24.3869L19.5905 24.3928V24.5866H26.1538V24.3928L26.1286 24.3869C25.2759 24.1946 24.7913 23.9162 24.7107 23.0142L24.7064 9.31535H24.7107C24.7107 8.17348 25.1883 7.85685 26.1286 7.64454Z" fill="white"/>
+              </svg>
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+    </aside>
 
-      <!-- =======================
-           TRAJETÓRIA (fade-section)
-           ======================= -->
-      <section
-        class="section section-timeline fade-section"
-        id="trajetoria"
-        aria-labelledby="timeline-title"
-      >
-        <div class="timeline-fullwidth">
-          <h2 class="timeline-heading" id="timeline-title">
-            Minha trajetória conecta criatividade, craft, operações e
-            estratégia.
-          </h2>
-          <div class="timeline" id="timeline">
-            <!-- preenchido via JS -->
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Hero Section -->
+      <section class="hero" id="topo">
+        <div class="hero-content">
+          <div class="hero-image">
+            <img src="assets/destaque-abertura.png" alt="Alfredo Moniz de Aragão Schaitza">
           </div>
-        </div>
-      </section>
 
-      <!-- =======================
-           CASE (fade-section)
-           ======================= -->
-      <section
-        class="section section-case fade-section"
-        id="case"
-        aria-labelledby="case-title"
-      >
-        <div class="section-inner">
-          <article class="case-card">
-            <div class="case-icon-wrapper">
-              <img
-                src="assets/Logotipo DSGB.svg"
-                alt="Logo Flora DS"
-              />
-            </div>
+          <div class="hero-text">
+            <div class="hero-header">
+              <h1>ALFREDO<br>MONIZ DE ARAGÃO<br>SCHAITZA</h1>
 
-            <div class="case-content">
-              <h2 class="case-title" id="case-title">
-                FLORA / DESIGN <br /><span class="case-title-strike"
-                  >SYSTEM</span
-                >
-                LANGUAGE
-              </h2>
-              <p class="case-description">
-                Conheça a linguagem de design que criou consistência, velocidade
-                e eficiência...
+              <p class="hero-subtitle">
+                STAFF PRODUCT DESIGNER |<br>
+                TECHNICAL LEADERSHIP | DESIGN STRATEGY |<br>
+                DESIGN OPS | DESIGN SYSTEMS
               </p>
             </div>
 
-            <div class="case-cta">
-             <a
-  href="https://www.figma.com/proto/jjK3iqrFSQHlgJcydntPzJ/Flora-Design-Language?node-id=748-2364&p=f&t=pyLJN2YR8m6QqaUw-1&scaling=contain&content-scaling=fixed&page-id=748%3A2269"
-  class="pill-button case-button"
+            <a href="#sobre-mim" class="btn-primary">
+              MAIS SOBRE MIM <span class="btn-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section class="gallery" id="sobre-mim">
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="assets/source/pai-e-marido.jpg" alt="Pai e marido">
+            <div class="gallery-overlay">
+              <p>PAI E MARIDO</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/source/drink.jpg" alt="Mixologista amador">
+            <div class="gallery-overlay">
+              <p>MIXOLOGISTA<br>AMADOR</p>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="assets/source/crossfit.jpg" alt="Crossfiteiro">
+            <div class="gallery-overlay">
+              <p>CROSSFITEIRO</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trajectory Section -->
+      <section class="trajectory" id="trajetoria" aria-label="Trajetória profissional">
+        <!-- 2021 - 2025 -->
+        <div class="trajectory-item">
+          <div class="trajectory-header">
+            <div class="trajectory-period">2021 - 2025</div>
+            <div class="trajectory-role">UX Manager</div>
+            <div class="trajectory-company">Grupo Boticário</div>
+            <button class="trajectory-toggle" aria-label="Expandir/colapsar">
+              <span class="trajectory-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 38V10M24 10L10 24M24 10L38 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="trajectory-content">
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Responsabilidades</h4>
+              <ul class="trajectory-list">
+                <li>Liderança da Gerência de UX Core, atuando em frentes estruturantes como Design System, Design Ops, Acessibilidade/Design Inclusivo e Content Design, com times multidisciplinares e até 30 pessoas sob gestão direta e indireta.</li>
+                <li>Desenho organizacional e escala da área de UX, apoiando a evolução de um time inicial de 10 designers para uma estrutura com mais de 200 profissionais, integrada a Produto, Dados e Engenharia.</li>
+                <li>Definição de visão estratégica, ritos, processos e governança de UX para suportar uma operação digital multimarcas, multicanal e multitecnologia.</li>
+                <li>Atuação como liderança técnica e estratégica, influenciando decisões executivas e garantindo alinhamento entre estratégia de negócio, experiência do usuário e excelência de execução.</li>
+              </ul>
+            </div>
+
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Resultados</h4>
+              <ul class="trajectory-list">
+                <li>Implementação e escala de um Design System corporativo multimarcas e multitecnologia (React e Flutter), impactando toda a cadeia de valor do Grupo Boticário.</li>
+                <li>Consolidação da cultura de UX como competência central da companhia, contribuindo para o crescimento da área de tecnologia de aproximadamente 300 para 3000 pessoas.</li>
+                <li>Estruturação, padronização e otimização do processo de UX e sua integração com ferramentas como Jira e Business Map, aumentando eficiência operacional, previsibilidade e visibilidade para a liderança.</li>
+                <li>Liderança na criação de agentes de IA para acessibilidade, automatizando descrições de imagens e ampliando inclusão e conversão para pessoas com deficiência visual.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2019 - 2021 -->
+        <div class="trajectory-item">
+          <div class="trajectory-header">
+            <div class="trajectory-period">2019 - 2021</div>
+            <div class="trajectory-role">Technical Leader | User Experience Consultant</div>
+            <div class="trajectory-company">Grupo Boticário</div>
+            <button class="trajectory-toggle" aria-label="Expandir/colapsar">
+              <span class="trajectory-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 38V10M24 10L10 24M24 10L38 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="trajectory-content">
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Responsabilidades</h4>
+              <ul class="trajectory-list">
+                <li>Liderança técnica de UX na internalização de experiências digitais antes desenvolvidas por parceiros externos, estruturando squads multidisciplinares e processos end to end.</li>
+                <li>Concepção do Design System do Grupo Boticário e estruturação inicial da área de Design Ops, conectando design, engenharia e produto em escala.</li>
+                <li>Contratação, mentoria e desenvolvimento de designers, além da definição de ritos, métodos e boas práticas para garantir qualidade e consistência.</li>
+                <li>Atuação como consultor estratégico, influenciando decisões de produto e tecnologia em um contexto de transformação digital acelerada.</li>
+              </ul>
+            </div>
+
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Resultados</h4>
+              <ul class="trajectory-list">
+                <li>Internalização bem-sucedida de múltiplos produtos digitais críticos, aumentando autonomia, qualidade e velocidade de entrega.</li>
+                <li>Criação das bases do Design System que viria a sustentar a operação digital multimarcas da companhia nos anos seguintes.</li>
+                <li>Fortalecimento da percepção de UX e Tecnologia como áreas estratégicas, deixando de ser vistas apenas como suporte ou infraestrutura.</li>
+                <li>Evolução da maturidade de design da organização, com maior integração entre UX, Dados, Produto e Engenharia.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2018 - 2019 -->
+        <div class="trajectory-item">
+          <div class="trajectory-header">
+            <div class="trajectory-period">2018 - 2019</div>
+            <div class="trajectory-role">Design Lead</div>
+            <div class="trajectory-company">Mirum Agency</div>
+            <button class="trajectory-toggle" aria-label="Expandir/colapsar">
+              <span class="trajectory-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 38V10M24 10L10 24M24 10L38 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="trajectory-content">
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Responsabilidades</h4>
+              <ul class="trajectory-list">
+                <li>Liderança de projetos estratégicos e de novos negócios, atuando desde a construção de escopo, proposta, orçamento e conceituação até a entrega final.</li>
+                <li>Definição de padrões de qualidade, processos e direcionais de design para times atuando em diferentes contas e modelos de alocação.</li>
+                <li>Atuação hands-on como principal designer em projetos complexos, conduzindo processos de design ponta a ponta em contextos ágeis e colaborativos.</li>
+                <li>Relacionamento direto com clientes, traduzindo necessidades de negócio em experiências digitais de alto impacto.</li>
+              </ul>
+            </div>
+
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Resultados</h4>
+              <ul class="trajectory-list">
+                <li>Entrega de projetos de alta complexidade para marcas como Hellmann’s, Porto Seguro, Nextel, Cyrela e Grupo Boticário, com impacto direto em engajamento, conversão e geração de leads.</li>
+                <li>Estruturação de ativações digitais internacionais (Brasil e México) para Hellmann’s, fortalecendo relacionamento e encantamento com a marca.</li>
+                <li>Transformação do site da Porto Seguro em um dos principais canais de captação e contratação de serviços da companhia.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2013 - 2017 -->
+        <div class="trajectory-item">
+          <div class="trajectory-header">
+            <div class="trajectory-period">2013 - 2017</div>
+            <div class="trajectory-role">Senior User Experience Designer</div>
+            <div class="trajectory-company">Mirum Agency</div>
+            <button class="trajectory-toggle" aria-label="Expandir/colapsar">
+              <span class="trajectory-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 38V10M24 10L10 24M24 10L38 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <div class="trajectory-content">
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Responsabilidades</h4>
+              <ul class="trajectory-list">
+                <li>Condução de projetos de UX end to end, desde pesquisa e definição do problema até conceituação, validação e entrega.</li>
+                <li>Atuação em contextos remotos e alocado no cliente, garantindo proximidade com stakeholders e entendimento profundo do negócio.</li>
+                <li>Aplicação de métodos colaborativos como Design Sprints, workshops e testes com usuários.</li>
+                <li>Tradução de necessidades complexas de negócio em experiências digitais intuitivas, engajadoras e orientadas a resultados.</li>
+              </ul>
+            </div>
+
+            <div class="trajectory-block">
+              <h4 class="trajectory-label">Resultados</h4>
+              <ul class="trajectory-list">
+                <li>Redesign de experiências digitais para grandes marcas, com ganhos expressivos em conversão, engajamento e satisfação do usuário.</li>
+                <li>Criação de soluções como planos modulares para Nextel, aumentando contratação e adequação às necessidades do usuário.</li>
+                <li>Digitalização da experiência de empreendimentos de super luxo da Cyrela, impulsionando encantamento e agendamento de visitas.</li>
+                <li>Reconhecimento como designer sênior de referência para novos projetos e desafios estratégicos.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Case Section -->
+      <section class="case" id="case-sucesso">
+        <div class="case-header">
+          <h2>CONSISTÊNCIA, VELOCIDADE E EFICIÊNCIA EM<br>UM DOS MAIORES ECOSSISTEMAS DIGITAIS DO<br>PAÍS.</h2>
+
+          <a
+  href="https://www.figma.com/proto/jjK3iqrFSQHlgJcydntPzJ/Flora-Design-Language?node-id=748-2364&p=f&t=KGFKfX7pSguxepqR-1&scaling=contain&content-scaling=fixed&page-id=748%3A2269"
+  class="btn-primary"
   target="_blank"
   rel="noopener noreferrer"
 >
-  VEJA O CASE
+  CASE COMPLETO <span class="btn-arrow">→</span>
 </a>
 
-            </div>
-          </article>
         </div>
-      </section>
 
-      <!-- =======================
-           PUBLICAÇÕES (fade-section)
-           ======================= -->
-      <section
-        class="section section-articles fade-section"
-        id="publicacoes"
-        aria-labelledby="articles-title"
-      >
-        <div class="section-inner articles-inner">
-          <div class="articles-left">
-            <h2 class="articles-heading" id="articles-title">
-              Um pouco sobre o <br />que tenho a dizer
-            </h2>
-            <img
-              src="assets/medium-logo-icon 1.svg"
-              alt="Medium"
-              class="medium-logo"
-            />
-          </div>
-
-          <div class="articles-right">
-            <div class="carousel">
-              <div class="carousel-viewport">
-                <div class="carousel-track" id="carousel-track"></div>
-              </div>
-
-              <div class="carousel-bottom">
-                <div class="carousel-dots" id="carousel-progress"></div>
-
-                <div class="carousel-nav">
-                  <button
-                    id="carousel-prev"
-                    class="icon-button"
-                    aria-label="Anterior"
-                  >
-                    <svg
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      class="icon-svg"
-                    >
-                      <path
-                        d="M38 24H10M10 24L24 38M10 24L24 10"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </button>
-
-                  <button
-                    id="carousel-next"
-                    class="icon-button"
-                    aria-label="Próxima"
-                  >
-                    <svg
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      class="icon-svg"
-                    >
-                      <path
-                        d="M10 24H38M38 24L24 10M38 24L24 38"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div class="case-content">
+          <div class="case-image">
+            <img src="assets/compositions.png" alt="Composições do Design System">
           </div>
         </div>
       </section>
+
+     <!-- Publications Section -->
+<section class="publications" id="publicacoes">
+  <h2>UM POUCO SOBRE O QUE TENHO A DIZER</h2>
+
+  <div class="carousel">
+    <div class="carousel-track">
+      <article
+  class="article-card"
+  data-url="https://brasil.uxdesign.cc/a-piramide-de-metricas-como-partitura-para-orquestracao-de-produtos-digitais-e52557986cd2"
+  role="link"
+  tabindex="0"
+  aria-label="Abrir artigo: A Pirâmide de Métricas (PT)"
+>
+        <div class="article-header">
+          <img src="assets/ux-collective.png" alt="UX Collective" class="article-logo">
+          <span class="article-lang">PT</span>
+        </div>
+        <div class="article-image">
+          <img src="assets/piramide.png" alt="A Pirâmide de Métricas">
+        </div>
+        <h3>A PIRÂMIDE DE MÉTRICAS COMO PARTITURA PARA ORQUESTRAÇÃO DE PRODUTOS DIGITAIS</h3>
+        <p>Métricas bem compostas orquestram times com harmonia; mal alinhadas, viram ruído. Este artigo afina essa orquestra.</p>
+      </article>
+
+      <article
+  class="article-card"
+  data-url="https://medium.com/design-bootcamp/the-metrics-pyramid-as-a-score-for-orchestrating-digital-products-0df2643118c8"
+  role="link"
+  tabindex="0"
+  aria-label="Abrir artigo: The Metrics Pyramid (EN)"
+>
+
+        <div class="article-header">
+          <img src="assets/bootcamp.png" alt="Bootcamp" class="article-logo">
+          <span class="article-lang">EN</span>
+        </div>
+        <div class="article-image">
+          <img src="assets/pyramid.png" alt="The Metrics Pyramid">
+        </div>
+        <h3>THE METRICS PYRAMID AS A SCORE FOR ORCHESTRATING DIGITAL PRODUCTS</h3>
+        <p>Metrics are like musical scores: when well composed, they create harmony and purpose. But when each instrument...</p>
+      </article>
+
+      <article
+  class="article-card"
+  data-url="https://medium.com/gbtech/cultivando-design-systems-no-grupo-botic%C3%A1rio-6a6c57dfe137"
+  role="link"
+  tabindex="0"
+  aria-label="Abrir artigo: Cultivando Design Systems (PT)"
+>
+
+        <div class="article-header">
+          <img src="assets/GB-tech.png" alt="GB Tech" class="article-logo">
+          <span class="article-lang">PT</span>
+        </div>
+        <div class="article-image">
+          <img src="assets/ds-article.png" alt="Design Systems no Grupo Boticário">
+        </div>
+        <h3>CULTIVANDO DESIGN SYSTEMS NO GRUPO BOTICÁRIO</h3>
+        <p>Uma visão prática e pragmática sobre como evoluir um design system com governança, escala e qualidade.</p>
+      </article>
+    </div>
+
+    <div class="carousel-controls">
+      <div class="carousel-dots">
+        <button class="dot active" aria-label="Slide 1"></button>
+        <button class="dot" aria-label="Slide 2"></button>
+        <button class="dot" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-buttons">
+        <button class="carousel-btn prev" aria-label="Anterior">
+          <img src="assets/Arrow left.svg" alt="">
+        </button>
+        <button class="carousel-btn next" aria-label="Próximo">
+          <img src="assets/Arrow right.svg" alt="">
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
     </main>
-  </body>
+  </div>
+
+  <div class="traj-cursor" aria-hidden="true"></div>
+<div class="pub-cursor" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+    <path d="M2 24C2 24 10 8 24 8C38 8 46 24 46 24C46 24 38 40 24 40C10 40 2 24 2 24Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 30Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<script src="script.js"></script>
+
+</body>
 </html>
