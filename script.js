@@ -281,3 +281,25 @@ if (pubCursor && pubCards.length) {
     });
   });
 }
+
+
+/* Mobile: disable snap entirely */
+(function () {
+  const mq = window.matchMedia('(max-width: 640px)');
+  function apply() {
+    const main = document.querySelector('.main');
+    if (!main) return;
+    if (mq.matches) {
+      main.classList.remove('snap-enabled');
+      main.style.scrollSnapType = 'none';
+      // also release body scroll, since desktop uses .main
+      document.body.style.overflow = 'auto';
+    } else {
+      // restore desktop behavior (body hidden, main scroll container) only if CSS expects it
+      document.body.style.overflow = 'hidden';
+      main.style.scrollSnapType = '';
+    }
+  }
+  apply();
+  mq.addEventListener?.('change', apply);
+})();
