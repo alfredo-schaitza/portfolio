@@ -303,3 +303,85 @@ if (pubCursor && pubCards.length) {
   apply();
   mq.addEventListener?.('change', apply);
 })();
+
+
+
+/* =======================================================
+   Touch devices: disable custom cursors (trajectory/publications)
+   ======================================================= */
+(function disableCustomCursorsOnTouch(){
+  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (!isCoarse) return;
+
+  // Remove cursor elements if present
+  document.querySelectorAll('.traj-cursor, .pub-cursor').forEach(el => el.remove());
+
+  // Add a helper class in case other code checks it
+  document.documentElement.classList.add('touch-device');
+})();
+
+
+
+/* =======================================================
+   Mobile: enable swipe for Publications carousel (scroll-snap)
+   ======================================================= */
+(function publicationsSwipe(){
+  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (!isCoarse) return;
+
+  const section = document.querySelector('.publications');
+  if (!section) return;
+
+  const track = section.querySelector('.carousel-track');
+  if (!track) return;
+
+  const cards = Array.from(track.querySelectorAll('.article-card'));
+  const dots = Array.from(section.querySelectorAll('.carousel-dots .dot'));
+
+  function setActiveDot(i){
+    if (!dots.length) return;
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  // When a dot is tapped, scroll to the corresponding card
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const card = cards[i];
+      if (!card) return;
+      track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      setActiveDot(i);
+    }, { passive: false });
+  });
+
+  // Update dot on scroll end (debounced)
+  let t = null;
+  track.addEventListener('scroll', () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const center = track.scrollLeft + track.clientWidth * 0.5;
+      let best = 0;
+      let bestDist = Infinity;
+      cards.forEach((c, idx) => {
+        const cCenter = (c.offsetLeft - track.offsetLeft) + c.clientWidth * 0.5;
+        const dist = Math.abs(cCenter - center);
+        if (dist < bestDist){
+          bestDist = dist;
+          best = idx;
+        }
+      });
+      setActiveDot(best);
+    }, 80);
+  }, { passive: true });
+})();
+
+
+
+/* Mobile: if carousel is scrollable, neutralize transform-based slider logic */
+(function neutralizeCarouselTransformOnTouch(){
+  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (!isCoarse) return;
+  const track = document.querySelector('.publications .carousel-track');
+  if (!track) return;
+  track.style.transform = 'none';
+})();

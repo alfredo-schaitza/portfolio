@@ -842,11 +842,45 @@ h2{
 }
 
 @media (max-width: 640px){
+
+  /* Mobile: publications carousel swipe */
+  .carousel{
+    overflow: hidden;
+  }
+  .carousel-track{
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding: 0 20px;
+  }
+  .carousel-track::-webkit-scrollbar{ display:none; }
+  .article-card{
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    max-width: calc(100vw - 40px);
+  }
+
+
+  /* Mobile: H1 smaller */
+  .hero-text h1{
+    font-size: 1.5rem;
+    line-height: 2.1rem;
+  }
+
+
+  /* Mobile: hero image taller (+40%) */
+  .hero-image img{
+    aspect-ratio: 1 / 1.4;
+  }
+
   .gallery .section-title--mobile{ padding: 0 20px; }
 
   .case-content{ display:flex; flex-direction:column; }
-  /* Hide sidebar menu (mobile) */
-  .sidebar{ display:none !important; }
+  .gallery /* Hide sidebar menu */
+  .sidebar{ display:none; }
 
   /* Allow natural page scroll on mobile (no snapping) */
   body{ overflow: auto; }
@@ -867,7 +901,7 @@ h2{
 
   /* Show section titles (replaces sidebar menu on mobile) */
   .section-title--mobile{
-    display: block !important;
+    display: block;
     margin: 0 0 16px 0;
     font-size: 0.875rem;
     font-weight: 500;
@@ -1040,3 +1074,332 @@ h2{
     margin-top: 16px;
   }
 }
+
+
+
+/* =========================================================
+   Touch devices: disable custom cursors and horizontal overflow
+   ========================================================= */
+@media (hover: none), (pointer: coarse){
+  .traj-cursor,
+  .pub-cursor{
+    display: none !important;
+  }
+  body{
+    overflow-x: hidden;
+  }
+  .main{
+    overflow-x: hidden;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: force-hide Sidebar menu (robust)
+   ========================================================= */
+@media (max-width: 768px){
+  .sidebar{
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  /* In case there are inner wrappers */
+  .sidebar *{
+    display: none !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: show section titles (mobile-only)
+   ========================================================= */
+@media (max-width: 768px){
+  .section-title--mobile{
+    display: block !important;
+    color: #6C6C6C !important;
+    margin: 0 0 16px 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.28rem;
+    text-transform: uppercase;
+  }
+  .gallery .section-title--mobile{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: hero tighter gutters (8px)
+   ========================================================= */
+@media (max-width: 768px){
+  .hero{
+    padding-top: 8px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  .hero-image{
+    margin: 0 !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: publications shadows + no lateral page scroll
+   ========================================================= */
+@media (max-width: 768px){
+  /* prevent page horizontal scroll, but allow track swipe */
+  body{ overflow-x: hidden !important; }
+  .main{ overflow-x: hidden !important; }
+
+  /* do NOT clip shadows */
+  .publications .carousel{ overflow: visible !important; }
+  .publications .carousel-track{
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0 8px 24px 8px; /* room for shadow */
+  }
+  .publications .carousel-track::-webkit-scrollbar{ display:none; }
+
+  .publications .article-card{
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14) !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile refinements (v4)
+   ========================================================= */
+@media (max-width: 768px){
+
+  /* 1) Hero: do NOT reduce overall section gutters.
+        Only reduce hero IMAGE margins to 8px (top + sides). */
+  .hero{
+    padding-top: 20px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .hero-image{
+    margin: 8px 8px 0 8px !important;
+  }
+
+  /* 2) H1 typography */
+  .hero-text h1{
+    font-size: 1.5rem !important;
+    line-height: 2.5rem !important;
+  }
+
+  /* 3) Publications: tighten spacing between title/text/carousel */
+  .publications{
+    padding-top: 20px !important;
+    padding-bottom: 48px !important;
+  }
+  .publications > h2{
+    margin-bottom: 10px !important;
+  }
+  .publications p{
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* 4 & 5) Carousel: no clipping + allow next card to peek */
+  .publications .carousel{
+    overflow: visible !important; /* never clip shadows */
+  }
+  .publications .carousel-track{
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+
+    /* give room for shadows */
+    padding-top: 8px !important;
+    padding-bottom: 28px !important;
+
+    /* left aligned with image margin; right tighter so next card "peeks" */
+    padding-left: 8px !important;
+    padding-right: 0px !important;
+
+    gap: 16px !important;
+  }
+
+  .publications .article-card{
+    flex: 0 0 auto !important;
+
+    /* width that leaves a peek of the next card */
+    width: 82vw !important;
+    max-width: 520px !important;
+
+    /* ensure shadow renders */
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14) !important;
+  }
+
+  /* Hide any container-level overflow that could clip the carousel */
+  .publications,
+  .publications .carousel,
+  .publications .carousel-track{
+    overflow-y: visible !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile refinements (v5)
+   ========================================================= */
+@media (max-width: 768px){
+
+  /* 1) Hero image: 8px from viewport on left/right/top,
+        while text keeps its own gutters. */
+  .hero{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .hero-image{
+    /* compensate hero padding (20px) so image sits at 8px from viewport */
+    margin-top: 8px !important;
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+  }
+
+  /* 2) Mobile section title spacing/alignment (Sobre Mim included) */
+  .section-title--mobile{
+    margin: 0 0 20px 0 !important;
+  }
+  .gallery .section-title--mobile{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 3) Publications: make carousel "bleed" out of the page and show next card peek */
+  .publications .carousel{
+    overflow: visible !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+  }
+  .publications .carousel-track{
+    padding-left: 20px !important;  /* align first card with content */
+    padding-right: 0 !important;    /* allow peek on the right */
+  }
+
+  /* 4) Hide navigation arrows on mobile (swipe only) */
+  .carousel-buttons{
+    display: none !important;
+  }
+}
+
+
+/* === Mobile hero adjustments (v2, pixel-perfect) ===
+   Goals:
+   - Hero image: 344x560 (or fit smaller screens without cropping the container)
+   - 8px fixed gutters from viewport (top/left/right) achieved via .hero padding
+   - Neutralize previous negative margins / padding overrides
+*/
+@media (max-width: 768px) {
+  .hero{
+    padding-top: 8px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .hero-image{
+    /* remove any compensation / negative margins from previous refinements */
+    margin: 0 !important;
+
+    /* enforce the requested proportion, while still fitting small screens */
+    width: min(344px, calc(100vw - 16px)) !important;
+    height: 560px !important;
+
+    /* keep the crop clean and centered */
+    overflow: hidden !important;
+  }
+
+  .hero-image img{
+    width: 100% !important;
+    height: 100% !important;
+
+    /* override any previous aspect-ratio / auto sizing */
+    aspect-ratio: auto !important;
+
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+}
+
+
+/* === Mobile hero CTA (LinkedIn) === */
+.hero-image{
+  position: relative; /* enables overlay positioning */
+}
+
+.hero-cta-linkedin{
+  display: none;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .hero-cta-linkedin{
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+
+    display: flex;
+    width: auto;              /* controlled by left/right */
+    max-width: 312px;         /* figma spec */
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    border-radius: 100px;
+    background: #FFF;
+
+    /* keep it crisp without heavy effects */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* If the image is narrower than 312px, keep the CTA within it */
+  .hero-image .hero-cta-linkedin{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-text{
+    color: #264FEC;
+    text-align: center;
+    font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 2.56px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hero-cta-icon{
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Minimal interaction feedback */
+  .hero-cta-linkedin:active{
+    transform: translateY(1px);
+  }
+}
+
