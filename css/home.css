@@ -1,0 +1,1406 @@
+﻿.section-title--mobile{
+  display: none !important;
+  color: #6C6C6C !important;
+}
+
+/* =========================================================
+   Reset + Base
+   ========================================================= */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+:root{
+  --edge-offset: 5rem;        /* 80px */
+  --text-rail-offset: 5rem;   /* +80px apenas para texto/menu */
+  --trajectory-col-year: 18rem;
+}
+
+body{
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  background: #fff;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Quem rola é o .main */
+  overflow: hidden;
+}
+
+.container{
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================================================
+   Sidebar
+   ========================================================= */
+.sidebar{
+  width: 220px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  background: #fff;
+  z-index: 10;
+  padding-left: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-top{ padding-top: calc(var(--edge-offset) + var(--text-rail-offset)); }
+.sidebar-bottom{ padding-bottom: calc(var(--edge-offset) + var(--text-rail-offset)); }
+
+.sidebar-row{
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.sidebar-rail{
+  flex: 0 0 2px;
+  width: 2px;
+  background: #000;
+  border-radius: 2px;
+  display: block;
+}
+
+.sidebar-rail-top{ min-height: 176px; }
+.sidebar-rail-bottom{ min-height: 32px; }
+
+.sidebar-content{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar-smile{
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 32px;
+  height: 32px;
+}
+
+.sidebar-smile svg{ display:block; }
+
+/* Menu */
+.menu{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.menu-item{
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 1rem;           /* 16px */
+  line-height: 1.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #8a8a8a;
+  font-weight: 400;
+
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.menu-item:hover{ color:#000; }
+
+.menu-item.is-active{
+  color:#000;
+  font-weight: 500;
+}
+
+/* Redes sociais */
+.social{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-icon{
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.social-icon svg{ display:block; }
+
+/* =========================================================
+   Main (scroll container)
+   ========================================================= */
+.main{
+  margin-left: 220px;
+  width: calc(100% - 220px);
+
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scroll-snap-type: none; /* controlado por JS */
+  scroll-behavior: smooth;
+}
+
+.main.snap-enabled{
+  scroll-snap-type: y mandatory;
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--edge-offset) 80px var(--edge-offset);
+  background: #fff;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.hero-content{
+  display: flex;
+  align-items: stretch;
+  gap: 80px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  height: calc(100vh - (var(--edge-offset) * 2));
+}
+
+.hero-image{
+  width: 520px;
+  height: 80vh;
+  max-height: 720px;
+  min-height: 520px;
+
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.hero-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  padding-top: var(--text-rail-offset);
+  padding-bottom: var(--text-rail-offset);
+}
+
+.hero-header{
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-text h1{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 2.5rem;        /* 40px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3.5rem;      /* 56px */
+  letter-spacing: 0.4rem;   /* 6.4px */
+  text-transform: uppercase;
+}
+
+.hero-subtitle{
+  color: #6C6C6C;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;          /* 16px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.16rem;  /* 2.56px */
+  text-transform: uppercase;
+
+  margin-top: 1.75rem;      /* 28px */
+}
+
+.btn-primary{
+  display: inline-flex;
+  padding: 16px 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  border-radius: 100px;
+  background: #005FC2;
+  color: #fff;
+  text-decoration: none;
+
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+  width: fit-content;
+}
+
+.btn-primary:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.btn-arrow{
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* =========================================================
+   Gallery (Sobre Mim)
+   ========================================================= */
+.gallery{
+  height: 100vh;
+  padding: 0;
+  background: #fff;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-item{
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.gallery-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transform: scale(1) translate3d(0,0,0);
+  transition: transform 4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.gallery-item:hover img{
+  transform: scale(1.08) translate3d(-12px, -10px, 0);
+}
+
+.gallery-overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  z-index: 1;
+  padding: 0 0 28px 28px;
+  pointer-events: none;
+}
+
+.gallery-overlay p{
+  font-weight: 300;
+  line-height: 22px;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 2.56px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.gallery-item:hover .gallery-overlay p{
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   Trajetória
+   ========================================================= */
+.trajectory{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-left: 5rem;
+  padding-right: 0;
+
+  margin: 0;
+  width: 100%;
+  background: #fff;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.trajectory-item{
+  width: 100%;
+  border-top: 1px solid #e6e6e6;
+}
+
+.trajectory-item:last-child{
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.trajectory-item:hover{
+  background: rgba(0,0,0,0.03);
+}
+
+.trajectory-header{
+  width: 100%;
+  cursor: pointer;
+
+  display: grid;
+  align-items: center;
+
+  /* Ano mais largo; Cargo pode quebrar; Empresa com respiro; Seta com folga */
+ grid-template-columns: var(--trajectory-col-year) minmax(18rem, 1fr) 14rem 4rem;
+  column-gap: 2.5rem;
+
+  padding: 1.5rem 0;
+}
+
+.trajectory-period{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 2rem;          /* 32px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3rem;        /* 48px */
+  letter-spacing: 0.32rem;  /* 5.12px */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.trajectory-role,
+.trajectory-company{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;          /* 16px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.02rem;
+  text-transform: none;
+}
+
+.trajectory-company{
+  text-align: right;
+}
+
+.trajectory-toggle{
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: none;
+  background: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+}
+
+.trajectory-arrow{
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 300ms ease;
+}
+
+/* colapsado: seta para baixo */
+.trajectory-item:not(.expanded) .trajectory-arrow{
+  transform: rotate(180deg);
+}
+
+.trajectory-content{
+  display: none;
+  padding-top: 1.5rem;
+   padding-left: var(--trajectory-col-year);
+  padding-right: 5rem;
+
+}
+
+.trajectory-item.expanded .trajectory-content{
+  display: block;
+  padding-bottom: 2rem; /* respiro antes do próximo item */
+}
+
+.trajectory-block + .trajectory-block{
+  margin-top: 1.75rem;
+}
+
+.trajectory-label{
+  font-size: 1rem;          /* 16px */
+  line-height: 2rem;        /* 32px */
+  letter-spacing: 0.16rem;  /* 2.56px */
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #6c6c6c;
+  margin: 0 0 0.75rem 0;
+}
+
+.trajectory-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.trajectory-list li{
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #000;
+  opacity: 0.85;
+}
+
+.trajectory-list li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.7;
+}
+
+/* =========================================================
+   Case
+   ========================================================= */
+.case{
+  padding: 80px 80px;
+  background: #fff;
+}
+
+.case-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  gap: 24px;
+}
+
+h2{
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1.5rem;        /* 24px */
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.5rem;      /* 40px */
+  letter-spacing: 0.24rem;  /* 3.84px */
+  text-transform: uppercase;
+}
+
+
+
+.btn-secondary{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #1f76b4;
+  color: #fff;
+  text-decoration: none;
+
+  padding: 12px 20px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: transform 0.2s ease, filter 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.case-content{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.case-image{
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.case-image img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
+   Publications
+   ========================================================= */
+.publications{
+  padding: 80px 80px 120px;
+  background: #fff;
+}
+
+.publications h2{
+  margin-bottom: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.carousel{
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Mantém o carrossel “contido”, mas sem cortar sombra */
+  overflow: visible;
+  padding: 18px 18px 24px 18px; /* respiro para sombra */
+}
+
+
+.carousel-track{
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s ease;
+
+  /* evita scroll horizontal por sombra/padding */
+  padding-bottom: 6px;
+}
+
+
+.article-card{
+  width: clamp(320px, 42vw, 560px); /* menor, proporcional e responsivo */
+  flex-shrink: 0;
+  background: #fff;
+
+  border-radius: 0;      /* (2) sem arredondamento */
+  overflow: visible;     /* (3) evita “cortar” sombra */
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+
+.article-header{
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.article-lang{
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  font-weight: 300;
+}
+
+.article-logo{
+  height: 28px;
+  width: auto;
+}
+
+.article-image{
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.article-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card h3{
+  padding: 20px 20px 8px;
+
+  color: #000;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;        
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;      
+  letter-spacing: 0.08rem; /* 1.92px */
+  text-transform: uppercase;
+}
+
+
+.article-card p{
+  padding: 0 20px 24px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6c6c6c;
+  font-weight: 300;
+}
+
+.carousel-controls{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.carousel-dots{
+  display: flex;
+  gap: 10px;
+}
+
+.dot{
+  width: 36px;
+  height: 3px;
+  border: none;
+  background: #d9d9d9;
+  cursor: pointer;
+}
+
+.dot.active{ background: #000; }
+
+.carousel-buttons{
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carousel-btn img{
+  width: 18px;
+  height: 18px;
+}
+
+/* =========================================================
+   Cursor custom da Trajetória
+   ========================================================= */
+.traj-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+.traj-cursor::before,
+.traj-cursor::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+}
+
+.traj-cursor.is-plus::after{
+  width: 2px;
+  height: 22px;
+}
+
+.traj-cursor.is-minus::after{ display:none; }
+
+.trajectory.cursor-active,
+.trajectory.cursor-active *{
+  cursor: none !important;
+}
+
+/* =========================================================
+   Publicações: cards clicáveis + cursor custom (olho)
+   ========================================================= */
+
+.article-card{
+  cursor: none; /* o cursor real vai aparecer via .publications.cursor-active */
+}
+
+.article-card:focus{
+  outline: 2px solid rgba(0,0,0,0.25);
+  outline-offset: 6px;
+}
+
+/* Hover sutil opcional (reforça interatividade sem exagero) */
+
+/* Cursor custom da seção Publicações */
+.pub-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+/* “Olho” em branco (construído com CSS) */
+.pub-cursor{
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+
+  display: none;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG do olho */
+.pub-cursor svg{
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.pub-cursor path{
+  stroke: #fff;
+}
+
+
+.article-card.cursor-active,
+.article-card.cursor-active *{
+  cursor: none !important;
+}
+
+
+/* =========================================================
+   Responsivo
+   ========================================================= */
+@media (max-width: 1200px){
+  .hero-content{ gap: 48px; }
+  .hero{ padding: 60px 48px; }
+
+  .case, .publications{ padding-left: 48px; padding-right: 48px; }
+
+  /* Trajetória: mantém direita zerada */
+  .trajectory{ padding-left: 48px; padding-right: 0; }
+}
+
+@media (max-width: 960px){
+  .sidebar{ width: 180px; padding-left: 24px; }
+  .main{ margin-left: 180px; width: calc(100% - 180px); }
+
+  .hero-content{ flex-direction: column; align-items: flex-start; }
+  .hero-image{ width: 320px; height: 320px; min-height: 320px; }
+
+  .gallery-grid{ grid-template-columns: 1fr; }
+
+  .trajectory-header{
+    grid-template-columns: 16rem minmax(14rem, 1fr) 12rem 4rem;
+    column-gap: 1.5rem;
+  }
+
+  .trajectory-content{ padding-left: 0; }
+}
+
+@media (max-width: 640px){
+
+  /* Mobile: publications carousel swipe */
+  .carousel{
+    overflow: hidden;
+  }
+  .carousel-track{
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding: 0 20px;
+  }
+  .carousel-track::-webkit-scrollbar{ display:none; }
+  .article-card{
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    max-width: calc(100vw - 40px);
+  }
+
+
+  /* Mobile: H1 smaller */
+  .hero-text h1{
+    font-size: 1.5rem;
+    line-height: 2.1rem;
+  }
+
+
+  /* Mobile: hero image taller (+40%) */
+  .hero-image img{
+    aspect-ratio: 1 / 1.4;
+  }
+
+  .gallery .section-title--mobile{ padding: 0 20px; }
+
+  .case-content{ display:flex; flex-direction:column; }
+  .gallery /* Hide sidebar menu */
+  .sidebar{ display:none; }
+
+  /* Allow natural page scroll on mobile (no snapping) */
+  body{ overflow: auto; }
+  .main{
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    scroll-snap-type: none !important;
+  }
+  .main.snap-enabled{ scroll-snap-type: none !important; }
+
+  section{ scroll-snap-align: unset !important; scroll-snap-stop: normal !important; }
+
+  /* Page paddings */
+  .hero, .case, .publications{ padding-left: 20px; padding-right: 20px; }
+  .trajectory{ padding-left: 20px; padding-right: 0; } /* keep right flush */
+
+  /* Show section titles (replaces sidebar menu on mobile) */
+  .section-title--mobile{
+    display: block;
+    margin: 0 0 16px 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.28rem;
+    text-transform: uppercase;
+    color: #6C6C6C !important;
+}
+
+  /* HERO: image above text */
+  .hero{
+    height: auto;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .hero-content{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .hero-image{
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+
+    border-radius: 52px; /* requested */
+    position: relative;
+  }
+
+  .hero-image img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* keeps a strong hero presence similar to layout */
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Remove "Mais sobre mim" on mobile */
+  .hero .btn-primary{
+    display: none !important;
+  }
+
+  /* Contact button overlay (white pill) */
+  .btn-contact{
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.12);
+
+    color: #005FC2;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  }
+  .btn-contact-icon{
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #005FC2;
+    color: #fff;
+    line-height: 1;
+    font-size: 0.9rem;
+  }
+
+  .hero-text{
+    padding-top: 0;
+    padding-bottom: 0;
+    height: auto;
+  }
+
+  .hero-text h1{
+    font-size: 2.5rem;     /* 40px per layout */
+    line-height: 3.5rem;   /* 56px */
+    letter-spacing: 0.4rem;
+  }
+
+  .hero-subtitle{
+    font-size: 0.75rem;    /* smaller for mobile */
+    line-height: 1.5rem;
+    letter-spacing: 0.14rem;
+    margin-top: 12px;
+  }
+
+  /* GALLERY: vertical stacked */
+  .gallery{
+    height: auto;
+  }
+  .gallery-grid{
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .gallery-item{
+    height: 33.333vh;
+    min-height: 220px;
+  }
+
+  /* Trajectory: make header columns stack nicely on narrow screens */
+  .trajectory{
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  .trajectory-header{
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "period arrow"
+      "role arrow"
+      "company arrow";
+    row-gap: 4px;
+    column-gap: 16px;
+    padding: 18px 0;
+  }
+  .trajectory-period{ grid-area: period; }
+  .trajectory-role{ grid-area: role; }
+  .trajectory-company{
+    grid-area: company;
+    text-align: left;
+    color: #6c6c6c;
+  }
+  .trajectory-toggle{ grid-area: arrow; }
+
+  .trajectory-content{
+    padding-left: 0;
+    padding-right: 20px; /* right breathing room on open content */
+  }
+
+  /* Case/Publications widths */
+  .case{ padding-top: 28px; padding-bottom: 28px; }
+  .case-header{
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .case-header .btn-primary{ align-self: stretch; justify-content: center; }
+
+  .publications{ padding-top: 28px; padding-bottom: 60px; }
+  .carousel{ padding-left: 0; padding-right: 0; }
+  .article-card{ width: 90vw; max-width: 560px; }
+}
+
+.btn-contact{ display:none; }
+
+/* Case button variants */
+.btn-case-mobile{ display:none; }
+.btn-case-desktop{ display:inline-flex; }
+@media (max-width: 640px){
+  .btn-case-desktop{ display:none !important; }
+  .btn-case-mobile{
+    display: inline-flex !important;
+    width: 100%;
+    justify-content: center;
+    margin-top: 16px;
+  }
+}
+
+
+
+/* =========================================================
+   Touch devices: disable custom cursors and horizontal overflow
+   ========================================================= */
+@media (hover: none), (pointer: coarse){
+  .traj-cursor,
+  .pub-cursor{
+    display: none !important;
+  }
+  body{
+    overflow-x: hidden;
+  }
+  .main{
+    overflow-x: hidden;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: force-hide Sidebar menu (robust)
+   ========================================================= */
+@media (max-width: 768px){
+  .sidebar{
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  /* In case there are inner wrappers */
+  .sidebar *{
+    display: none !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: show section titles (mobile-only)
+   ========================================================= */
+@media (max-width: 768px){
+  .section-title--mobile{
+    display: block !important;
+    color: #6C6C6C !important;
+    margin: 0 0 16px 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.28rem;
+    text-transform: uppercase;
+  }
+  .gallery .section-title--mobile{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: hero tighter gutters (8px)
+   ========================================================= */
+@media (max-width: 768px){
+  .hero{
+    padding-top: 8px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  .hero-image{
+    margin: 0 !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile: publications shadows + no lateral page scroll
+   ========================================================= */
+@media (max-width: 768px){
+  /* prevent page horizontal scroll, but allow track swipe */
+  body{ overflow-x: hidden !important; }
+  .main{ overflow-x: hidden !important; }
+
+  /* do NOT clip shadows */
+  .publications .carousel{ overflow: visible !important; }
+  .publications .carousel-track{
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0 8px 24px 8px; /* room for shadow */
+  }
+  .publications .carousel-track::-webkit-scrollbar{ display:none; }
+
+  .publications .article-card{
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14) !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile refinements (v4)
+   ========================================================= */
+@media (max-width: 768px){
+
+  /* 1) Hero: do NOT reduce overall section gutters.
+        Only reduce hero IMAGE margins to 8px (top + sides). */
+  .hero{
+    padding-top: 20px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .hero-image{
+    margin: 8px 8px 0 8px !important;
+  }
+
+  /* 2) H1 typography */
+  .hero-text h1{
+    font-size: 1.5rem !important;
+    line-height: 2.5rem !important;
+  }
+
+  /* 3) Publications: tighten spacing between title/text/carousel */
+  .publications{
+    padding-top: 20px !important;
+    padding-bottom: 48px !important;
+  }
+  .publications > h2{
+    margin-bottom: 10px !important;
+  }
+  .publications p{
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* 4 & 5) Carousel: no clipping + allow next card to peek */
+  .publications .carousel{
+    overflow: visible !important; /* never clip shadows */
+  }
+  .publications .carousel-track{
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+
+    /* give room for shadows */
+    padding-top: 8px !important;
+    padding-bottom: 28px !important;
+
+    /* left aligned with image margin; right tighter so next card "peeks" */
+    padding-left: 8px !important;
+    padding-right: 0px !important;
+
+    gap: 16px !important;
+  }
+
+  .publications .article-card{
+    flex: 0 0 auto !important;
+
+    /* width that leaves a peek of the next card */
+    width: 82vw !important;
+    max-width: 520px !important;
+
+    /* ensure shadow renders */
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14) !important;
+  }
+
+  /* Hide any container-level overflow that could clip the carousel */
+  .publications,
+  .publications .carousel,
+  .publications .carousel-track{
+    overflow-y: visible !important;
+  }
+}
+
+
+
+/* =========================================================
+   Mobile refinements (v5)
+   ========================================================= */
+@media (max-width: 768px){
+
+  /* 1) Hero image: 8px from viewport on left/right/top,
+        while text keeps its own gutters. */
+  .hero{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .hero-image{
+    /* compensate hero padding (20px) so image sits at 8px from viewport */
+    margin-top: 8px !important;
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+  }
+
+  /* 2) Mobile section title spacing/alignment (Sobre Mim included) */
+  .section-title--mobile{
+    margin: 0 0 20px 0 !important;
+  }
+  .gallery .section-title--mobile{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 3) Publications: make carousel "bleed" out of the page and show next card peek */
+  .publications .carousel{
+    overflow: visible !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+  }
+  .publications .carousel-track{
+    padding-left: 20px !important;  /* align first card with content */
+    padding-right: 0 !important;    /* allow peek on the right */
+  }
+
+  /* 4) Hide navigation arrows on mobile (swipe only) */
+  .carousel-buttons{
+    display: none !important;
+  }
+}
+
+
+/* === Mobile hero adjustments (v2, pixel-perfect) ===
+   Goals:
+   - Hero image: 344x560 (or fit smaller screens without cropping the container)
+   - 8px fixed gutters from viewport (top/left/right) achieved via .hero padding
+   - Neutralize previous negative margins / padding overrides
+*/
+@media (max-width: 768px) {
+  .hero{
+    padding-top: 8px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .hero-image{
+    /* remove any compensation / negative margins from previous refinements */
+    margin: 0 !important;
+
+    /* enforce the requested proportion, while still fitting small screens */
+    width: min(344px, calc(100vw - 16px)) !important;
+    height: 560px !important;
+
+    /* keep the crop clean and centered */
+    overflow: hidden !important;
+  }
+
+  .hero-image img{
+    width: 100% !important;
+    height: 100% !important;
+
+    /* override any previous aspect-ratio / auto sizing */
+    aspect-ratio: auto !important;
+
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+}
+
+
+/* === Mobile hero CTA (LinkedIn) === */
+.hero-image{
+  position: relative; /* enables overlay positioning */
+}
+
+.hero-cta-linkedin{
+  display: none;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .hero-cta-linkedin{
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+
+    display: flex;
+    width: auto;              /* controlled by left/right */
+    max-width: 312px;         /* figma spec */
+    padding: 16px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    border-radius: 100px;
+    background: #FFF;
+
+    /* keep it crisp without heavy effects */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* If the image is narrower than 312px, keep the CTA within it */
+  .hero-image .hero-cta-linkedin{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-text{
+    color: #264FEC;
+    text-align: center;
+    font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 2.56px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hero-cta-icon{
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Minimal interaction feedback */
+  .hero-cta-linkedin:active{
+    transform: translateY(1px);
+  }
+}
+
+

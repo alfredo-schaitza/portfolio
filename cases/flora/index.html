@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flora - Design System | Grupo Boticário</title>
+<!-- Google Fonts - IBM Plex Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- CSS customizado -->
+<link href="../../css/case-flora.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="loading">
+<div class="loading-content">
+<div class="spinner"></div>
+<p class="loading-text">Carregando Flora Design System...</p>
+</div>
+</div>
+<div id="root">
+<!-- Seção de Abertura -->
+<section class="section-abertura">
+  <a aria-label="Voltar" class="hero-back" href="../../index.html">
+    <svg aria-hidden="true" class="icon-24" fill="none" viewBox="0 0 24 24">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#264FEC" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+    <span class="hero-back__text">Conheça o Alfredo</span>
+  </a>
+
+  <div class="abertura-card" aria-label="Abertura">
+    <div class="abertura-head">
+      <h1 class="abertura-title">
+        Flora / Design <span class="abertura-strike">System</span> Language
+      </h1>
+
+      <a class="btn-contact" href="#contato">
+        Entre em contato
+        <svg aria-hidden="true" class="icon-16" fill="none" viewBox="0 0 16 16">
+          <path d="M5.3335 9.33331C5.3335 9.33331 6.3335 10.6666 8.00016 10.6666C9.66683 10.6666 10.6668 9.33331 10.6668 9.33331M6.00016 5.99998H6.00683M10.0002 5.99998H10.0068M14.6668 7.99998C14.6668 11.6819 11.6821 14.6666 8.00016 14.6666C4.31826 14.6666 1.3335 11.6819 1.3335 7.99998C1.3335 4.31808 4.31826 1.33331 8.00016 1.33331C11.6821 1.33331 14.6668 4.31808 14.6668 7.99998Z"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="abertura-row-wrap">
+    <div class="abertura-row" role="list" aria-label="Amostras e navegação do case">
+      <div class="abertura-item abertura-item--img" role="listitem">
+        <img alt="Mock Boticário" src="../../assets/cases/flora/mock-boti-1.png"/>
+      </div>
+
+      <div class="abertura-item abertura-item--img" role="listitem">
+        <img alt="Mock Eudora" src="../../assets/cases/flora/mock-eud-1.png"/>
+      </div>
+
+      <nav class="abertura-item abertura-item--menu hero-menu" role="listitem" aria-label="Navegação do case">
+        <div class="hero-menu__section">
+          <div class="hero-menu__title">Introdução</div>
+          <div class="hero-menu__sub">
+            <a class="hero-menu__subitem" href="#contexto">Contexto &amp; Problema</a>
+            <a class="hero-menu__subitem" href="#resultados">Resultados chave</a>
+          </div>
+        </div>
+
+        <div class="hero-menu__section">
+          <div class="hero-menu__title">Processo</div>
+          <div class="hero-menu__sub">
+            <a class="hero-menu__subitem" href="#fundamentacao">Fundamentação</a>
+            <a class="hero-menu__subitem" href="#poc">Prova de conceito</a>
+            <a class="hero-menu__subitem" href="#escala">Escala</a>
+          </div>
+        </div>
+
+        <div class="hero-menu__section">
+          <a class="hero-menu__title hero-menu__title--link" href="#futuro">Futuro</a>
+        </div>
+      </nav>
+
+      <div class="abertura-item abertura-item--desktop" role="listitem">
+        <img alt="Mock Desktop" src="../../assets/cases/flora/compoositions.png"/>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+<!-- Seção Contexto e Problema -->
+<section class="section-context" id="contexto">
+<div class="context-images">
+<div aria-hidden="true" class="image-bg-blue">
+<img alt="Grupo Boticário" class="context-logo" src="../../assets/cases/flora/LOGO%20GB.svg"/>
+</div>
+<div aria-hidden="true" class="image-bg-green">
+<img alt="E-commerce Grupo Boticário" class="context-ecomm" src="../../assets/cases/flora/ecomm-boti.jpg"/>
+</div>
+</div>
+<div class="context-content">
+<p class="section-subtitle">Contexto &amp; Problema</p>
+<h2 class="section-title">
+                    O custo invisível da ausência de uma linguagem de design
+                </h2>
+<p class="section-description">
+                    Em 2019, o Grupo Boticário iniciou o processo de internalização das interfaces digitais, 
+                    até então mantidas por fornecedores externos, assumindo o controle da experiência, do código 
+                    e da forma como os produtos digitais eram concebidos. Essa transição evidenciou uma fragmentação 
+                    estrutural entre sistemas e canais, como e-commerce, venda direta, franquias e ambientes internos, 
+                    que apresentavam padrões visuais e comportamentais desconectados, ao mesmo tempo em que as squads 
+                    de produto, ainda em formação, tomavam decisões de design e desenvolvimento de forma isolada, 
+                    sem referências ou acordos comuns, gerando retrabalho, inconsistências de experiência e 
+                    desalinhamento entre áreas.
+                </p>
+<div aria-label="Benefícios e desafios" class="compare-list">
+<div class="compare-row">
+<div class="compare-cell compare-cell--positive">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 6H23V12" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Internalização de produtos digitais;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--positive">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 6H23V12" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Ganho de velocidade e controle da experiência;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--positive">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 6H23V12" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Design, Engenharia e Produto estratégicos na companhia;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--positive">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M17 6H23V12" stroke="#6BCC77" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Formação das primeiras squads.</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--negative">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M18 6L6 18M6 6L18 18" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Produtos com comportamentos e visuais distintos;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--negative">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M18 6L6 18M6 6L18 18" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Inconsistência e baixo reconhecimento de marca;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--negative">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M18 6L6 18M6 6L18 18" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Decisões de design e desenvolvimento tomadas de forma isolada;</p>
+</div>
+</div>
+<div class="compare-row">
+<div class="compare-cell compare-cell--negative">
+<svg aria-hidden="true" class="icon-24" fill="none" viewbox="0 0 24 24">
+<path d="M18 6L6 18M6 6L18 18" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p>Retrabalho, desalinhamento e incoerência de experiência.</p>
+  </div>
+  </div>
+  </div>
+</section>
+<!-- Divisor -->
+<div aria-hidden="true" class="divider">
+<div class="divider-line divider-line--black"></div>
+</div>
+<!-- Resultados Chave -->
+<section class="section-results" id="resultados">
+<div class="results-text">
+<p class="section-subtitle">Resultados Chave</p>
+<h2 class="section-title results-title">
+<span class="text-black">Design em escala como elemento </span>
+<span class="text-primary">transformador do negócio.</span>
+</h2>
+<p class="section-description">
+                    Foi desse contexto que nasceu o Flora, uma linguagem de design que, mais do que um sistema 
+                    de componentes, tornou-se uma infraestrutura conceitual para todo o ecossistema digital do 
+                    Grupo Boticário. Desde sua concepção, o Flora foi desenhado para ser multimarca, multiplataforma 
+                    e multicliente, com acessibilidade e mensuração incorporadas como propriedades nativas.
+                </p>
+</div>
+<div class="results-grid">
+<!-- Card 1 -->
+<div class="result-card result-card-1">
+<svg class="icon-44" fill="none" viewbox="0 0 44 44">
+<path d="M31.1667 38.5V34.8333C31.1667 32.8884 30.394 31.0232 29.0188 29.6479C27.6435 28.2726 25.7783 27.5 23.8333 27.5H9.16667C7.22175 27.5 5.35648 28.2726 3.98122 29.6479C2.60595 31.0232 1.83333 32.8884 1.83333 34.8333V38.5M42.1667 38.5V34.8333C42.1655 33.2085 41.6247 31.6301 40.6292 30.3459C39.6337 29.0617 38.2399 28.1445 36.6667 27.7383M29.3333 5.73833C30.9108 6.14222 32.3089 7.05962 33.3073 8.3459C34.3058 9.63219 34.8477 11.2142 34.8477 12.8425C34.8477 14.4708 34.3058 16.0528 33.3073 17.3391C32.3089 18.6254 30.9108 19.5428 29.3333 19.9467M23.8333 12.8333C23.8333 16.8834 20.5501 20.1667 16.5 20.1667C12.4499 20.1667 9.16667 16.8834 9.16667 12.8333C9.16667 8.78325 12.4499 5.5 16.5 5.5C20.5501 5.5 23.8333 8.78325 23.8333 12.8333Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p class="result-metric">100+</p>
+<p class="result-label">Squads</p>
+<p class="result-description">Construindo experiências consistentes, coerentes e de alto impacto.</p>
+</div>
+<!-- Card 2 -->
+<div class="result-card result-card-2">
+<svg class="icon-44" fill="none" viewbox="0 0 44 44">
+<path d="M1.83333 7.33333V18.3333M1.83333 18.3333H12.8333M1.83333 18.3333L10.34 10.34C12.3104 8.36864 14.748 6.92855 17.4255 6.15409C20.1029 5.37963 22.933 5.29604 25.6515 5.91114C28.37 6.52624 30.8884 7.81996 32.9716 9.6716C35.0549 11.5232 36.6352 13.8724 37.565 16.5M42.1667 36.6667V25.6667M42.1667 25.6667H31.1667M42.1667 25.6667L33.66 33.66C31.6896 35.6314 29.252 37.0715 26.5745 37.8459C23.897 38.6204 21.067 38.704 18.3485 38.0889C15.63 37.4738 13.1116 36.18 11.0284 34.3284C8.94508 32.4768 7.36481 30.1276 6.435 27.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p class="result-metric">-44%</p>
+<p class="result-label">Cycle Time</p>
+<p class="result-description">Redução do tempo de ciclo acelerando entrega de valor.</p>
+</div>
+<!-- Card 3 -->
+<div class="result-card result-card-3">
+<svg class="icon-44" fill="none" viewbox="0 0 44 44">
+<path d="M12.8333 20.1667L20.1667 3.66667C21.6254 3.66667 23.0243 4.24613 24.0558 5.27758C25.0872 6.30903 25.6667 7.70798 25.6667 9.16667V16.5H36.0433C36.5748 16.494 37.1013 16.6036 37.5862 16.8212C38.0711 17.0389 38.503 17.3593 38.8517 17.7604C39.2005 18.1615 39.4579 18.6337 39.6061 19.1441C39.7543 19.6546 39.7898 20.1912 39.71 20.7167L37.18 37.2167C37.0474 38.091 36.6033 38.8879 35.9295 39.4607C35.2557 40.0334 34.3976 40.3433 33.5133 40.3333H12.8333M12.8333 20.1667V40.3333M12.8333 20.1667H7.33333C6.36087 20.1667 5.42824 20.553 4.74061 21.2406C4.05298 21.9282 3.66667 22.8609 3.66667 23.8333V36.6667C3.66667 37.6391 4.05298 38.5718 4.74061 39.2594C5.42824 39.947 6.36087 40.3333 7.33333 40.3333H12.8333" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<p class="result-metric">81PTS</p>
+<p class="result-label">CSAT</p>
+<p class="result-description">Cliente interno como promotor do ecossistema.</p>
+</div>
+<!-- Card 4 -->
+<div class="result-card result-card-4">
+<img class="icon-44" src="../../assets/cases/flora/Pie%20chart.svg" alt="" aria-hidden="true" />
+<p class="result-metric">UP!</p>
+<p class="result-label">EXP. Cliente</p>
+<p class="result-description">Maior taxa de sucesso de conclusão de tarefa em fluxos críticos.</p>
+</div>
+</div>
+</section>
+<!-- Samples -->
+
+<!-- Processo -->
+<section class="section-processo section-processo--graph" id="processo" aria-label="Processo">
+  <!-- Gráfico geométrico (único SVG para evitar quebras/gaps) -->
+  <svg class="processo-graph" viewBox="0 0 1440 800" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+    <polygon points="0,0 0,800 480,600 480,200" fill="#0F226A"></polygon>
+    <polygon points="480,200 960,400 480,600" fill="#264FEC"></polygon>
+    <polygon points="960,400 1440,200 1440,600" fill="#5E72BB"></polygon>
+  </svg>
+
+  <div class="processo-guides" aria-hidden="true"></div>
+
+  <header class="processo-header">
+    <p class="section-subtitle processo-kicker">Processo</p>
+    <h2 class="section-title processo-title">Abordagem de<br/>Construção</h2>
+  </header>
+
+  <nav class="processo-cols" aria-label="Etapas do processo">
+    <a class="processo-col processo-col--fundamentacao" href="#fundamentacao" aria-label="Aculturamento e Fundamentação">
+      <div class="processo-label processo-label--left">
+        <p class="processo-phase-title">Aculturamento &amp; Fundamentação</p>
+        <p class="processo-phase-subtitle">Visão macro global</p>
+      </div>
+    </a>
+
+    <a class="processo-col processo-col--poc" href="#poc" aria-label="Prova de conceito">
+      <div class="processo-label processo-label--mid">
+        <p class="processo-phase-title">Prova de conceito</p>
+        <p class="processo-phase-subtitle">Convergência e foco</p>
+      </div>
+    </a>
+
+    <a class="processo-col processo-col--escala" href="#escala" aria-label="Escala">
+      <div class="processo-label processo-label--right">
+        <p class="processo-phase-title">Escala</p>
+        <p class="processo-phase-subtitle">Evolução contínua</p>
+      </div>
+    </a>
+  </nav>
+</section>
+<!-- Aculturamento -->
+<section class="section-dark" id="fundamentacao">
+<div class="dark-content">
+<p class="section-subtitle white dark-kicker">Aculturamento &amp; Fundamentação</p>
+<div class="dark-header">
+<h2 class="section-title white">
+                        Pensar em escala é projetar para o ecossistema como um todo.
+                    </h2>
+</div>
+<p class="dark-description">
+                    A primeira etapa prática da construção do Flora foi o aculturamento. A proposta, apesar de 
+                    tecnicamente sólida, exigia o convencimento de stakeholders, o alinhamento entre áreas e o 
+                    entendimento coletivo de que um design system não é apenas um repositório de componentes, mas 
+                    uma forma de pensar e operar. Foram produzidos materiais de sensibilização, apresentações e 
+                    sessões de trabalho com lideranças de tecnologia, produto e design. Esse processo abriu espaço 
+                    no backlog das squads e consolidou o apoio necessário para o desenvolvimento da primeira prova 
+                    de conceito.
+                </p>
+</div>
+</section>
+<!-- Pilares -->
+<section class="pilares-container" id="pilares"></section>
+<!-- Impacto -->
+<section class="section-dark">
+<div class="section-dark__inner">
+<h2 class="section-title white mb-10">
+                A imersão  Estabelece as Premissas que orientam o processo
+            </h2>
+<p class="section-description white">
+                A fase de imersão combinou a análise aprofundada das diretrizes de branding e tom de voz das 
+                diferentes marcas, o mapeamento dos padrões, componentes e comportamentos presentes em todos os 
+                produtos digitais do grupo, entrevistas estruturadas com stakeholders de Marca, Produto, Engenharia 
+                e Design, além de futuros usuários internos, e um benchmark com design systems multimarcas de grandes 
+                players do mercado. A partir desse processo, foram estabelecidas as premissas que orientaram todo o 
+                projeto.
+            </p>
+</div>
+</section>
+<!-- Divisor Branco -->
+<div class="divider bg-dark">
+<div class="divider-line divider-line--white divider-line--grid"></div>
+</div>
+<!-- Token System -->
+<section class="section-dark">
+<div class="section-dark__inner">
+<p class="section-title white">
+                A Fundamentação é concretizada em uma Estrutura de Tokens semânticos centrada no usuário
+            </p>
+</div>
+</section>
+<!-- Themes e Grids -->
+<section class="themes-grid-2x2">
+<article class="themes-cell themes-cell--colors">
+<div class="themes-cell__header themes-cell__header--center">
+<p class="theme-title">Sistema de cores Tematizado e acessível</p>
+<p class="theme-subtitle">
+                        Orientadas ao contexto de uso, reforçando padrões de interação
+                        e preservando acessibilidade em todos os contextos de aplicação.
+                    </p>
+</div>
+<div class="lottie-slot lottie-slot--image" id="lottie-colors" aria-hidden="true">
+<img src="../../assets/cases/flora/swatch-grid.svg" alt="" />
+</div>
+</article>
+<article class="themes-cell themes-cell--spacing">
+<div class="themes-cell__header themes-cell__header--center">
+<p class="theme-title">Espaçamentos agnósticos e harmônicos</p>
+<p class="theme-subtitle">
+                        Proporção nativa entre PXs, PTs e DPs estabelecendo regras
+                        de composição de 4 e 8 unidades.
+                    </p>
+</div>
+<div class="lottie-slot lottie-slot--center lottie-slot--lg" id="lottie-spacing" aria-hidden="true"></div>
+</article>
+<article class="themes-cell themes-cell--type">
+<div class="themes-cell__header themes-cell__header--center">
+<p class="theme-title">Tipografia responsiva e versátil</p>
+<p class="theme-subtitle">
+                        Legibilidade, hierarquia e composição otimizadas por breakpoint.
+                    </p>
+</div>
+<div class="lottie-slot lottie-slot--wide lottie-slot--lg" id="lottie-typography" aria-hidden="true"></div>
+</article>
+<article class="themes-cell themes-cell--brand">
+<div class="themes-cell__header themes-cell__header--center">
+<p class="theme-title">Estilos de caracterização de marca</p>
+<p class="theme-subtitle">
+                        Tom de voz sob medida para cada marca.
+                    </p>
+</div>
+<div class="lottie-slot lottie-slot--lg" id="lottie-brand" aria-hidden="true"></div>
+</article>
+</section>
+<!-- Intro -->
+<section class="section-intro">
+  <div class="intro-grid">
+  <p class="intro-kicker">Validação de hipótese</p>
+  <div class="intro-left">
+  <h2 class="intro-title">
+                  Prova de Conceito<br/>e Craft Gerando<br/>Resultados<br/>Concretos.
+            </h2>
+</div>
+<div class="intro-right">
+<p class="intro-text">
+                A primeira aplicação prática da linguagem ocorreu no Portal de Cadastro de Revendedoras, projeto
+                que se tornaria decisivo na validação do sistema. O planejamento original do portal previa o
+                desenvolvimento de dois sites distintos, um para O Boticário e outro para Eudora, ambos com a mesma
+                estrutura de fluxo e propósito: cadastrar novas revendedoras. Ao identificar essa duplicidade, foi
+                proposta uma arquitetura única, tematizável e escalável, capaz de representar ambas as marcas sem
+                repetição de código. Essa decisão reduziu imediatamente o esforço técnico e abriu caminho para validar,
+                em ambiente real, o potencial de reutilização e aceleração do Flora.
+            </p>
+</div>
+</div>
+</section>
+<!-- Problema -->
+<section class="section-problema">
+<div class="problema-grid">
+<div class="problema-left">
+<div class="problema-metric">
+<img src="../../assets/cases/flora/2x.svg" alt="2x" />
+</div>
+<div class="problema-list">
+<p>Infra</p>
+<p>Imersão</p>
+<p>Prototipação</p>
+<p>Testes</p>
+<p>Desenvolvimento</p>
+<p>Time</p>
+</div>
+</div>
+<div class="problema-right">
+<div class="problema-image problema-image--primary">
+<img src="../../assets/cases/flora/produto-boti.png" alt="Produto O Boticário" />
+</div>
+<div class="problema-image problema-image--secondary">
+<img src="../../assets/cases/flora/produto-eud.png" alt="Produto Eudora" />
+</div>
+</div>
+</div>
+</section>
+<!-- Resultados Theming -->
+<section class="section-theming">
+<div class="theming-grid">
+<div class="theming-media">
+<div id="lottie-theming" aria-hidden="true"></div>
+</div>
+<div class="theming-text">
+<p class="section-subtitle white">Resultados</p>
+<h2 class="section-title white">Aceleração de roadmap em 5 meses e redução do esforço de manutenção</h2>
+<p class="section-description white">
+                Ao fim do ciclo, o portal foi entregue em quatro semanas, contra seis meses previstos para o desenvolvimento
+                independente dos dois sites. A entrega demonstrou que qualidade e velocidade não são opostos: quando a
+                fundação é sólida, o craft acelera.
+            </p>
+</div>
+</div>
+</section>
+<!-- Etapas -->
+<section class="section-etapas" id="etapas">
+<div class="etapas-shell">
+<div class="etapas-rail">
+<div class="etapas-card">
+<span class="etapas-number">1.</span>
+<div class="etapas-content">
+<p class="etapas-title">Imersão</p>
+<p class="etapas-subtitle">Análise de dados, entrevistas com stakeholders e times de atendimento à revendedora e surveys com usuários.</p>
+</div>
+</div>
+<div class="etapas-card">
+<span class="etapas-number">2.</span>
+<div class="etapas-content">
+<p class="etapas-title">Definição</p>
+<p class="etapas-subtitle">Dores, oportunidades e critérios de sucesso.</p>
+</div>
+</div>
+<div class="etapas-card">
+<span class="etapas-number">3.</span>
+<div class="etapas-content">
+<p class="etapas-title">Concepção &amp; Validação</p>
+<p class="etapas-subtitle">Análise de dados, entrevistas com stakeholders e times de atendimento à revendedora e surveys com usuários.</p>
+</div>
+</div>
+<div class="etapas-card">
+<span class="etapas-number">4.</span>
+<div class="etapas-content">
+<p class="etapas-title">Especificação</p>
+<p class="etapas-subtitle">Documentação dos componentes gerados e handoff para desenvolvimento.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Escala -->
+<section class="section-escala" id="escala">
+  <div class="escala-content">
+  <div class="escala-inner">
+  <p class="escala-kicker">Escala</p>
+  <h2 class="escala-title">Após o sucesso da prova de conceito, escalar o Flora foi escalar resultados</h2>
+  <p class="escala-text">
+                  O sucesso da POC consolidou o patrocínio executivo e permitiu a formação de um time dedicado ao Flora.
+                  A meta inicial previa embarcar três produtos digitais no primeiro ciclo e, superando a expectativa, dezenove
+                  produtos foram integrados ainda no primeiro ano. Essa expansão foi viabilizada pela combinação entre duas
+                  estratégias: a de acoplamento e a de contribuição via inner source.
+              </p>
+  </div>
+  </div>
+  <div class="divider-line divider-line--white escala-divider divider-line--grid"></div>
+  <div class="escala-impact">
+  <div class="escala-inner">
+  <h3 class="escala-impact__title">Impacto mensurável em todas as dimensões do negócio</h3>
+  </div>
+  <div class="escala-metrics">
+<div class="escala-metric" style="--bar-h: 160px;">
+<p class="escala-metric__title">Operação</p>
+<div class="escala-metric__bar-wrap">
+<div class="escala-metric__bar">
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Refresh%20ccw.svg" alt="" aria-hidden="true" />-44% Cycle Time</p>
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Fast%20forward.svg" alt="" aria-hidden="true" />-15% Time to Market</p>
+</div>
+</div>
+</div>
+<div class="escala-metric" style="--bar-h: 200px;">
+<p class="escala-metric__title">Sistema</p>
+<div class="escala-metric__bar-wrap">
+<div class="escala-metric__bar">
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Tool.svg" alt="" aria-hidden="true" />-60% taxa de bugs</p>
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Loader.svg" alt="" aria-hidden="true" />-18% tempo de carregamento</p>
+</div>
+</div>
+</div>
+<div class="escala-metric" style="--bar-h: 240px;">
+<p class="escala-metric__title">Experiência</p>
+<div class="escala-metric__bar-wrap">
+<div class="escala-metric__bar">
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Check%20circle.svg" alt="" aria-hidden="true" />+12% taxa de conclusão</p>
+<p class="escala-metric__item"><img class="escala-icon escala-icon--smile" src="../../assets/cases/flora/Smile.svg" alt="" aria-hidden="true" />78pts NPS médio</p>
+</div>
+</div>
+</div>
+<div class="escala-metric" style="--bar-h: 280px;">
+<p class="escala-metric__title">Produto</p>
+<div class="escala-metric__bar-wrap">
+<div class="escala-metric__bar">
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Dollar%20sign.svg" alt="" aria-hidden="true" />+11% GMV Ecommerce</p>
+<p class="escala-metric__item"><img class="escala-icon" src="../../assets/cases/flora/Dollar%20sign.svg" alt="" aria-hidden="true" />+16% GMV Venda Direta</p>
+</div>
+</div>
+</div>
+<div class="escala-metric escala-metric--highlight" style="--bar-h: 320px;">
+<p class="escala-metric__title">Negócio</p>
+<div class="escala-metric__bar-wrap">
+<div class="escala-metric__bar">
+<p class="escala-metric__item"><img class="escala-icon escala-icon--blue" src="../../assets/cases/flora/Dollar%20sign.svg" alt="" aria-hidden="true" />Incremento real em receita</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Crescimento -->
+<section class="section-crescimento" id="crescimento">
+<div class="crescimento-grid">
+<h2 class="crescimento-title">O crescimento rápido, porém, trouxe aprendizados valiosos</h2>
+<div class="crescimento-col crescimento-col--left">
+<p class="crescimento-kicker">Crescimento &amp; Desafios</p>
+<p class="crescimento-text">
+                Esse crescimento acelerado trouxe impacto direto para o negócio, mas também expôs desafios estruturais
+                típicos de uma fase de escala. Estes pontos evidenciaram a necessidade de evoluir a estratégia para
+                sustentar o crescimento sem comprometer coerência, qualidade e eficiência.
+            </p>
+<div class="crescimento-mosaic">
+<div class="mosaic-left">
+<img class="mosaic-icon mosaic-icon--trend" src="../../assets/cases/flora/Trending%20up-1.svg" alt="" aria-hidden="true" />
+<p class="mosaic-big">600%</p>
+<p class="mosaic-label">Adoção</p>
+<p class="mosaic-desc">Superação da meta de adoção em 600%;</p>
+</div>
+<div class="mosaic-right">
+<div class="mosaic-row"><img class="mosaic-icon mosaic-icon--x" src="../../assets/cases/flora/X.svg" alt="" aria-hidden="true" />Bibliotecas paralelas;</div>
+<div class="mosaic-row"><img class="mosaic-icon mosaic-icon--x" src="../../assets/cases/flora/X.svg" alt="" aria-hidden="true" />Dívida de documentação;</div>
+<div class="mosaic-row"><img class="mosaic-icon mosaic-icon--x" src="../../assets/cases/flora/X.svg" alt="" aria-hidden="true" />Mensuração inconsistente.</div>
+</div>
+</div>
+<div class="crescimento-block">
+<p class="crescimento-kicker">Governança &amp; Estratégia</p>
+<p class="crescimento-text">
+                A partir das dores identificadas durante a expansão inicial, foi estruturada uma estratégia de
+                governança baseada em duas frentes complementares.
+            </p>
+<div class="crescimento-split">
+<div class="crescimento-split__col">
+<p class="crescimento-split__title"><img class="crescimento-icon" src="../../assets/cases/flora/Git%20merge.svg" alt="" aria-hidden="true" />Inner Source</p>
+<p class="crescimento-text">
+                    Em squads mais maduras, adotou-se o modelo de inner source, no qual os próprios times contribuíam
+                    com evoluções do sistema, submetidas à revisão de qualidade, acessibilidade e consistência pelo time
+                    Flora, permitindo crescimento orgânico da biblioteca.
+                </p>
+</div>
+<div class="crescimento-split__col">
+<p class="crescimento-split__title"><img class="crescimento-icon" src="../../assets/cases/flora/Git%20branch.svg" alt="" aria-hidden="true" />Acoplamento</p>
+<p class="crescimento-text">
+                    Em contextos menos maduros, o time Flora atuou de forma acoplada às squads, cocriando componentes e
+                    telas em contexto real e transferindo conhecimento diretamente, acelerando a adoção da Design
+                    Language.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<div class="crescimento-col crescimento-col--right">
+<img class="crescimento-mountain" src="../../assets/cases/flora/mountain.png" alt="Montanha" />
+</div>
+</div>
+<div class="divider-line divider-line--white crescimento-divider"></div>
+</section>
+<!-- Perenidade -->
+<section class="section-perenidade" id="perenidade">
+<div class="perenidade-grid">
+<p class="perenidade-kicker">Perenidade &amp; Maturidade</p>
+<h2 class="perenidade-title">Consolidado, o Flora evoluiu para um novo estágio</h2>
+<p class="perenidade-text">
+                As Compositions agrupam múltiplos componentes para formar módulos completos de jornada, como login,
+                cadastro e checkout. Elas encapsulam estrutura visual, regras de espaçamento, estados e instrumentação
+                de eventos, representando o nível mais alto de maturidade do sistema, no qual o Design System evolui
+                de biblioteca para plataforma de experiências reutilizáveis.
+            </p>
+</div>
+<div class="perenidade-carousel">
+<div class="perenidade-track" id="perenidade-track">
+<div class="perenidade-item perenidade-item--composition">
+<img src="../../assets/cases/flora/compoositions.png" alt="Compositions" />
+</div>
+<div class="perenidade-item perenidade-item--compositions">
+<img class="perenidade-icon" src="../../assets/cases/flora/Layout.svg" alt="" aria-hidden="true" />
+<p class="perenidade-item__title">Compositions</p>
+<p class="perenidade-item__text">Fluxos críticos componentizados: login, cadastro, carrinho, checkout, etc.</p>
+</div>
+<div class="perenidade-item perenidade-item--consistencia">
+<img class="perenidade-icon" src="../../assets/cases/flora/Eye.svg" alt="" aria-hidden="true" />
+<p class="perenidade-item__title">Consistência</p>
+<p class="perenidade-item__text">Consistência de experiência e visual.</p>
+</div>
+<div class="perenidade-item perenidade-item--sistemicas">
+<img class="perenidade-icon" src="../../assets/cases/flora/Pie%20chart.svg" alt="" aria-hidden="true" />
+<p class="perenidade-item__title">Sistêmicas</p>
+<p class="perenidade-item__text">Jornadas metricadas e monitoradas em escala.</p>
+</div>
+<div class="perenidade-item perenidade-item--vivas">
+<img class="perenidade-icon" src="../../assets/cases/flora/Refresh%20ccw.svg" alt="" aria-hidden="true" />
+<p class="perenidade-item__title">Vivas</p>
+<p class="perenidade-item__text">Iteração contínua.</p>
+</div>
+<div class="perenidade-item perenidade-item--mensuravel">
+<img class="perenidade-icon" src="../../assets/cases/flora/Check%20circle.svg" alt="" aria-hidden="true" />
+<p class="perenidade-item__title">Mensuráveis</p>
+<p class="perenidade-item__text">Taxas elevadas de conclusão de tarefa.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="perenidade-nav">
+<div class="perenidade-steps" aria-hidden="true">
+<span class="perenidade-step is-active"></span>
+<span class="perenidade-step"></span>
+<span class="perenidade-step"></span>
+</div>
+<div class="perenidade-arrows">
+<button class="perenidade-arrow perenidade-arrow--left" type="button" aria-label="Anterior">
+<img src="../../assets/cases/flora/Arrow%20left.svg" alt="" aria-hidden="true" />
+</button>
+<button class="perenidade-arrow perenidade-arrow--right" type="button" aria-label="Próximo">
+<img src="../../assets/cases/flora/Arrow%20right.svg" alt="" aria-hidden="true" />
+</button>
+</div>
+</div>
+</section>
+<!-- Seção Futuro (placeholder para navegação) -->
+<section aria-label="Futuro" class="section-futuro" id="futuro">
+<div class="futuro-top">
+<div class="results-text futuro-text">
+<p class="section-subtitle">Futuro</p>
+<h2 class="section-title futuro-title">Documentação como linguagem agnóstica através de IA</h2>
+<p class="section-description futuro-description">
+                A integração entre o MCP do Figma e modelos de linguagem está permitindo a geração automatizada de componentes e
+                variações diretamente a partir das diretrizes textuais. Como a documentação do Flora é essencialmente textual e
+                semântica, ela é nativamente compreensível por modelos de linguagem. Isso abre caminho para um futuro em que a
+                documentação alimenta simultaneamente o Figma e o código, garantindo consistência total entre intenção de design e
+                implementação técnica.
+            </p>
+</div>
+<div class="results-grid futuro-mosaic">
+<div class="futuro-card futuro-card--designers">
+<img class="futuro-icon" src="../../assets/cases/flora/Figma.svg" alt="" aria-hidden="true" />
+<p class="futuro-card__title">Designers</p>
+<p class="futuro-card__text">Definem a linguagem e a intenção que orientam todo o sistema.</p>
+</div>
+<div class="futuro-card futuro-card--ia">
+<div class="futuro-card__circle">
+<img class="futuro-icon futuro-icon--circle" src="../../assets/cases/flora/AI%20Icon.svg" alt="" aria-hidden="true" />
+<p class="futuro-card__title">IA</p>
+<p class="futuro-card__text">Transforma documentação em execução, conectando design e código com escala.</p>
+</div>
+</div>
+<div class="futuro-card futuro-card--devs">
+<img class="futuro-icon" src="../../assets/cases/flora/Code.svg" alt="" aria-hidden="true" />
+<p class="futuro-card__title">Devs</p>
+<p class="futuro-card__text">Implementam essa mesma linguagem em código escalável e agnóstico.</p>
+</div>
+<div class="futuro-card futuro-card--tool">
+<p class="futuro-card__text">A IA como ferramenta de escala, não de substituição. Preserva-se a autoria e o raciocínio humano, ampliando a velocidade das decisões.</p>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="futuro-divider"></div>
+<div class="futuro-bottom">
+<div class="results-text futuro-text">
+<p class="section-subtitle">Conclusão</p>
+<h2 class="section-title futuro-title futuro-title--impacto">Seu impacto reflete uma <span class="futuro-highlight">transformação cultural.</span></h2>
+</div>
+<p class="section-description futuro-description futuro-description--right">
+                O Flora nasceu como uma prova de conceito aplicada e se consolidou como a linguagem de design do Grupo Boticário.
+                A acessibilidade, a mensuração e a consistência deixaram de ser compromissos pontuais e se tornaram estruturais.
+                O sistema passou a funcionar como uma infraestrutura de design ??" um alicerce semântico, mensurável e escalável que
+                conecta pessoas, tecnologias e marcas sob um mesmo conjunto de regras e significados. Cada produto, seja um
+                aplicativo de venda direta ou um sistema de chão de fábrica, expressa hoje a identidade do grupo de forma coerente
+                e acessível. O resultado é uma companhia mais integrada, ágil e orientada por design.
+            </p>
+</div>
+</section>
+</div>
+<!-- Lottie -->
+<script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+<!-- JavaScript -->
+<script src="../../js/case-flora.js"></script>
+</body>
+</html>
+
+
+
+
+
