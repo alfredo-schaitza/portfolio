@@ -1,4 +1,4 @@
-﻿// Dados dos pilares
+// Dados dos pilares
 const pilares = [
     {
         bg: '#264fec',
@@ -38,7 +38,7 @@ const pilares = [
     }
 ];
 
-// Função para criar os pilares
+// Fun��o para criar os pilares
 function renderPilares() {
     const pilaresContainer = document.getElementById('pilares');
     if (!pilaresContainer) return;
@@ -100,7 +100,7 @@ function renderPilares() {
         close.type = 'button';
         close.className = 'pilares-sheet__close';
         close.setAttribute('aria-label', 'Fechar');
-        close.textContent = '×';
+        close.textContent = 'X';
 
         const inner = document.createElement('div');
         inner.className = 'pilares-sheet__inner';
@@ -365,15 +365,17 @@ function renderPilares() {
     clearActive(true);
 
     // allow closing by clicking the description panel
-    panel.addEventListener('click', () => {
-        if (shell.classList.contains('has-active')) {
-            clearActive();
-        }
-    });
+    if (panel) {
+        panel.addEventListener('click', () => {
+            if (shell.classList.contains('has-active')) {
+                clearActive();
+            }
+        });
+    }
 }
 
 
-// Função para esconder o loading
+// Fun��o para esconder o loading
 function hideLoading() {
     setTimeout(() => {
         const loading = document.getElementById('loading');
@@ -513,7 +515,7 @@ function loadExternalScript(src) {
             existing.addEventListener('load', onLoad, { once: true });
             existing.addEventListener('error', onError, { once: true });
 
-            // Se o script já terminou o ciclo de carga, evita Promise pendurada.
+            // Se o script j� terminou o ciclo de carga, evita Promise pendurada.
             window.setTimeout(() => {
                 if (settled) return;
                 if (window.lottie || window.bodymovin) {
@@ -544,7 +546,7 @@ async function ensureLottieRuntime() {
             await loadExternalScript(src);
             if (window.lottie || window.bodymovin) return window.lottie || window.bodymovin;
         } catch (_) {
-            // tenta o próximo CDN
+            // tenta o pr�ximo CDN
         }
     }
 
@@ -601,15 +603,29 @@ function initLottieAnimations(lottieInstance) {
 document.addEventListener('DOMContentLoaded', () => {
     try {
         renderPilares();
-        initCaseScrollFx();
-    } finally {
-        hideLoading();
+    } catch (err) {
+        console.error('Erro ao renderizar pilares:', err);
     }
 
-    ensureLottieRuntime().then((lottieInstance) => {
-        if (!lottieInstance) return;
-        initLottieAnimations(lottieInstance);
-    });
+    try {
+        initCaseScrollFx();
+    } catch (err) {
+        console.error('Erro ao inicializar efeitos de scroll:', err);
+    }
+
+    hideLoading();
+
+    ensureLottieRuntime()
+        .then((lottieInstance) => {
+            if (!lottieInstance) {
+                console.warn('Lottie runtime indisponivel.');
+                return;
+            }
+            initLottieAnimations(lottieInstance);
+        })
+        .catch((err) => {
+            console.error('Erro ao inicializar Lottie:', err);
+        });
 
     // Perenidade carousel arrows
     (function initPerenidadeCarousel() {
@@ -650,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStepper();
     })();
 
-    // Problema: manter altura das imagens igual à coluna esquerda
+    // Problema: manter altura das imagens igual � coluna esquerda
     (function syncProblema() {
         const section = document.querySelector('.section-problema');
         const left = document.querySelector('.problema-left');
@@ -677,7 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     })();
 
-    // Crescimento: manter altura da coluna direita igual Ã  esquerda
+    // Crescimento: manter altura da coluna direita igual à esquerda
     (function syncCrescimento() {
         const section = document.querySelector('.section-crescimento');
         const left = document.querySelector('.crescimento-col--left');
@@ -725,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Processo – hover apenas na área desenhada (SVG único) (v1.0.31)
+// Processo � hover apenas na �rea desenhada (SVG �nico) (v1.0.31)
 (function () {
   const section = document.querySelector('.section-processo--graph');
   if (!section || section.dataset.procHoverInit === '1') return;
@@ -752,7 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clear();
     });
 
-    // Acessibilidade: foco via teclado também aciona
+    // Acessibilidade: foco via teclado tamb�m aciona
     col.addEventListener('focus', () => {
       clear();
       if (cls) section.classList.add(cls);
@@ -765,7 +781,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
-// (Removido) Pilares – altura igual ao item mais alto (v1.0.33)
-// Esse bloco causava heights gigantes por medir em estados temporários durante a animação.
+// (Removido) Pilares � altura igual ao item mais alto (v1.0.33)
+// Esse bloco causava heights gigantes por medir em estados tempor�rios durante a anima��o.
+
+
 
 
