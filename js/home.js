@@ -231,6 +231,165 @@
     window.addEventListener('resize', updateCarousel);
     updateCarousel();
   }
+
+  /* =======================================================
+     Scroll FX: reveal + parallax
+     ======================================================= */
+  (function initScrollFx() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const getObserverRoot = () => (
+      window.matchMedia('(max-width: 768px)').matches ? null : main
+    );
+    const getScrollHost = () => (
+      window.matchMedia('(max-width: 768px)').matches ? window : main
+    );
+
+    const revealElements = [];
+    const parallaxElements = [];
+    const revealGroups = [];
+
+    const register = (selector, config = {}) => {
+      const nodes = Array.from(document.querySelectorAll(selector));
+      nodes.forEach((el, index) => {
+        const delayStart = Number(config.delayStart || 0);
+        const delayStep = Number(config.delayStep || 0);
+        const delay = delayStart + (delayStep * index);
+
+        if (config.reveal !== false) {
+          el.classList.add('fx-reveal');
+          el.style.setProperty('--fx-delay', `${delay}ms`);
+          revealElements.push(el);
+        }
+
+        if (config.parallax) {
+          el.classList.add('fx-parallax');
+          el.dataset.fxSpeed = String(config.parallax);
+          el.dataset.fxMax = String(config.max || 44);
+          parallaxElements.push(el);
+        }
+      });
+    };
+
+    const registerRevealGroup = (triggerSelector, targetSelector, config = {}) => {
+      const trigger = document.querySelector(triggerSelector);
+      const targets = Array.from(document.querySelectorAll(targetSelector));
+      if (!trigger || !targets.length) return;
+
+      const delayStart = Number(config.delayStart || 0);
+      const delayStep = Number(config.delayStep || 0);
+
+      targets.forEach((el, index) => {
+        const delay = delayStart + (delayStep * index);
+        el.classList.add('fx-reveal');
+        el.style.setProperty('--fx-delay', `${delay}ms`);
+      });
+
+      revealGroups.push({ trigger, targets });
+    };
+
+    register('.hero-image', { parallax: 0.22, max: 44, delayStart: 0 });
+    register('.hero-header', { parallax: 0.14, max: 26, delayStart: 60 });
+    register('.gallery-item', { parallax: 0.1, max: 20, delayStart: 20, delayStep: 90 });
+    register('.trajectory-item', { parallax: 0.08, max: 18, delayStart: 0, delayStep: 60 });
+    register('.case-header', { parallax: 0.14, max: 28, reveal: false });
+    register('.case-image', { parallax: 0.18, max: 34, reveal: false });
+    register('.publications > h2', { parallax: 0.12, max: 20, reveal: false });
+    register('.article-card', { parallax: 0.16, max: 24, reveal: false });
+
+    registerRevealGroup(
+      '.case',
+      '.case .section-title--mobile, .case .case-header, .case .case-image, .case .btn-case-mobile',
+      { delayStart: 40, delayStep: 0 }
+    );
+
+    registerRevealGroup(
+      '.publications',
+      '.publications .section-title--mobile, .publications > h2, .publications .article-card, .publications .carousel-controls',
+      { delayStart: 40, delayStep: 0 }
+    );
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, {
+      root: getObserverRoot(),
+      threshold: 0.14,
+      rootMargin: '0px 0px -12% 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    const revealGroupObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const group = revealGroups.find(item => item.trigger === entry.target);
+        if (!group) return;
+        group.targets.forEach((el) => el.classList.add('is-visible'));
+        observer.unobserve(entry.target);
+      });
+    }, {
+      root: getObserverRoot(),
+      threshold: 0.2,
+      rootMargin: '0px 0px -28% 0px'
+    });
+
+    revealGroups.forEach(({ trigger }) => revealGroupObserver.observe(trigger));
+
+    let rafId = 0;
+    let scrollingDown = true;
+    const getScrollTop = () => (
+      window.matchMedia('(max-width: 768px)').matches
+        ? (window.scrollY || document.documentElement.scrollTop || 0)
+        : main.scrollTop
+    );
+    let lastScrollTop = getScrollTop();
+
+    const updateParallax = () => {
+      rafId = 0;
+
+      if (!scrollingDown) {
+        parallaxElements.forEach((el) => {
+          el.style.setProperty('--fx-parallax-shift', '0px');
+        });
+        return;
+      }
+
+      const root = getObserverRoot();
+      const viewportHeight = root ? root.clientHeight : window.innerHeight;
+      const viewportCenter = viewportHeight * 0.5;
+
+      parallaxElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < -120 || rect.top > viewportHeight + 120) return;
+
+        const speed = Number(el.dataset.fxSpeed || 0.12);
+        const maxShift = Number(el.dataset.fxMax || 30);
+        const elementCenter = rect.top + (rect.height * 0.5);
+        const normalized = (elementCenter - viewportCenter) / viewportCenter;
+        const shift = Math.max(-maxShift, Math.min(maxShift, -normalized * maxShift * speed * 2));
+
+        el.style.setProperty('--fx-parallax-shift', `${shift.toFixed(2)}px`);
+      });
+    };
+
+    const scheduleParallax = () => {
+      const currentScrollTop = getScrollTop();
+      scrollingDown = currentScrollTop >= lastScrollTop;
+      lastScrollTop = currentScrollTop;
+
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(updateParallax);
+    };
+
+    const scrollHost = getScrollHost();
+    scrollHost.addEventListener('scroll', scheduleParallax, { passive: true });
+    window.addEventListener('resize', scheduleParallax);
+    scheduleParallax();
+  })();
 });
 
 /* =======================================================

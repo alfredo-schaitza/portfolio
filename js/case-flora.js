@@ -381,63 +381,235 @@ function hideLoading() {
     }, 500);
 }
 
+function initCaseScrollFx() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const revealElements = [];
+    const parallaxElements = [];
+
+    const register = (selector, config = {}) => {
+        const nodes = Array.from(document.querySelectorAll(selector));
+        nodes.forEach((el, index) => {
+            const delayStart = Number(config.delayStart || 0);
+            const delayStep = Number(config.delayStep || 0);
+            const delay = delayStart + (delayStep * index);
+
+            if (config.reveal !== false) {
+                el.classList.add('fx-reveal');
+                el.style.setProperty('--fx-delay', `${delay}ms`);
+                revealElements.push(el);
+            }
+
+            if (config.parallax) {
+                el.classList.add('fx-parallax');
+                el.dataset.fxSpeed = String(config.parallax);
+                el.dataset.fxMax = String(config.max || 36);
+                parallaxElements.push(el);
+            }
+        });
+    };
+
+    register('.hero-back', { parallax: 0.1, max: 14, delayStart: 0 });
+    register('.abertura-card', { parallax: 0.18, max: 34, delayStart: 40 });
+    register('.section-context .context-images, .section-context .context-content', { parallax: 0.14, max: 24, delayStart: 20, delayStep: 0 });
+    register('.section-results .results-text', { parallax: 0.12, max: 20, delayStart: 20 });
+    register('.section-results .result-card', { parallax: 0.12, max: 22, delayStart: 40, delayStep: 0 });
+    register('.section-processo .processo-header, .section-processo .processo-col', { parallax: 0.1, max: 18, delayStart: 20, delayStep: 0 });
+    register('.section-dark .dark-content, .section-dark__inner', { parallax: 0.1, max: 16, delayStart: 20 });
+    register('.themes-grid-2x2 .themes-cell', { parallax: 0.1, max: 16, delayStart: 20, delayStep: 0 });
+    register('.section-intro .intro-grid', { parallax: 0.12, max: 18, delayStart: 20 });
+    register('.section-problema .problema-left, .section-problema .problema-right', { parallax: 0.14, max: 22, delayStart: 20, delayStep: 0 });
+    register('.section-theming .theming-media, .section-theming .theming-text', { parallax: 0.12, max: 20, delayStart: 20, delayStep: 0 });
+    register('.section-etapas .etapas-card', { parallax: 0.1, max: 14, delayStart: 20, delayStep: 0 });
+    register('.section-escala .escala-content, .section-escala .escala-impact, .section-escala .escala-metric', { parallax: 0.12, max: 20, delayStart: 20, delayStep: 0 });
+    register('.section-crescimento .crescimento-title, .section-crescimento .crescimento-col--left, .section-crescimento .crescimento-col--right', { parallax: 0.14, max: 24, delayStart: 20, delayStep: 0 });
+    register('.section-perenidade .perenidade-grid, .section-perenidade .perenidade-item, .section-perenidade .perenidade-nav', { parallax: 0.12, max: 18, delayStart: 20, delayStep: 0 });
+    register('.section-futuro .futuro-top, .section-futuro .futuro-bottom', { parallax: 0.12, max: 20, delayStart: 20, delayStep: 0 });
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, {
+        threshold: 0.14,
+        rootMargin: '0px 0px -12% 0px'
+    });
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    let rafId = 0;
+    let scrollingDown = true;
+    let lastScrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+
+    const updateParallax = () => {
+        rafId = 0;
+
+        if (!scrollingDown) {
+            parallaxElements.forEach((el) => {
+                el.style.setProperty('--fx-parallax-shift', '0px');
+            });
+            return;
+        }
+
+        const viewportHeight = window.innerHeight;
+        const viewportCenter = viewportHeight * 0.5;
+
+        parallaxElements.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.bottom < -120 || rect.top > viewportHeight + 120) return;
+
+            const speed = Number(el.dataset.fxSpeed || 0.12);
+            const maxShift = Number(el.dataset.fxMax || 30);
+            const elementCenter = rect.top + (rect.height * 0.5);
+            const normalized = (elementCenter - viewportCenter) / viewportCenter;
+            const shift = Math.max(-maxShift, Math.min(maxShift, -normalized * maxShift * speed * 2));
+
+            el.style.setProperty('--fx-parallax-shift', `${shift.toFixed(2)}px`);
+        });
+    };
+
+    const scheduleParallax = () => {
+        const currentScrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+        scrollingDown = currentScrollTop >= lastScrollTop;
+        lastScrollTop = currentScrollTop;
+
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(updateParallax);
+    };
+
+    window.addEventListener('scroll', scheduleParallax, { passive: true });
+    window.addEventListener('resize', scheduleParallax);
+    scheduleParallax();
+}
+
+const LOTTIE_SCRIPT_CANDIDATES = [
+    'https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js',
+    'https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js'
+];
+
+function loadExternalScript(src) {
+    return new Promise((resolve, reject) => {
+        const existing = Array.from(document.scripts).find((s) => s.src === src);
+        if (existing) {
+            if (window.lottie || window.bodymovin) {
+                resolve();
+                return;
+            }
+            let settled = false;
+            const onLoad = () => {
+                if (settled) return;
+                settled = true;
+                resolve();
+            };
+            const onError = () => {
+                if (settled) return;
+                settled = true;
+                reject(new Error(`Falha ao carregar ${src}`));
+            };
+
+            existing.addEventListener('load', onLoad, { once: true });
+            existing.addEventListener('error', onError, { once: true });
+
+            // Se o script já terminou o ciclo de carga, evita Promise pendurada.
+            window.setTimeout(() => {
+                if (settled) return;
+                if (window.lottie || window.bodymovin) {
+                    settled = true;
+                    resolve();
+                } else {
+                    settled = true;
+                    reject(new Error(`Timeout ao carregar ${src}`));
+                }
+            }, 1200);
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error(`Falha ao carregar ${src}`));
+        document.head.appendChild(script);
+    });
+}
+
+async function ensureLottieRuntime() {
+    if (window.lottie || window.bodymovin) return window.lottie || window.bodymovin;
+
+    for (const src of LOTTIE_SCRIPT_CANDIDATES) {
+        try {
+            await loadExternalScript(src);
+            if (window.lottie || window.bodymovin) return window.lottie || window.bodymovin;
+        } catch (_) {
+            // tenta o próximo CDN
+        }
+    }
+
+    return null;
+}
+
+function isIOSDevice() {
+    const ua = window.navigator.userAgent || '';
+    const platform = window.navigator.platform || '';
+    const maxTouchPoints = window.navigator.maxTouchPoints || 0;
+    return /iPad|iPhone|iPod/.test(ua) || (platform === 'MacIntel' && maxTouchPoints > 1);
+}
+
+function initLottieAnimations(lottieInstance) {
+    if (!lottieInstance) return;
+
+    const renderer = isIOSDevice() ? 'canvas' : 'svg';
+    const animations = [
+        {
+            id: 'lottie-brand',
+            path: '../../assets/cases/flora/lottie/shade.json'
+        },
+        {
+            id: 'lottie-spacing',
+            path: '../../assets/cases/flora/lottie/responsive.json'
+        },
+        {
+            id: 'lottie-typography',
+            path: '../../assets/cases/flora/lottie/type.json'
+        },
+        {
+            id: 'lottie-theming',
+            path: '../../assets/cases/flora/lottie/theming.json',
+            rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
+        }
+    ];
+
+    animations.forEach((item) => {
+        const container = document.getElementById(item.id);
+        if (!container) return;
+
+        lottieInstance.loadAnimation({
+            container,
+            renderer,
+            loop: true,
+            autoplay: true,
+            path: item.path,
+            rendererSettings: item.rendererSettings
+        });
+    });
+}
+
 // Inicializar quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     try {
         renderPilares();
+        initCaseScrollFx();
     } finally {
         hideLoading();
     }
 
-    // Lottie: bloco 4 (brand)
-    if (window.lottie) {
-        const brandContainer = document.getElementById('lottie-brand');
-        if (brandContainer) {
-            window.lottie.loadAnimation({
-                container: brandContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: '../../assets/cases/flora/lottie/shade.json'
-            });
-        }
-
-        const spacingContainer = document.getElementById('lottie-spacing');
-        if (spacingContainer) {
-            window.lottie.loadAnimation({
-                container: spacingContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: '../../assets/cases/flora/lottie/responsive.json'
-            });
-        }
-
-        const typeContainer = document.getElementById('lottie-typography');
-        if (typeContainer) {
-            window.lottie.loadAnimation({
-                container: typeContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: '../../assets/cases/flora/lottie/type.json'
-            });
-        }
-
-        const themingContainer = document.getElementById('lottie-theming');
-        if (themingContainer) {
-            window.lottie.loadAnimation({
-                container: themingContainer,
-                renderer: 'svg',
-                rendererSettings: {
-                    preserveAspectRatio: 'xMidYMid slice'
-                },
-                loop: true,
-                autoplay: true,
-                path: '../../assets/cases/flora/lottie/theming.json'
-            });
-        }
-    }
+    ensureLottieRuntime().then((lottieInstance) => {
+        if (!lottieInstance) return;
+        initLottieAnimations(lottieInstance);
+    });
 
     // Perenidade carousel arrows
     (function initPerenidadeCarousel() {

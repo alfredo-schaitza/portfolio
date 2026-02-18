@@ -154,6 +154,51 @@ body{
 }
 
 /* =========================================================
+   Scroll FX (Reveal + Parallax)
+   ========================================================= */
+.fx-reveal{
+  --fx-delay: 0ms;
+  --fx-reveal-shift: 34px;
+  --fx-parallax-shift: 0px;
+
+  opacity: 0;
+  filter: blur(2px);
+  transform: translate3d(0, calc(var(--fx-reveal-shift) + var(--fx-parallax-shift)), 0);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms ease;
+  transition-delay: var(--fx-delay);
+  will-change: opacity, transform, filter;
+}
+
+.fx-reveal.is-visible{
+  --fx-reveal-shift: 0px;
+  opacity: 1;
+  filter: blur(0);
+}
+
+.fx-parallax{
+  transform: translate3d(0, var(--fx-parallax-shift), 0);
+}
+
+.fx-reveal.fx-parallax{
+  transform: translate3d(0, calc(var(--fx-reveal-shift) + var(--fx-parallax-shift)), 0);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .fx-reveal,
+  .fx-parallax,
+  .fx-reveal.fx-parallax{
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* =========================================================
    Hero
    ========================================================= */
 .hero{
@@ -1403,4 +1448,42 @@ h2{
   }
 }
 
+/* =========================================================
+   Home hero mobile fix (360px - 640px)
+   ========================================================= */
+@media (max-width: 640px) {
+  .hero{
+    padding-top: 8px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .hero-content{
+    align-items: stretch !important;
+    max-width: 100% !important;
+  }
+
+  .hero-image{
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    aspect-ratio: 344 / 560 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+
+  .hero-image img{
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: auto !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* 8px (hero) + 20px internos = 28px laterais para o texto */
+  .hero-text{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
 
