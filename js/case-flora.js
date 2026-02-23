@@ -563,23 +563,26 @@ function isIOSDevice() {
 function initLottieAnimations(lottieInstance) {
     if (!lottieInstance) return;
 
-    const renderer = isIOSDevice() ? 'canvas' : 'svg';
     const animations = [
         {
             id: 'lottie-brand',
-            path: '../../assets/cases/flora/lottie/shade.json'
+            path: '../../assets/cases/flora/lottie/shade.json',
+            renderer: 'svg'
         },
         {
             id: 'lottie-spacing',
-            path: '../../assets/cases/flora/lottie/responsive.json'
+            path: '../../assets/cases/flora/lottie/responsive.json',
+            renderer: 'svg'
         },
         {
             id: 'lottie-typography',
-            path: '../../assets/cases/flora/lottie/type.json'
+            path: '../../assets/cases/flora/lottie/type.json',
+            renderer: 'svg'
         },
         {
             id: 'lottie-theming',
             path: '../../assets/cases/flora/lottie/theming.json',
+            renderer: 'svg',
             rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
         }
     ];
@@ -590,7 +593,7 @@ function initLottieAnimations(lottieInstance) {
 
         lottieInstance.loadAnimation({
             container,
-            renderer,
+            renderer: item.renderer || 'svg',
             loop: true,
             autoplay: true,
             path: item.path,
@@ -783,6 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // (Removido) Pilares � altura igual ao item mais alto (v1.0.33)
 // Esse bloco causava heights gigantes por medir em estados tempor�rios durante a anima��o.
+
 
 
 
