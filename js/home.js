@@ -1,547 +1,408 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const main = document.querySelector('.main');
-  if (!main) return;
+  const menuItems = Array.from(document.querySelectorAll('.menu-item'));
 
-  /* =======================================================
-     Anchor navigation: rolar dentro do .main
-     ======================================================= */
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const href = link.getAttribute('href');
-    if (!href || href === '#') return;
+  const initHeroCircleBackground = () => {
+    const host = document.getElementById('hero-bg');
+    if (!host) return;
 
-    const target = document.querySelector(href);
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl2', { alpha: true, antialias: true });
+    if (!gl) return;
+    host.appendChild(canvas);
+
+    const vertexSrc = `#version 300 es
+      in vec2 aPosition;
+      void main() {
+        gl_Position = vec4(aPosition, 0.0, 1.0);
+      }
+    `;
+
+    const fragmentSrc = `#version 300 es
+      precision highp float;
+
+      uniform vec2 uResolution;
+      uniform float uTime;
+      uniform vec3 uColor;
+      uniform float uPixelSize;
+      out vec4 fragColor;
+
+      float bayer2(vec2 a) {
+        a = floor(a);
+        return fract(a.x / 2.0 + a.y * a.y * 0.75);
+      }
+      float bayer4(vec2 a) { return bayer2(0.5 * a) * 0.25 + bayer2(a); }
+      float bayer8(vec2 a) { return bayer4(0.5 * a) * 0.25 + bayer2(a); }
+
+      float hash11(float n) { return fract(sin(n) * 43758.5453); }
+
+      float vnoise(vec3 p) {
+        vec3 ip = floor(p);
+        vec3 fp = fract(p);
+        vec3 w = fp * fp * fp * (fp * (fp * 6.0 - 15.0) + 10.0);
+
+        float n000 = hash11(dot(ip + vec3(0.0,0.0,0.0), vec3(1.0,57.0,113.0)));
+        float n100 = hash11(dot(ip + vec3(1.0,0.0,0.0), vec3(1.0,57.0,113.0)));
+        float n010 = hash11(dot(ip + vec3(0.0,1.0,0.0), vec3(1.0,57.0,113.0)));
+        float n110 = hash11(dot(ip + vec3(1.0,1.0,0.0), vec3(1.0,57.0,113.0)));
+        float n001 = hash11(dot(ip + vec3(0.0,0.0,1.0), vec3(1.0,57.0,113.0)));
+        float n101 = hash11(dot(ip + vec3(1.0,0.0,1.0), vec3(1.0,57.0,113.0)));
+        float n011 = hash11(dot(ip + vec3(0.0,1.0,1.0), vec3(1.0,57.0,113.0)));
+        float n111 = hash11(dot(ip + vec3(1.0,1.0,1.0), vec3(1.0,57.0,113.0)));
+
+        float x00 = mix(n000, n100, w.x);
+        float x10 = mix(n010, n110, w.x);
+        float x01 = mix(n001, n101, w.x);
+        float x11 = mix(n011, n111, w.x);
+        float y0  = mix(x00, x10, w.y);
+        float y1  = mix(x01, x11, w.y);
+        return mix(y0, y1, w.z) * 2.0 - 1.0;
+      }
+
+      float fbm2(vec2 uv, float t) {
+        vec3 p = vec3(uv * 4.0, t);
+        float amp = 1.0;
+        float freq = 1.0;
+        float sum = 1.0;
+        for (int i = 0; i < 5; ++i) {
+          sum += amp * vnoise(p * freq);
+          freq *= 1.25;
+          amp *= 1.0;
+        }
+        return sum * 0.5 + 0.5;
+      }
+
+      float maskCircle(vec2 p, float cov) {
+        float r = sqrt(cov) * 1.0;
+        float d = length(p - 0.5) - r;
+        float aa = 0.5 * fwidth(d);
+        return cov * (1.0 - smoothstep(-aa, aa, d * 2.0));
+      }
+
+      void main() {
+        float pixelSize = uPixelSize;
+        vec2 fragCoord = gl_FragCoord.xy - uResolution * 0.5;
+        float aspectRatio = uResolution.x / uResolution.y;
+
+        float cellPixelSize = 8.0 * pixelSize;
+        vec2 cellUV = fract(fragCoord / cellPixelSize);
+        vec2 cellId = floor(fragCoord / cellPixelSize);
+        vec2 cellCoord = cellId * cellPixelSize;
+        vec2 uv = cellCoord / uResolution * vec2(aspectRatio, 1.0);
+
+        float feed = fbm2(uv, uTime * 0.05);
+        feed = feed * 0.5 - 0.65;
+
+        float bayer = bayer8(fragCoord / uPixelSize) - 0.5;
+        float bw = step(0.8, feed + bayer);
+        float alpha = maskCircle(cellUV, bw);
+
+        fragColor = vec4(uColor, alpha);
+      }
+    `;
+
+    const compileShader = (type, src) => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      gl.shaderSource(shader, src);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    };
+
+    const vertexShader = compileShader(gl.VERTEX_SHADER, vertexSrc);
+    const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSrc);
+    if (!vertexShader || !fragmentShader) return;
+
+    const program = gl.createProgram();
+    if (!program) return;
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+
+    const vertices = new Float32Array([
+      -1, -1,
+      1, -1,
+      -1, 1,
+      -1, 1,
+      1, -1,
+      1, 1
+    ]);
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    const aPosition = gl.getAttribLocation(program, 'aPosition');
+    const uResolution = gl.getUniformLocation(program, 'uResolution');
+    const uTime = gl.getUniformLocation(program, 'uTime');
+    const uColor = gl.getUniformLocation(program, 'uColor');
+    const uPixelSize = gl.getUniformLocation(program, 'uPixelSize');
+
+    let lastW = 0;
+    let lastH = 0;
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = host.getBoundingClientRect();
+      const nextW = Math.max(1, Math.floor(rect.width * dpr));
+      const nextH = Math.max(1, Math.floor(rect.height * dpr));
+      if (nextW === lastW && nextH === lastH) return;
+      lastW = nextW;
+      lastH = nextH;
+      canvas.width = nextW;
+      canvas.height = nextH;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    };
+
+    const start = performance.now();
+    const render = () => {
+      resize();
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(program);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.enableVertexAttribArray(aPosition);
+      gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+      gl.uniform2f(uResolution, canvas.width, canvas.height);
+      gl.uniform1f(uTime, (performance.now() - start) * 0.001);
+      gl.uniform3f(uColor, 0.10, 0.16, 0.42);
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      gl.uniform1f(uPixelSize, isMobile ? 12.0 : 4.0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(render);
+    };
+
+    window.addEventListener('resize', resize);
+    render();
+  };
+
+  initHeroCircleBackground();
+
+  const scrollToTarget = (id) => {
+    const target = document.querySelector(id);
     if (!target) return;
 
-    e.preventDefault();
-
-    // Se o destino for depois da Trajetória, desliga snap para não “puxar de volta”
-    if (href === '#case-sucesso' || href === '#publicacoes') {
-      main.classList.remove('snap-enabled');
+    const top = target.offsetTop;
+    if (main && window.matchMedia('(min-width: 769px)').matches) {
+      main.scrollTo({ top, behavior: 'smooth' });
+      return;
     }
 
-    // Rola o container correto (.main)
-    main.scrollTo({
-      top: target.offsetTop,
-      behavior: 'smooth'
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      event.preventDefault();
+      scrollToTarget(href);
     });
   });
-});
 
+  const updateMenu = () => {
+    const scrollTop = main && window.matchMedia('(min-width: 769px)').matches
+      ? main.scrollTop
+      : window.scrollY;
 
-  /* =======================================================
-     Menu highlight (scroll spy) - preto + peso 500
-     ======================================================= */
-  const menuLinks = Array.from(document.querySelectorAll('.menu-item'));
-  const linkSections = menuLinks
-    .map(link => {
-      const id = link.getAttribute('href');
-      if (!id || !id.startsWith('#')) return null;
+    let activeId = '';
+    ['#sobre-mim', '#trajetoria', '#case-sucesso', '#samples', '#publicacoes'].forEach((id) => {
       const section = document.querySelector(id);
-      return section ? { link, section } : null;
-    })
-    .filter(Boolean);
-
-  const setActiveMenuItem = () => {
-    const scrollTop = main.scrollTop;
-    const viewportHeight = main.clientHeight;
-    const referenceLine = scrollTop + viewportHeight * 0.30;
-
-    let active = null;
-    for (let i = linkSections.length - 1; i >= 0; i--) {
-      const { link, section } = linkSections[i];
-      if (section.offsetTop <= referenceLine) {
-        active = link;
-        break;
+      if (section && scrollTop + 120 >= section.offsetTop) {
+        activeId = id;
       }
-    }
+    });
 
-    menuLinks.forEach(l => l.classList.remove('is-active'));
-    if (active) active.classList.add('is-active');
+    menuItems.forEach((item) => {
+      item.classList.toggle('is-active', item.getAttribute('href') === activeId);
+    });
   };
 
-  main.addEventListener('scroll', setActiveMenuItem, { passive: true });
-  setActiveMenuItem();
+  if (main) {
+    main.addEventListener('scroll', updateMenu, { passive: true });
+  }
+  window.addEventListener('scroll', updateMenu, { passive: true });
+  updateMenu();
 
-  /* =======================================================
-     Trajetória: expand/collapse (clique no item inteiro)
-     ======================================================= */
   const trajectoryItems = Array.from(document.querySelectorAll('.trajectory-item'));
-  trajectoryItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return;
+  trajectoryItems.forEach((item) => {
+    const button = item.querySelector('.trajectory-header');
+    if (!button) return;
 
-      const isExpanded = item.classList.contains('expanded');
-      trajectoryItems.forEach(i => i.classList.remove('expanded'));
-      if (!isExpanded) item.classList.add('expanded');
+    item.addEventListener('click', () => {
+      const alreadyExpanded = item.classList.contains('expanded');
+
+      trajectoryItems.forEach((entry) => {
+        entry.classList.remove('expanded');
+        const control = entry.querySelector('.trajectory-header');
+        const arrow = entry.querySelector('.trajectory-arrow img');
+        if (control) control.setAttribute('aria-expanded', 'false');
+        if (arrow) arrow.setAttribute('src', 'assets/home/arrow-down.svg');
+      });
+
+      if (!alreadyExpanded) {
+        item.classList.add('expanded');
+        button.setAttribute('aria-expanded', 'true');
+        const arrow = item.querySelector('.trajectory-arrow img');
+        if (arrow) arrow.setAttribute('src', 'assets/home/arrow-up.svg');
+      }
     });
   });
 
-  /* =======================================================
-     Cursor custom (+ / -) na Trajetória
-     ======================================================= */
-  const trajSection = document.querySelector('.trajectory');
-  const trajCursor = document.querySelector('.traj-cursor');
-
-  if (trajSection && trajCursor) {
-    const showCursor = () => {
-      trajCursor.style.display = 'block';
-      trajSection.classList.add('cursor-active');
-    };
-
-    const hideCursor = () => {
-      trajCursor.style.display = 'none';
-      trajSection.classList.remove('cursor-active');
-    };
-
-    const moveCursor = (e) => {
-      trajCursor.style.left = `${e.clientX}px`;
-      trajCursor.style.top = `${e.clientY}px`;
-    };
-
-    const updateCursorState = (e) => {
-      const item = e.target.closest('.trajectory-item');
-      if (!item) return;
-
-      const isExpanded = item.classList.contains('expanded');
-      trajCursor.classList.toggle('is-plus', !isExpanded);
-      trajCursor.classList.toggle('is-minus', isExpanded);
-    };
-
-    trajSection.addEventListener('mouseenter', showCursor);
-    trajSection.addEventListener('mouseleave', hideCursor);
-    trajSection.addEventListener('mousemove', (e) => {
-      moveCursor(e);
-      updateCursorState(e);
-    });
-  }
-
-  /* =======================================================
-     Snap controlado:
-     Hero <-> Gallery <-> Trajectory (ida e volta)
-     Depois da Trajetória: rolagem natural
-     ======================================================= */
-  const hero = document.querySelector('.hero');
-  const gallery = document.querySelector('.gallery');
-  const trajectory = document.querySelector('.trajectory');
-
-  if (hero && gallery && trajectory) {
-    const snapPoints = [hero, gallery, trajectory];
-    let isAutoSnapping = false;
-    let lastSnapIndex = 0;
-
-    const getOffsets = () => snapPoints.map(el => el.offsetTop);
-
-    const getCurrentSnapIndex = (scrollTop, offsets) => {
-      let best = 0;
-      let bestDist = Infinity;
-      for (let i = 0; i < offsets.length; i++) {
-        const d = Math.abs(scrollTop - offsets[i]);
-        if (d < bestDist) { bestDist = d; best = i; }
-      }
-      return best;
-    };
-
-    const setSnapEnabled = (enabled) => {
-      main.classList.toggle('snap-enabled', enabled);
-    };
-
-    const updateSnapMode = () => {
-      const offsets = getOffsets();
-      const trajectoryTop = offsets[2];
-      const scrollTop = main.scrollTop;
-
-      // Snap ativo até o topo da Trajetória (inclusive), depois desliga
-      const inSnapZone = scrollTop <= trajectoryTop + 2;
-      setSnapEnabled(inSnapZone);
-
-      lastSnapIndex = getCurrentSnapIndex(scrollTop, offsets);
-    };
-
-    const onWheel = (e) => {
-      if (!main.classList.contains('snap-enabled')) return;
-      if (isAutoSnapping) return;
-
-      const offsets = getOffsets();
-      const dir = Math.sign(e.deltaY);
-
-      const nextIndex = Math.min(offsets.length - 1, lastSnapIndex + 1);
-      const prevIndex = Math.max(0, lastSnapIndex - 1);
-
-      if (dir > 0 && nextIndex === lastSnapIndex) return;
-      if (dir < 0 && prevIndex === lastSnapIndex) return;
-
-      e.preventDefault();
-      isAutoSnapping = true;
-
-      const targetIndex = dir > 0 ? nextIndex : prevIndex;
-      main.scrollTo({ top: offsets[targetIndex], behavior: 'smooth' });
-
-      window.setTimeout(() => {
-        isAutoSnapping = false;
-        updateSnapMode();
-      }, 500);
-    };
-
-    main.addEventListener('scroll', updateSnapMode, { passive: true });
-    main.addEventListener('wheel', onWheel, { passive: false });
-
-    setSnapEnabled(true);
-    updateSnapMode();
-  }
-
-  /* =======================================================
-     Carrossel de publicações
-     ======================================================= */
-  const carouselTrack = document.querySelector('.carousel-track');
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
+  const cards = Array.from(document.querySelectorAll('.article-card'));
+  const track = document.querySelector('.carousel-track');
   const dots = Array.from(document.querySelectorAll('.dot'));
+  const prev = document.querySelector('.carousel-btn.prev');
+  const next = document.querySelector('.carousel-btn.next');
 
-  if (carouselTrack && prevBtn && nextBtn && dots.length) {
-    let currentSlide = 0;
-    const totalSlides = document.querySelectorAll('.article-card').length;
+  let current = 0;
 
-    const updateCarousel = () => {
-      const firstCard = document.querySelector('.article-card');
-      const gap = 16;
-      const slideWidth = (firstCard ? firstCard.getBoundingClientRect().width : 704) + gap;
-
-      carouselTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-      dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
-    };
-
-    prevBtn.addEventListener('click', () => {
-      currentSlide = Math.max(currentSlide - 1, 0);
-      updateCarousel();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      currentSlide = Math.min(currentSlide + 1, totalSlides - 1);
-      updateCarousel();
-    });
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        currentSlide = index;
-        updateCarousel();
-      });
-    });
-
-    window.addEventListener('resize', updateCarousel);
-    updateCarousel();
-  }
-
-  /* =======================================================
-     Scroll FX: reveal + parallax
-     ======================================================= */
-  (function initScrollFx() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const getObserverRoot = () => (
-      window.matchMedia('(max-width: 768px)').matches ? null : main
-    );
-    const getScrollHost = () => (
-      window.matchMedia('(max-width: 768px)').matches ? window : main
-    );
-
-    const revealElements = [];
-    const parallaxElements = [];
-    const revealGroups = [];
-
-    const register = (selector, config = {}) => {
-      const nodes = Array.from(document.querySelectorAll(selector));
-      nodes.forEach((el, index) => {
-        const delayStart = Number(config.delayStart || 0);
-        const delayStep = Number(config.delayStep || 0);
-        const delay = delayStart + (delayStep * index);
-
-        if (config.reveal !== false) {
-          el.classList.add('fx-reveal');
-          el.style.setProperty('--fx-delay', `${delay}ms`);
-          revealElements.push(el);
-        }
-
-        if (config.parallax) {
-          el.classList.add('fx-parallax');
-          el.dataset.fxSpeed = String(config.parallax);
-          el.dataset.fxMax = String(config.max || 44);
-          parallaxElements.push(el);
-        }
-      });
-    };
-
-    const registerRevealGroup = (triggerSelector, targetSelector, config = {}) => {
-      const trigger = document.querySelector(triggerSelector);
-      const targets = Array.from(document.querySelectorAll(targetSelector));
-      if (!trigger || !targets.length) return;
-
-      const delayStart = Number(config.delayStart || 0);
-      const delayStep = Number(config.delayStep || 0);
-
-      targets.forEach((el, index) => {
-        const delay = delayStart + (delayStep * index);
-        el.classList.add('fx-reveal');
-        el.style.setProperty('--fx-delay', `${delay}ms`);
-      });
-
-      revealGroups.push({ trigger, targets });
-    };
-
-    register('.hero-image', { parallax: 0.22, max: 44, delayStart: 0 });
-    register('.hero-header', { parallax: 0.14, max: 26, delayStart: 60 });
-    register('.gallery-item', { parallax: 0.1, max: 20, delayStart: 20, delayStep: 90 });
-    register('.trajectory-item', { parallax: 0.08, max: 18, delayStart: 0, delayStep: 60 });
-    register('.case-header', { parallax: 0.14, max: 28, reveal: false });
-    register('.case-image', { parallax: 0.18, max: 34, reveal: false });
-    register('.publications > h2', { parallax: 0.12, max: 20, reveal: false });
-    register('.article-card', { parallax: 0.16, max: 24, reveal: false });
-
-    registerRevealGroup(
-      '.case',
-      '.case .section-title--mobile, .case .case-header, .case .case-image, .case .btn-case-mobile',
-      { delayStart: 40, delayStep: 0 }
-    );
-
-    registerRevealGroup(
-      '.publications',
-      '.publications .section-title--mobile, .publications > h2, .publications .article-card, .publications .carousel-controls',
-      { delayStart: 40, delayStep: 0 }
-    );
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, {
-      root: getObserverRoot(),
-      threshold: 0.14,
-      rootMargin: '0px 0px -12% 0px'
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    const revealGroupObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const group = revealGroups.find(item => item.trigger === entry.target);
-        if (!group) return;
-        group.targets.forEach((el) => el.classList.add('is-visible'));
-        observer.unobserve(entry.target);
-      });
-    }, {
-      root: getObserverRoot(),
-      threshold: 0.2,
-      rootMargin: '0px 0px -28% 0px'
-    });
-
-    revealGroups.forEach(({ trigger }) => revealGroupObserver.observe(trigger));
-
-    let rafId = 0;
-    let scrollingDown = true;
-    const getScrollTop = () => (
-      window.matchMedia('(max-width: 768px)').matches
-        ? (window.scrollY || document.documentElement.scrollTop || 0)
-        : main.scrollTop
-    );
-    let lastScrollTop = getScrollTop();
-
-    const updateParallax = () => {
-      rafId = 0;
-
-      if (!scrollingDown) {
-        parallaxElements.forEach((el) => {
-          el.style.setProperty('--fx-parallax-shift', '0px');
-        });
-        return;
-      }
-
-      const root = getObserverRoot();
-      const viewportHeight = root ? root.clientHeight : window.innerHeight;
-      const viewportCenter = viewportHeight * 0.5;
-
-      parallaxElements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.bottom < -120 || rect.top > viewportHeight + 120) return;
-
-        const speed = Number(el.dataset.fxSpeed || 0.12);
-        const maxShift = Number(el.dataset.fxMax || 30);
-        const elementCenter = rect.top + (rect.height * 0.5);
-        const normalized = (elementCenter - viewportCenter) / viewportCenter;
-        const shift = Math.max(-maxShift, Math.min(maxShift, -normalized * maxShift * speed * 2));
-
-        el.style.setProperty('--fx-parallax-shift', `${shift.toFixed(2)}px`);
-      });
-    };
-
-    const scheduleParallax = () => {
-      const currentScrollTop = getScrollTop();
-      scrollingDown = currentScrollTop >= lastScrollTop;
-      lastScrollTop = currentScrollTop;
-
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(updateParallax);
-    };
-
-    const scrollHost = getScrollHost();
-    scrollHost.addEventListener('scroll', scheduleParallax, { passive: true });
-    window.addEventListener('resize', scheduleParallax);
-    scheduleParallax();
-  })();
-});
-
-/* =======================================================
-   Publicações: cards clicáveis + cursor custom (olho)
-   (cursor aparece apenas sobre os cards)
-   ======================================================= */
-const pubCursor = document.querySelector('.pub-cursor');
-const pubCards = Array.from(document.querySelectorAll('.article-card[data-url]'));
-
-if (pubCursor && pubCards.length) {
-  const showCursor = (card) => {
-    pubCursor.style.display = 'flex';
-    card.classList.add('cursor-active');
-  };
-
-  const hideCursor = (card) => {
-    pubCursor.style.display = 'none';
-    card.classList.remove('cursor-active');
-  };
-
-  const moveCursor = (e) => {
-    pubCursor.style.left = `${e.clientX}px`;
-    pubCursor.style.top = `${e.clientY}px`;
-  };
-
-  const openCard = (card) => {
-    const url = card.getAttribute('data-url');
-    if (!url) return;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
-  pubCards.forEach(card => {
-    card.addEventListener('mouseenter', () => showCursor(card));
-    card.addEventListener('mouseleave', () => hideCursor(card));
-    card.addEventListener('mousemove', moveCursor);
-
-    card.addEventListener('click', (e) => {
-      // Evita abrir caso o clique seja nos controles do carrossel (se estiverem sobrepostos)
-      if (e.target.closest('.carousel-controls')) return;
-      openCard(card);
-    });
-
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openCard(card);
-      }
-    });
-  });
-}
-
-
-/* Mobile: disable snap entirely */
-(function () {
-  const mq = window.matchMedia('(max-width: 640px)');
-  function apply() {
-    const main = document.querySelector('.main');
-    if (!main) return;
-    if (mq.matches) {
-      main.classList.remove('snap-enabled');
-      main.style.scrollSnapType = 'none';
-      // also release body scroll, since desktop uses .main
-      document.body.style.overflow = 'auto';
-    } else {
-      // restore desktop behavior (body hidden, main scroll container) only if CSS expects it
-      document.body.style.overflow = 'hidden';
-      main.style.scrollSnapType = '';
+  const updateCarousel = () => {
+    if (!track || !cards.length) return;
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      track.style.transform = 'none';
+      return;
     }
-  }
-  apply();
-  mq.addEventListener?.('change', apply);
-})();
 
+    const cardWidth = cards[0].getBoundingClientRect().width + 16;
+    track.style.transform = `translateX(-${current * cardWidth}px)`;
 
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === current));
+    if (prev) prev.disabled = current === 0;
+    if (next) next.disabled = current === cards.length - 1;
+  };
 
-/* =======================================================
-   Touch devices: disable custom cursors (trajectory/publications)
-   ======================================================= */
-(function disableCustomCursorsOnTouch(){
-  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (!isCoarse) return;
-
-  // Remove cursor elements if present
-  document.querySelectorAll('.traj-cursor, .pub-cursor').forEach(el => el.remove());
-
-  // Add a helper class in case other code checks it
-  document.documentElement.classList.add('touch-device');
-})();
-
-
-
-/* =======================================================
-   Mobile: enable swipe for Publications carousel (scroll-snap)
-   ======================================================= */
-(function publicationsSwipe(){
-  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (!isCoarse) return;
-
-  const section = document.querySelector('.publications');
-  if (!section) return;
-
-  const track = section.querySelector('.carousel-track');
-  if (!track) return;
-
-  const cards = Array.from(track.querySelectorAll('.article-card'));
-  const dots = Array.from(section.querySelectorAll('.carousel-dots .dot'));
-
-  function setActiveDot(i){
-    if (!dots.length) return;
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  if (prev) {
+    prev.addEventListener('click', () => {
+      current = Math.max(0, current - 1);
+      updateCarousel();
+    });
   }
 
-  // When a dot is tapped, scroll to the corresponding card
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', (e) => {
-      e.preventDefault();
-      const card = cards[i];
-      if (!card) return;
-      track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
-      setActiveDot(i);
-    }, { passive: false });
+  if (next) {
+    next.addEventListener('click', () => {
+      current = Math.min(cards.length - 1, current + 1);
+      updateCarousel();
+    });
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      current = index;
+      updateCarousel();
+    });
   });
 
-  // Update dot on scroll end (debounced)
-  let t = null;
-  track.addEventListener('scroll', () => {
-    clearTimeout(t);
-    t = setTimeout(() => {
-      const center = track.scrollLeft + track.clientWidth * 0.5;
-      let best = 0;
-      let bestDist = Infinity;
-      cards.forEach((c, idx) => {
-        const cCenter = (c.offsetLeft - track.offsetLeft) + c.clientWidth * 0.5;
-        const dist = Math.abs(cCenter - center);
-        if (dist < bestDist){
-          bestDist = dist;
-          best = idx;
-        }
-      });
-      setActiveDot(best);
-    }, 80);
-  }, { passive: true });
-})();
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const url = card.getAttribute('data-url');
+      if (!url) return;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  });
 
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      if (track) track.style.transform = 'none';
+      return;
+    }
+    updateCarousel();
+  });
 
+  updateCarousel();
 
-/* Mobile: if carousel is scrollable, neutralize transform-based slider logic */
-(function neutralizeCarouselTransformOnTouch(){
-  const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (!isCoarse) return;
-  const track = document.querySelector('.publications .carousel-track');
-  if (!track) return;
-  track.style.transform = 'none';
-})();
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
 
+  const isDesktop = () => window.matchMedia('(min-width: 769px)').matches;
+  const observerRoot = main && isDesktop() ? main : null;
+  const heroSection = document.querySelector('#topo');
+  const aboutSection = document.querySelector('#sobre-mim');
+  const aboutCards = aboutSection
+    ? Array.from(aboutSection.querySelectorAll('.about-card'))
+    : [];
+  const manualFadeTargets = new Set([heroSection, aboutSection, ...aboutCards].filter(Boolean));
+
+  const fadeTargets = Array.from(new Set([
+    ...document.querySelectorAll('section'),
+    ...document.querySelectorAll('.trajectory-item'),
+    ...document.querySelectorAll('.sample-card'),
+    ...document.querySelectorAll('.publications .carousel')
+  ]));
+
+  fadeTargets.forEach((el, index) => {
+    el.classList.add('fx-fade');
+    el.style.setProperty('--fade-delay', `${Math.min(index * 35, 280)}ms`);
+  });
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    root: observerRoot,
+    threshold: 0.14,
+    rootMargin: '0px 0px -12% 0px'
+  });
+
+  fadeTargets.forEach((el) => {
+    if (manualFadeTargets.has(el)) return;
+    revealObserver.observe(el);
+  });
+
+  const revealElement = (el, delay = 0) => {
+    if (!el) return;
+    window.setTimeout(() => {
+      window.requestAnimationFrame(() => el.classList.add('is-visible'));
+    }, delay);
+  };
+
+  revealElement(heroSection, 80);
+  revealElement(aboutSection, 480);
+  aboutCards.forEach((item, index) => {
+    revealElement(item, 620 + index * 90);
+  });
+
+  const parallaxTargets = Array.from(document.querySelectorAll(
+    '.hero-avatar, .hero-copy, .trajectory-intro, .case-card, .samples-grid, .carousel'
+  ));
+  parallaxTargets.forEach((el) => el.classList.add('fx-parallax'));
+
+  let rafId = 0;
+  const updateParallax = () => {
+    rafId = 0;
+    const viewportHeight = main && isDesktop() ? main.clientHeight : window.innerHeight;
+    const viewportCenter = viewportHeight * 0.5;
+    const maxShift = isDesktop() ? 26 : 14;
+
+    parallaxTargets.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom < -80 || rect.top > viewportHeight + 80) return;
+
+      const elementCenter = rect.top + rect.height * 0.5;
+      const normalized = (elementCenter - viewportCenter) / viewportCenter;
+      const shift = Math.max(-maxShift, Math.min(maxShift, -normalized * maxShift * 0.65));
+      el.style.setProperty('--parallax-y', `${shift.toFixed(2)}px`);
+    });
+  };
+
+  const scheduleParallax = () => {
+    if (rafId) return;
+    rafId = window.requestAnimationFrame(updateParallax);
+  };
+
+  if (main) {
+    main.addEventListener('scroll', scheduleParallax, { passive: true });
+  }
+  window.addEventListener('scroll', scheduleParallax, { passive: true });
+  window.addEventListener('resize', scheduleParallax);
+  scheduleParallax();
+});

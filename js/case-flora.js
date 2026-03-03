@@ -24,7 +24,7 @@ const pilares = [
     {
         bg: '#31458d',
         iconType: 'img',
-        iconSrc: '../../assets/cases/flora/Eye.svg',
+        iconSrc: '../../assets/cases/flora/eye.svg',
         title: 'A11Y by design',
         subtitle: 'Inclusivo',
         details: `A acessibilidade foi tratada como princípio e não como etapa. Desde o início, estabeleceu-se conformidade com as diretrizes da WCAG 2.1 no nível AA, cobrindo contraste, navegação por teclado, foco visível, leitura por leitores de tela e touch targets mínimos de 48 por 48 pixels. O processo de qualidade e testes foi conduzido por uma dupla de especialistas em acessibilidade, composta por uma pessoa cega e outra vidente, garantindo a avaliação técnica. Essa escolha refletia não apenas o compromisso do grupo com diversidade e inclusão, mas também uma decisão estratégica: a acessibilidade é um diferencial competitivo que amplia o alcance de mercado e melhora a experiência de todos os usuários, não apenas daqueles com deficiência.`
