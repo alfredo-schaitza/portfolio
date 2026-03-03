@@ -1,5 +1,5 @@
 // Dados dos pilares
-const pilares = [
+let pilares = [
     {
         bg: '#264fec',
         icon: 'M4 34L24 44L44 34M4 24L24 34L44 24M24 4L4 14L24 24L44 14L24 4Z',
@@ -37,6 +37,296 @@ const pilares = [
         details: `A mensuração foi concebida como parte da arquitetura. Cada componente passou a carregar consigo uma camada de eventos integrada nativamente ao Google Tag Manager, tornando todas as interações rastreáveis desde o primeiro deploy. Essa decisão uniu design, engenharia e dados em um mesmo ponto de partida: as experiências deixaram de ser apenas visuais e passaram a ser mensuráveis. O sucesso, no Flora, sempre esteve ancorado em evidências.`
     }
 ];
+
+const pilaresEn = [
+    {
+        title: 'Multi-brand',
+        subtitle: 'Adaptable',
+        details: `The group operates as a multi-brand ecosystem, covering distinct visual, tonal, and cultural universes. Each brand has its own personality: O Boticario, Eudora, Quem Disse, Berenice?, among others, and all of them coexist in products and flows that, despite identity differences, share infrastructure and common journeys. We needed a semantic foundation able to sustain these differences without multiplying effort, ensuring functional coherence across brands while preserving each brand's unique character.`
+    },
+    {
+        title: 'Multi-client',
+        subtitle: 'Versatile',
+        details: `Grupo Boticario is, in practice, an ecosystem connecting dozens of audience types and contexts. There are independent resellers and their direct-sales customers; end consumers buying through e-commerce; in-store consultants and operators using POS and store-backoffice systems; franchisees managing results, purchasing, and teams; B2B partners such as pharmacies and supermarkets; beauty professionals in salons; marketplace sellers; shop-floor systems and administrative staff tools. This diversity required the same component set to work across different levels of digital literacy, screen sizes, usage environments, and business demands. Every button, every input, and every message had to adapt without losing consistency.`
+    },
+    {
+        title: 'Multi-platform',
+        subtitle: 'Robust',
+        details: `The system had to exist across multiple platforms. A core was built for React and Flutter, the group's main front-end stacks, plus an additional layer called Flora Source. This layer provided guidelines and tokens for products that, due to technical or backlog constraints, could not directly adopt the library. This way, even without coded components, these products could still follow the same visual, semantic, and accessibility foundations, preserving coherence across the entire ecosystem.`
+    },
+    {
+        title: 'A11Y by design',
+        subtitle: 'Inclusive',
+        details: `Accessibility was treated as a principle, not a phase. From day one, we targeted WCAG 2.1 AA compliance, covering contrast, keyboard navigation, visible focus, screen-reader support, and minimum touch targets of 48 by 48 pixels. Quality and testing were conducted by an accessibility specialist duo, composed of one blind person and one sighted person, ensuring technical quality. This decision reflected not only the group's commitment to diversity and inclusion, but also a strategic choice: accessibility is a competitive differentiator that expands market reach and improves the experience for all users, not only users with disabilities.`
+    },
+    {
+        title: 'Auto-tagging',
+        subtitle: 'Measurable',
+        details: `Measurement was conceived as part of the architecture. Each component started carrying a native event layer integrated with Google Tag Manager, making all interactions trackable from the first deploy. This decision aligned design, engineering, and data from a shared starting point: experiences stopped being only visual and became measurable. At Flora, success has always been grounded in evidence.`
+    }
+];
+
+const caseCopy = {
+    pt: {
+        htmlLang: 'pt-BR',
+        loadingText: 'Carregando Flora Design System...',
+        backText: 'Conheça o Alfredo',
+        contactText: 'Entre em contato'
+    },
+    en: {
+        htmlLang: 'en-US',
+        loadingText: 'Loading Flora Design System...',
+        backText: 'Meet Alfredo',
+        contactText: 'Get in touch'
+    }
+};
+
+function setText(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || typeof value !== 'string') return;
+    el.textContent = value;
+}
+
+function setHTML(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || typeof value !== 'string') return;
+    el.innerHTML = value;
+}
+
+function setTexts(selector, values) {
+    const nodes = document.querySelectorAll(selector);
+    nodes.forEach((node, index) => {
+        if (typeof values[index] !== 'string') return;
+        node.textContent = values[index];
+    });
+}
+
+function setTextKeepingIcon(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || typeof value !== 'string') return;
+    const icon = el.querySelector('img, svg');
+    if (!icon) {
+        el.textContent = value;
+        return;
+    }
+    el.innerHTML = `${icon.outerHTML}${value}`;
+}
+
+function setRowsKeepingIcon(selector, values) {
+    const rows = document.querySelectorAll(selector);
+    rows.forEach((row, index) => {
+        if (typeof values[index] !== 'string') return;
+        const icon = row.querySelector('img, svg');
+        if (!icon) {
+            row.textContent = values[index];
+            return;
+        }
+        row.innerHTML = `${icon.outerHTML}${values[index]}`;
+    });
+}
+
+function setNthText(selector, index, value) {
+    const nodes = document.querySelectorAll(selector);
+    const node = nodes[index];
+    if (!node || typeof value !== 'string') return;
+    node.textContent = value;
+}
+
+function setAria(selector, value) {
+    const el = document.querySelector(selector);
+    if (!el || typeof value !== 'string') return;
+    el.setAttribute('aria-label', value);
+}
+
+function applyCaseLanguage(lang) {
+    const current = caseCopy[lang] ? lang : 'pt';
+    const t = caseCopy[current];
+
+    document.documentElement.lang = t.htmlLang;
+    setText('.loading-text', t.loadingText);
+    setText('.hero-back__text', t.backText);
+    setTextKeepingIcon('.btn-contact', t.contactText);
+
+    if (current === 'pt') return;
+
+    // Hero
+    setAria('.abertura-card', 'Opening');
+    setAria('.abertura-row', 'Samples and case navigation');
+    setAria('.hero-menu', 'Case navigation');
+    setText('.hero-menu__section:nth-child(1) .hero-menu__title', 'Introduction');
+    setTexts('.hero-menu__section:nth-child(1) .hero-menu__subitem', ['Context & Problem', 'Key results']);
+    setText('.hero-menu__section:nth-child(2) .hero-menu__title', 'Process');
+    setTexts('.hero-menu__section:nth-child(2) .hero-menu__subitem', ['Foundation', 'Proof of concept', 'Scale']);
+    setText('.hero-menu__section:nth-child(3) .hero-menu__title', 'Future');
+
+    // Context
+    setText('#contexto .section-subtitle', 'Context & Problem');
+    setText('#contexto .section-title', 'The invisible cost of lacking a design language');
+    setText('#contexto .section-description', 'In 2019, Grupo Boticario started internalizing digital interfaces, previously maintained by external vendors, taking ownership of experience, code, and the way digital products were conceived. This transition exposed structural fragmentation across systems and channels, such as e-commerce, direct sales, franchises, and internal environments, which showed disconnected visual and behavioral patterns. At the same time, product squads, still being formed, made design and development decisions in isolation, without shared references or agreements, generating rework, inconsistent experiences, and misalignment between areas.');
+    setAria('.compare-list', 'Benefits and challenges');
+    setTexts('.compare-cell--positive p', [
+        'Digital products internalized;',
+        'Higher speed and control over the experience;',
+        'Design, Engineering, and Product recognized as strategic capabilities;',
+        'Formation of the first squads.'
+    ]);
+    setTexts('.compare-cell--negative p', [
+        'Products with distinct behaviors and visual styles;',
+        'Inconsistency and weak brand recognition;',
+        'Design and development decisions made in isolation;',
+        'Rework, misalignment, and inconsistent experience.'
+    ]);
+
+    // Results
+    setText('#resultados .section-subtitle', 'Key Results');
+    setHTML('#resultados .results-title', '<span class="text-black">Design at scale as a </span><span class="text-primary">business transformation driver.</span>');
+    setText('#resultados .section-description', 'From this context, Flora emerged as a design language that became more than a component system: it became a conceptual infrastructure for Grupo Boticario\'s digital ecosystem. Since inception, Flora was designed to be multi-brand, multi-platform, and multi-client, with accessibility and measurement embedded as native properties.');
+    setTexts('.result-card .result-label', ['Squads', 'Cycle Time', 'CSAT', 'Customer Experience']);
+    setTexts('.result-card .result-description', [
+        'Building consistent, coherent, high-impact experiences.',
+        'Cycle time reduction accelerating value delivery.',
+        'Internal customer as a promoter of the ecosystem.',
+        'Higher task-completion success rate in critical flows.'
+    ]);
+
+    // Process
+    setAria('#processo', 'Process');
+    setText('.processo-kicker', 'Process');
+    setHTML('.processo-title', 'Build<br/>Approach');
+    setAria('.processo-cols', 'Process stages');
+    setAria('.processo-col--fundamentacao', 'Cultural adoption and foundation');
+    setAria('.processo-col--poc', 'Proof of concept');
+    setAria('.processo-col--escala', 'Scale');
+    setText('.processo-col--fundamentacao .processo-phase-title', 'Cultural adoption & foundation');
+    setText('.processo-col--fundamentacao .processo-phase-subtitle', 'Global macro view');
+    setText('.processo-col--poc .processo-phase-title', 'Proof of concept');
+    setText('.processo-col--poc .processo-phase-subtitle', 'Convergence and focus');
+    setText('.processo-col--escala .processo-phase-title', 'Scale');
+    setText('.processo-col--escala .processo-phase-subtitle', 'Continuous evolution');
+
+    // Foundation and themes
+    setText('#fundamentacao .dark-kicker', 'Cultural Adoption & Foundation');
+    setText('#fundamentacao .section-title', 'Thinking at scale means designing for the entire ecosystem.');
+    setText('#fundamentacao .dark-description', 'The first practical stage of building Flora was cultural adoption. The proposal, although technically solid, required stakeholder buy-in, cross-area alignment, and a shared understanding that a design system is not just a component repository, but a way of thinking and operating. Awareness materials, presentations, and working sessions were carried out with technology, product, and design leaders. This process created backlog space in squads and consolidated the support needed to build the first proof of concept.');
+    setNthText('.section-dark .section-title.white', 1, 'Immersion establishes the premises that guide the process');
+    setText('.section-dark__inner .section-description.white', 'The immersion phase combined deep analysis of branding and tone-of-voice guidelines across brands, mapping of patterns, components, and behaviors present in all digital products, structured interviews with Brand, Product, Engineering, and Design stakeholders, as well as future internal users, and benchmarking against multi-brand design systems from major market players. From this process, the premises that guided the entire project were established.');
+    setNthText('.section-dark .section-title.white', 2, 'The foundation is materialized in a user-centered semantic token structure');
+    setTexts('.theme-title', [
+        'Themed and accessible color system',
+        'Agnostic and harmonic spacing',
+        'Responsive and versatile typography',
+        'Brand characterization styles'
+    ]);
+    setTexts('.theme-subtitle', [
+        'Context-oriented, reinforcing interaction patterns and preserving accessibility across all usage contexts.',
+        'Native proportion across PXs, PTs, and DPs, defining composition rules in 4 and 8-unit scales.',
+        'Legibility, hierarchy, and composition optimized by breakpoint.',
+        'Tailored tone of voice for each brand.'
+    ]);
+
+    // POC and steps
+    setText('.intro-kicker', 'Hypothesis validation');
+    setHTML('.intro-title', 'Proof of Concept<br/>and Craft Driving<br/>Concrete<br/>Results.');
+    setText('.intro-text', 'The first practical application of the language happened in the Reseller Registration Portal, a project that became decisive to validate the system. The portal\'s original plan included building two separate websites, one for O Boticario and another for Eudora, both with the same flow structure and objective: registering new resellers. After identifying this duplication, we proposed a single themed and scalable architecture capable of representing both brands without code duplication. This decision immediately reduced technical effort and opened the path to validate Flora\'s reuse and acceleration potential in a real environment.');
+    setTexts('.problema-list p', ['Infrastructure', 'Immersion', 'Prototyping', 'Testing', 'Development', 'Team']);
+    setText('.section-theming .section-subtitle.white', 'Results');
+    setText('.section-theming .section-title.white', 'Roadmap acceleration in 5 months and reduced maintenance effort');
+    setText('.section-theming .section-description.white', 'At the end of the cycle, the portal was delivered in four weeks, versus the six months originally planned for independent development of the two websites. The delivery proved that quality and speed are not opposites: when the foundation is solid, craft accelerates.');
+    setTexts('.etapas-title', ['Immersion', 'Definition', 'Concept & Validation', 'Specification']);
+    setTexts('.etapas-subtitle', [
+        'Data analysis, stakeholder interviews, reseller support team interviews, and user surveys.',
+        'Pain points, opportunities, and success criteria.',
+        'Data analysis, stakeholder interviews, reseller support team interviews, and user surveys.',
+        'Documentation of generated components and handoff to development.'
+    ]);
+
+    // Scale and growth
+    setText('.escala-kicker', 'Scale');
+    setText('.escala-title', 'After the proof-of-concept success, scaling Flora meant scaling outcomes');
+    setText('.escala-text', 'POC success secured executive sponsorship and enabled a dedicated Flora team. The initial goal targeted onboarding three digital products in the first cycle and, surpassing expectations, nineteen products were integrated in the first year. This expansion was enabled by combining two strategies: coupling and inner source contribution.');
+    setText('.escala-impact__title', 'Measurable impact across all business dimensions');
+    setTexts('.escala-metric__title', ['Operations', 'System', 'Experience', 'Product', 'Business']);
+    setTexts('.escala-metric:nth-child(2) .escala-metric__item', ['-60% bug rate', '-18% screen load time']);
+    setTexts('.escala-metric:nth-child(3) .escala-metric__item', ['+12% task-completion success rate', '78pts average NPS across e-commerce and direct sales channels']);
+    setTexts('.escala-metric:nth-child(4) .escala-metric__item', ['+11% E-commerce GMV', '+16% Direct Sales GMV in digital channels']);
+    setText('.escala-metric:nth-child(5) .escala-metric__item', 'Real revenue increase');
+
+    setText('.crescimento-title', 'Fast growth, however, brought valuable learnings');
+    setText('.crescimento-col--left .crescimento-kicker', 'Growth & Challenges');
+    setText('.crescimento-col--left .crescimento-text', 'This accelerated growth had direct business impact, but also exposed structural challenges typical of a scaling phase. These points made clear the need to evolve the strategy to sustain growth without compromising coherence, quality, and efficiency.');
+    setText('.mosaic-label', 'Adoption');
+    setText('.mosaic-desc', 'Adoption target exceeded by 600%;');
+    setRowsKeepingIcon('.mosaic-row', ['Parallel libraries;', 'Documentation debt;', 'Inconsistent measurement.']);
+    setText('.crescimento-block .crescimento-kicker', 'Governance & Strategy');
+    setText('.crescimento-block .crescimento-text', 'Based on pain points identified during early expansion, a governance strategy was structured around two complementary fronts.');
+    setRowsKeepingIcon('.crescimento-split__title', ['Inner Source', 'Coupling']);
+    setTexts('.crescimento-split .crescimento-text', [
+        'In more mature squads, the inner source model was adopted, where teams themselves contributed system evolutions, later reviewed by the Flora team for quality, accessibility, and consistency, enabling organic library growth.',
+        'In less mature contexts, the Flora team worked in a coupled model with squads, co-creating components and screens in real context and transferring knowledge directly, accelerating Design Language adoption.'
+    ]);
+
+    // Maturity, future, and conclusion
+    setText('.perenidade-kicker', 'Longevity & Maturity');
+    setText('.perenidade-title', 'Once consolidated, Flora evolved to a new stage');
+    setText('.perenidade-text', 'Compositions group multiple components into complete journey modules, such as login, registration, and checkout. They encapsulate visual structure, spacing rules, states, and event instrumentation, representing the highest level of system maturity, where the Design System evolves from a library into a reusable experience platform.');
+    setTexts('.perenidade-item__title', ['Compositions', 'Consistency', 'Systemic', 'Living', 'Measurable']);
+    setTexts('.perenidade-item__text', [
+        'Critical flows componentized: login, registration, cart, checkout, etc.',
+        'Experience and visual consistency.',
+        'Journeys measured and monitored at scale.',
+        'Continuous iteration.',
+        'High task-completion rates.'
+    ]);
+    setAria('.perenidade-arrow--left', 'Previous');
+    setAria('.perenidade-arrow--right', 'Next');
+
+    setAria('#futuro', 'Future');
+    setText('.futuro-top .section-subtitle', 'Future');
+    setText('.futuro-top .futuro-title', 'Documentation as an agnostic language through AI');
+    setText('.futuro-top .futuro-description', 'The integration between Figma MCP and language models is enabling automated generation of components and variations directly from textual guidelines. Since Flora documentation is essentially textual and semantic, it is natively understandable by language models. This opens the path to a future where documentation feeds both Figma and code simultaneously, ensuring full consistency between design intent and technical implementation.');
+    setTexts('.futuro-card__title', ['Designers', 'AI', 'Developers']);
+    setTexts('.futuro-card__text', [
+        'Define the language and intent that guide the whole system.',
+        'Transforms documentation into execution, connecting design and code at scale.',
+        'Implement the same language in scalable, agnostic code.',
+        'AI as a scaling tool, not a replacement. Authorship and human reasoning are preserved while decision speed expands.'
+    ]);
+    setText('.futuro-bottom .section-subtitle', 'Conclusion');
+    setHTML('.futuro-title--impacto', 'Its impact reflects a <span class="futuro-highlight">cultural transformation.</span>');
+    setText('.futuro-description--right', 'Flora started as an applied proof of concept and became Grupo Boticario\'s design language. Accessibility, measurement, and consistency stopped being isolated commitments and became structural. The system now works as a design infrastructure, a semantic, measurable, and scalable foundation that connects people, technologies, and brands under the same set of rules and meanings. Every product, whether a direct-sales app or a shop-floor system, now expresses the group\'s identity coherently and accessibly. The result is a more integrated, agile, and design-driven company.');
+
+    // Dynamic content rendered by JS
+    pilares = pilares.map((pilar, index) => ({
+        ...pilar,
+        ...(pilaresEn[index] || {})
+    }));
+}
+
+async function detectCaseLanguage() {
+    const params = new URLSearchParams(window.location.search);
+    const forcedLang = params.get('lang');
+    if (forcedLang === 'pt' || forcedLang === 'en') return forcedLang;
+
+    const lusophoneCountries = new Set(['BR', 'PT', 'AO', 'MZ', 'CV', 'GW', 'ST', 'TL']);
+
+    try {
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 1500);
+        const response = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+        window.clearTimeout(timeout);
+
+        if (response.ok) {
+            const payload = await response.json();
+            const countryCode = String(payload.country_code || '').toUpperCase();
+            if (countryCode) return lusophoneCountries.has(countryCode) ? 'pt' : 'en';
+        }
+    } catch (_) {
+        // fallback to browser locale
+    }
+
+    const browserLocale = (navigator.language || '').toLowerCase();
+    return browserLocale.startsWith('pt') ? 'pt' : 'en';
+}
 
 // Fun��o para criar os pilares
 function renderPilares() {
@@ -603,7 +893,10 @@ function initLottieAnimations(lottieInstance) {
 }
 
 // Inicializar quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    const lang = await detectCaseLanguage();
+    applyCaseLanguage(lang);
+
     try {
         renderPilares();
     } catch (err) {
