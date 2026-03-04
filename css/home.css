@@ -187,8 +187,9 @@ section {
 }
 
 .hero-avatar {
-  width: 464px;
   height: 584px;
+  aspect-ratio: 344 / 480;
+  width: auto;
   border-radius: 999px;
   overflow: hidden;
   align-self: center;
@@ -865,8 +866,9 @@ section {
   }
 
   .hero-avatar {
-    width: 540px;
     height: 680px;
+    aspect-ratio: 344 / 480;
+    width: auto;
   }
 
   .hero-copy {
@@ -991,7 +993,7 @@ section {
   .hero-avatar {
     width: calc(100vw - 16px);
     max-width: none;
-    aspect-ratio: 344 / 560;
+    aspect-ratio: 344 / 480;
     height: auto;
     border-radius: 26px;
   }
