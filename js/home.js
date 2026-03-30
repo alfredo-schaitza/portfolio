@@ -145,23 +145,20 @@ document.addEventListener('DOMContentLoaded', () => {
         outcomes: 'DELIVERIES AND RESULTS',
         jobs: [
           {
-            role: 'UX Manager',
+            role: 'Product Design & Design Ops Specialist',
             acting: [
-              'Led the UX Core management area across foundational fronts such as Design System, Design Ops, Accessibility/Inclusive Design, and Content Design, with multidisciplinary teams and up to 30 people under direct and indirect management.',
-              'Designed and scaled the UX organization, supporting growth from an initial team of 10 designers to a structure with more than 200 professionals integrated with Product, Data, and Engineering.',
-              'Defined strategic vision, rituals, processes, and UX governance to support a multi-brand, omnichannel, and multi-technology digital operation.',
-              'Acted as a technical and strategic leader, influencing executive decisions and ensuring alignment between business strategy, user experience, and execution excellence.'
+              'Worked end-to-end across the product design process, from discovery and concept through validation and delivery, with a strong focus on visual design, interaction design, and craft quality.',
+              'Led the evolution of Flora, Grupo Boticário\'s design system, across all layers: from foundational decisions and reusable, customizable component architecture to product design and feature delivery alongside dedicated squads. The work was hands-on in both design system and product design, including direct consultation and mentorship for product squads.',
+              'Designed and built an internal product management framework and dashboard to consolidate visibility into digital product metrics, foster shared accountability across Design, Product, and Engineering, and align cross-functional teams around business outcomes.',
+              'Built AI-powered research repositories to expand access to user data and support the development of more user-centered digital products.',
+              'Managed the internal UX toolstack, including Hotjar, Maze, Miro, and Figma, covering vendor relationships, cost management, and internal enablement and training programs.',
+              'Standardized the UX workflow in project management tools such as Jira, enabling cycle time, lead time, and throughput analysis and supporting continuous process improvement across all design stages.'
             ],
             outcomes: [
-              'Implemented and scaled a multi-brand, multi-technology corporate Design System (React and Flutter), impacting Grupo Boticario\'s entire value chain.',
-              'Consolidated UX culture as a core company competency, contributing to the growth of the technology area from around 300 to 3000 people.',
-              'Developed AI-connected research repositories.',
-              'Created a standard UX workflow in Businessmap (a Jira-like tool), enabling operational efficiency tracking for UX work versus delivery outcomes.',
-              'Defined exchange rituals between teams and within squads.',
-              'Structured design chapter rituals.',
-              'Structured the UX leveling process across Product Design, Research, and Content Design dimensions.',
-              'Selected, managed, and governed the tool stack used by the entire chapter, including research, prototyping, experimentation, and user testing.',
-              'Developed AI agents for accessibility, automating image descriptions to expand access for visually impaired people.'
+              'Implemented and scaled Flora, a corporate, multi-brand, multi-technology Design System (React and Flutter), impacting the entire value chain of Grupo Boticário.',
+              'Consolidated UX as a core organizational capability, supporting the growth of the technology area from approximately 300 to 3,000 people.',
+              'Increased operational efficiency and predictability across product squads through process standardization and tooling integration.',
+              'Led the creation of AI agents for accessibility, automating image descriptions and expanding inclusion for people with visual impairments.'
             ]
           },
           {
@@ -294,19 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const outcomesList = lists[1];
 
       if (actingList) {
-        const li = actingList.querySelectorAll('li');
-        li.forEach((line, lineIndex) => {
-          if (!data.acting[lineIndex]) return;
-          line.textContent = data.acting[lineIndex];
-        });
+        actingList.innerHTML = data.acting.map(text => `<li>${text}</li>`).join('');
       }
 
       if (outcomesList) {
-        const li = outcomesList.querySelectorAll('li');
-        li.forEach((line, lineIndex) => {
-          if (!data.outcomes[lineIndex]) return;
-          line.textContent = data.outcomes[lineIndex];
-        });
+        outcomesList.innerHTML = data.outcomes.map(text => `<li>${text}</li>`).join('');
       }
     });
 
@@ -331,9 +320,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nextBtn = document.querySelector('.carousel-btn.next');
     if (nextBtn) nextBtn.setAttribute('aria-label', content.aria.next);
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.lang === lang);
+    });
   };
 
   const detectLanguageByCountry = async () => {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'pt' || saved === 'en') return saved;
+
     const params = new URLSearchParams(window.location.search);
     const forcedLang = params.get('lang');
     if (forcedLang === 'pt' || forcedLang === 'en') return forcedLang;
@@ -362,6 +358,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   detectLanguageByCountry().then(applyLanguage);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      localStorage.setItem('lang', btn.dataset.lang);
+      applyLanguage(btn.dataset.lang);
+    });
+  });
 
   const initHeroCircleBackground = () => {
     const host = document.getElementById('hero-bg');

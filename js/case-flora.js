@@ -303,6 +303,9 @@ function applyCaseLanguage(lang) {
 }
 
 async function detectCaseLanguage() {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'pt' || saved === 'en') return saved;
+
     const params = new URLSearchParams(window.location.search);
     const forcedLang = params.get('lang');
     if (forcedLang === 'pt' || forcedLang === 'en') return forcedLang;
