@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         next: 'Próximo'
       },
       menu: ['Sobre Mim', 'Trajetória', 'Cases de Sucesso', 'Samples', 'Publicações'],
+      heroSubtitle: 'STAFF PRODUCT DESIGNER |\nTECHNICAL LEADERSHIP | DESIGN STRATEGY |\nDESIGN OPS | DESIGN SYSTEMS',
       heroBtn: 'MAIS SOBRE MIM',
       about: [
         { title: 'Pai & Marido', subtitle: 'Meu melhor eu' },
@@ -105,7 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
       caseStudy: {
         eyebrow: 'FLORA DESIGN LANGUAGE',
         title: 'CONSISTÊNCIA, VELOCIDADE E EFICIÊNCIA EM UM DOS MAIORES ECOSSISTEMAS DIGITAIS DO PAÍS.',
-        button: 'CASE COMPLETO'
+        button: 'CASE COMPLETO',
+        url: 'cases/flora/'
       },
       samples: {
         eyebrow: 'SAMPLES',
@@ -128,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         next: 'Next'
       },
       menu: ['About Me', 'Journey', 'Success Cases', 'Samples', 'Publications'],
+      heroSubtitle: 'PRODUCT DESIGNER |\nEND-TO-END DELIVERY | DESIGN STRATEGY |\nDESIGN OPS | DESIGN SYSTEMS',
       heroBtn: 'MORE ABOUT ME',
       about: [
         { title: 'Father & Husband', subtitle: 'My best self' },
@@ -138,9 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
       trajectory: {
         eyebrow: 'JOURNEY',
         title: 'A CAREER FOCUSED ON IMPACT AND SCALE',
-        intro: `Staff Product Designer with more than 15 years of experience building scalable digital products, robust design systems, and impact-driven frameworks. My career combines senior individual contributor work with formal leadership, with my most recent experience in management. Along this path, I identified that my greatest impact happens as an IC, especially in craft, concept generation, metric fluency, structured experimentation, and close contact with users, turning evidence into strategic decisions and tangible business value.
+        intro: `Product Designer with over 15 years of experience designing digital products end-to-end, from discovery and concept through user validation and delivery. My work combines interaction design and visual design craft with a strong foundation in design systems and design ops, always connecting product decisions to measurable outcomes.
             <br /><br />
-            Management broadened my systemic vision, prioritization in complex contexts, and organizational influence, while strengthening my role as a mentor for designers at different maturity levels. Specialized in Interaction Design, Design Systems, and metrics-driven Product Design, I led the ideation and scale of Flora at Grupo Boticario, now used by more than 100 squads, driving efficiency gains, maturity evolution, and measurable improvements in internal and end-user experiences.`,
+            At Grupo Boticário, I designed and shipped products across multiple squads while leading the creation and scaling of Flora, a multi-brand, multi-technology design system now used by 100+ teams. In parallel, I worked as a design ops specialist, improving internal processes, implementing tooling, and raising the quality and predictability of design delivery across the organization.`,
         acting: 'SCOPE',
         outcomes: 'DELIVERIES AND RESULTS',
         jobs: [
@@ -214,7 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
       caseStudy: {
         eyebrow: 'FLORA DESIGN LANGUAGE',
         title: 'CONSISTENCY, SPEED, AND EFFICIENCY IN ONE OF THE COUNTRY\'S LARGEST DIGITAL ECOSYSTEMS.',
-        button: 'FULL CASE STUDY'
+        button: 'FULL CASE STUDY',
+        url: 'https://www.behance.net/gallery/247525035/Flora-Design-System',
+        newTab: true
       },
       samples: {
         eyebrow: 'SAMPLES',
@@ -255,6 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!content.menu[index]) return;
       item.textContent = content.menu[index];
     });
+
+    const heroSubtitleEl = document.querySelector('.hero-copy > p');
+    if (heroSubtitleEl) {
+      heroSubtitleEl.innerHTML = content.heroSubtitle.replace(/\n/g, '<br />');
+    }
 
     const heroBtnLabel = document.querySelector('.hero-copy .btn-primary__label');
     if (heroBtnLabel) {
@@ -304,6 +314,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const caseBtnLabel = document.querySelector('.case .btn-primary__label');
     if (caseBtnLabel) {
       caseBtnLabel.innerHTML = `${content.caseStudy.button} <span>→</span>`;
+    }
+    const caseBtn = document.querySelector('.case .btn-primary');
+    if (caseBtn) {
+      caseBtn.href = content.caseStudy.url;
+      if (content.caseStudy.newTab) {
+        caseBtn.setAttribute('target', '_blank');
+        caseBtn.setAttribute('rel', 'noopener noreferrer');
+      } else {
+        caseBtn.removeAttribute('target');
+        caseBtn.removeAttribute('rel');
+      }
     }
 
     setText('.samples .eyebrow', content.samples.eyebrow);
@@ -680,6 +701,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateCarousel();
 
+  const caseVisual = document.querySelector('.case-visual');
+  if (caseVisual) {
+    const centerVisual = () => {
+      caseVisual.scrollLeft = (caseVisual.scrollWidth - caseVisual.clientWidth) / 2;
+    };
+    window.addEventListener('load', centerVisual, { once: true });
+  }
+
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
@@ -735,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const parallaxTargets = Array.from(document.querySelectorAll(
-    '.hero-avatar, .hero-copy, .trajectory-intro, .case-card, .samples-grid, .carousel'
+    '.hero-avatar, .hero-copy, .trajectory-intro, .samples-grid, .carousel'
   ));
   parallaxTargets.forEach((el) => el.classList.add('fx-parallax'));
 
