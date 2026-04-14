@@ -2877,7 +2877,7 @@ html {
 
 .abertura-card {
     /* layout */
-    background: #383B47;
+    background: #264FEC;
     border-radius: 16px;
     margin: 0 40px; /* 40px fixo da borda da viewport */
     --abertura-pad: 40px;
@@ -2895,6 +2895,30 @@ html {
     align-items: flex-start;
     justify-content: space-between;
     gap: 32px;
+    margin-bottom: 0;
+}
+
+.abertura-visual {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+}
+
+.abertura-visual img {
+    display: block;
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.abertura-scroll-hint {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 8px;
+    opacity: 0.6;
 }
 
 .abertura-title {
@@ -3435,11 +3459,33 @@ html {
     border-radius: 40px;
     --abertura-pad: 24px;
     padding: var(--abertura-pad);
-  }
-
-  .abertura-card {
     display: flex;
     flex-direction: column;
+  }
+
+  .abertura-head {
+    margin-bottom: 0;
+  }
+
+  .abertura-scroll-hint {
+    display: none;
+  }
+
+  .abertura-visual {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .abertura-visual::-webkit-scrollbar {
+    display: none;
+  }
+
+  .abertura-visual img {
+    width: auto;
+    height: 420px;
+    max-width: none;
+    object-fit: unset;
   }
 
   .abertura-row-wrap {

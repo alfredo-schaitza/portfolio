@@ -147,6 +147,14 @@ function applyCaseLanguage(lang) {
     setText('.hero-back__text', t.backText);
     setTextKeepingIcon('.btn-contact', t.contactText);
 
+    // Abertura image swap
+    const aberturaImg = document.getElementById('abertura-img');
+    if (aberturaImg) {
+        aberturaImg.src = current === 'en'
+            ? '../../assets/home/carrossel.png'
+            : '../../assets/home/carrossel-pt.png';
+    }
+
     if (current === 'pt') return;
 
     // Hero
@@ -899,6 +907,20 @@ function initLottieAnimations(lottieInstance) {
 document.addEventListener('DOMContentLoaded', async () => {
     const lang = await detectCaseLanguage();
     applyCaseLanguage(lang);
+
+    // Center abertura image scroll on mobile
+    const aberturaVisual = document.querySelector('.abertura-visual');
+    if (aberturaVisual) {
+        const centerScroll = () => {
+            aberturaVisual.scrollLeft = (aberturaVisual.scrollWidth - aberturaVisual.clientWidth) / 2;
+        };
+        const img = aberturaVisual.querySelector('img');
+        if (img && img.complete) {
+            centerScroll();
+        } else if (img) {
+            img.addEventListener('load', centerScroll, { once: true });
+        }
+    }
 
     try {
         renderPilares();

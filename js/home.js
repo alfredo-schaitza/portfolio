@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         eyebrow: 'FLORA DESIGN LANGUAGE',
         title: 'CONSISTÊNCIA, VELOCIDADE E EFICIÊNCIA EM UM DOS MAIORES ECOSSISTEMAS DIGITAIS DO PAÍS.',
         button: 'CASE COMPLETO',
-        url: 'cases/flora/'
+        url: 'cases/flora/',
+        carouselImg: 'assets/home/carrossel-pt.png'
       },
       samples: {
         eyebrow: 'SAMPLES',
@@ -219,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'CONSISTENCY, SPEED, AND EFFICIENCY IN ONE OF THE COUNTRY\'S LARGEST DIGITAL ECOSYSTEMS.',
         button: 'FULL CASE STUDY',
         url: 'https://www.behance.net/gallery/247525035/Flora-Design-System',
-        newTab: true
+        newTab: true,
+        carouselImg: 'assets/home/carrossel.png'
       },
       samples: {
         eyebrow: 'SAMPLES',
@@ -315,6 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (caseBtnLabel) {
       caseBtnLabel.innerHTML = `${content.caseStudy.button} <span>→</span>`;
     }
+    const caseVisualImg = document.querySelector('.case-visual img');
+    if (caseVisualImg) {
+      caseVisualImg.src = content.caseStudy.carouselImg;
+    }
+
     const caseBtn = document.querySelector('.case .btn-primary');
     if (caseBtn) {
       caseBtn.href = content.caseStudy.url;
