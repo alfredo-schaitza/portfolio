@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
           },
           {
-            role: 'Senior Visual Designer',
+            role: 'Senior Product Designer',
             acting: [
               'Condução de projetos de UX end to end, desde pesquisa e definição do problema até conceituação, validação e entrega.',
               'Atuação em contextos remotos e alocado no cliente, garantindo proximidade com stakeholders e entendimento profundo do negócio.',
@@ -142,64 +142,66 @@ document.addEventListener('DOMContentLoaded', () => {
       trajectory: {
         eyebrow: 'JOURNEY',
         title: 'A CAREER FOCUSED ON IMPACT AND SCALE',
-        intro: `Product Designer with over 15 years of experience designing digital products end-to-end, from discovery and concept through user validation and delivery. My work combines interaction design and visual design craft with a strong foundation in design systems and design ops, always connecting product decisions to measurable outcomes.
+        intro: `Product Designer with over 15 years of experience in end-to-end product design, design systems, and interaction design. Works across the full product cycle, from discovery and concept through validation and delivery, with a consistent focus on visual design, interaction quality, and craft.
             <br /><br />
-            At Grupo Boticário, I designed and shipped products across multiple squads while leading the creation and scaling of Flora, a multi-brand, multi-technology design system now used by 100+ teams. In parallel, I worked as a design ops specialist, improving internal processes, implementing tooling, and raising the quality and predictability of design delivery across the organization.`,
+            Led the creation and scaling of Flora, Grupo Boticario's design system, now supporting 100+ squads across a multi-brand, multi-technology environment (React and Flutter). Delivered hands-on design work alongside product squads, shipping multiple digital products and features directly. Results include a 44% reduction in cycle time, 15% improvement in time to market, 60% drop in bug rates, and GMV growth of up to 16% across e-commerce and direct sales channels.
+            <br /><br />
+            Expertise spans Interaction Design, Visual Design, Design Systems, Design Ops, User Research, and product metrics. Brings strong systems thinking to complex product environments, connecting craft, operations, and product decisions into coherent, scalable solutions.`,
         acting: 'SCOPE',
         outcomes: 'DELIVERIES AND RESULTS',
         jobs: [
           {
             role: 'Product Design & Design Ops Specialist',
             acting: [
-              'Worked end-to-end across the product design process, from discovery and concept through validation and delivery, with a strong focus on visual design, interaction design, and craft quality.',
-              'Led the evolution of Flora, Grupo Boticário\'s design system, across all layers: from foundational decisions and reusable, customizable component architecture to product design and feature delivery alongside dedicated squads. The work was hands-on in both design system and product design, including direct consultation and mentorship for product squads.',
-              'Designed and built an internal product management framework and dashboard to consolidate visibility into digital product metrics, foster shared accountability across Design, Product, and Engineering, and align cross-functional teams around business outcomes.',
-              'Built AI-powered research repositories to expand access to user data and support the development of more user-centered digital products.',
+              'Reported to the Director of User Experience. Provided technical leadership across product design and design operations for a technology organization of 3,000+ people, mentoring and technically leading up to 30 product designers and supporting 200+ designers across design ops initiatives.',
+              'Worked end-to-end across the product design process, from discovery and concept through validation and delivery, covering user research, wireframing, interaction design, visual design, prototyping, and usability testing.',
+              'Led the evolution of Flora, Grupo Boticario\'s design system, across all layers: foundational decisions, reusable component architecture, design documentation, and direct product design and feature delivery alongside dedicated squads. Provided consultation and mentorship to product squads across the organization.',
+              'Designed and built an internal product management framework and dashboard consolidating product, operation, system, experience, and business metrics across 100+ squads, fostering shared accountability across Design, Product, and Engineering.',
+              'Built AI-powered research repositories (Notebook LM) centralizing output from 200+ designers and over 360 research studies per year, enabling fast access to user data and reducing desk research time by up to 60% while eliminating duplicate research within three-month windows.',
               'Managed the internal UX toolstack, including Hotjar, Maze, Miro, and Figma, covering vendor relationships, cost management, and internal enablement and training programs.',
-              'Standardized the UX workflow in project management tools such as Jira, enabling cycle time, lead time, and throughput analysis and supporting continuous process improvement across all design stages.'
+              'Standardized UX workflows in Jira across 100+ squads, enabling cycle time, lead time, and throughput analysis to support continuous process improvement at scale.',
+              'Led the creation of AI agents for accessibility, automating the generation of accessible image descriptions for a catalog of 5,000+ products, increasing image accessibility coverage from 8% to 100%.'
             ],
             outcomes: [
-              'Implemented and scaled Flora, a corporate, multi-brand, multi-technology Design System (React and Flutter), impacting the entire value chain of Grupo Boticário.',
-              'Consolidated UX as a core organizational capability, supporting the growth of the technology area from approximately 300 to 3,000 people.',
-              'Increased operational efficiency and predictability across product squads through process standardization and tooling integration.',
-              'Led the creation of AI agents for accessibility, automating image descriptions and expanding inclusion for people with visual impairments.'
+              'Implemented and scaled Flora, a corporate, multi-brand, multi-technology design system (React and Flutter) impacting the entire value chain of Grupo Boticario: cycle time reduced by 44%, time to market improved by 15%, bug rates dropped 60%, loading time improved 18%, task success rate increased 12%, NPS averaged 78 points, and GMV grew up to 16% across e-commerce and direct sales channels.',
+              'Consolidated UX as a core organizational capability, supporting growth of the technology area from approximately 300 to 3,000 people.',
+              'Increased operational efficiency and predictability across product squads through process standardization and tooling integration, impacting 100+ squads.',
+              'Delivered AI-powered accessibility agents that increased accessible product image coverage from 8% to 100% across a catalog of 5,000+ SKUs.'
             ]
           },
           {
             role: 'Staff Product Designer / Technical Leader',
             acting: [
-              'Provided UX technical leadership for internalizing digital experiences previously developed by external partners, structuring multidisciplinary squads and end-to-end processes.',
-              'Conceived Grupo Boticario\'s Design System and established the initial Design Ops capability, connecting design, engineering, and product at scale.',
-              'Hired, mentored, and developed designers, while defining rituals, methods, and best practices to ensure quality and consistency.',
-              'Acted as a strategic advisor, influencing product and technology decisions in a context of accelerated digital transformation.'
+              'Reported to the Director of User Experience. Led the internalization of digital experiences and the foundational design ops practice. Conducted technical interviews for the first 60 designers hired and mentored a team of 20 designers across seniority levels.',
+              'Provided technical UX leadership in the internalization of digital experiences previously developed by external partners, structuring multidisciplinary squads and end-to-end processes including user research, wireframing, responsive design, and design documentation.',
+              'Conceived Grupo Boticario\'s design system and established the initial Design Ops practice, connecting design, engineering, and product at scale.',
+              'Hired, mentored, and developed designers, including conducting technical interviews for the first 60 designers brought in-house, and defined rituals, methods, and best practices to ensure design quality and consistency.',
+              'Served in a strategic consulting role influencing product and technology decisions during a period of accelerated digital transformation.'
             ],
             outcomes: [
-              'Internalized multiple digital products, conceived new products throughout the process, and structured digital solutions across different fronts:',
-              'E-commerce',
-              'In-store digital experiences',
-              'Products for resellers',
-              'Back-office systems',
-              'Created the foundations of the Design System that would support the company\'s multi-brand digital operation in subsequent years.',
-              'Strengthened the perception of UX and Technology as strategic areas, no longer seen only as support or infrastructure.',
-              'Increased design maturity across the organization, with stronger integration between UX, Data, Product, and Engineering.'
+              'Internalized 19 digital products across e-commerce, in-store digital experiences, tools for sales representatives, and backoffice systems, reducing dependency on external agencies.',
+              'Built the first 19 digital products brought in-house and defined operating rituals for each dedicated squad.',
+              'Laid the foundations of the design system that would support the company\'s multi-brand digital operation in subsequent years.',
+              'Advanced design maturity through deeper integration between UX, Data, Product, and Engineering.'
             ]
           },
           {
             role: 'Design Lead / Technical Design Leader',
             acting: [
-              'Led strategic projects and new business initiatives from scope definition, proposal, budget, and concept creation through final delivery.',
-              'Defined quality standards, processes, and design direction for teams working across different accounts and allocation models.',
-              'Worked hands-on as the lead designer in complex projects, driving end-to-end design processes in agile, collaborative contexts.',
+              'Led strategic projects and new business initiatives end-to-end. Managed cross-functional teams across multiple client accounts, setting design standards, quality benchmarks, and process guidelines.',
+              'Led strategic projects and new business initiatives, from scope definition, proposal development, budgeting, and concept creation through final delivery.',
+              'Defined design standards, quality benchmarks, and process guidelines for teams working across multiple client accounts and engagement models.',
+              'Served as lead designer on complex projects, conducting end-to-end design processes including user research, usability testing, wireframing, responsive design, and design documentation in agile environments.',
               'Managed direct client relationships, translating business needs into high-impact digital experiences.'
             ],
             outcomes: [
-              'Delivered high-complexity projects for brands such as Hellmann\'s, Porto Seguro, Nextel, Cyrela, and Grupo Boticario, directly impacting engagement, conversion, and lead generation.',
-              'Structured international digital activations (Brazil and Mexico) for Hellmann\'s, strengthening brand relationship and delight.',
-              'Helped transform Porto Seguro\'s website into one of the company\'s main channels for lead capture and service contracting.'
+              'Delivered high-complexity projects for Hellmann\'s, Porto Seguro, Nextel, Cyrela, and Grupo Boticario, generating measurable impact in engagement, conversion, and lead generation.',
+              'Led international digital activations for Hellmann\'s across Brazil and Mexico, strengthening brand engagement.',
+              'Transformed Porto Seguro\'s website into the company\'s primary channel for service acquisition: 60% of all leads generated for insurance brokers came from the online channel (previously non-existent), acquisition cost per customer reduced by 40%, and total company leads grew 20%.'
             ]
           },
           {
-            role: 'Senior Visual Designer',
+            role: 'Senior Product Designer',
             acting: [
               'Led end-to-end UX projects, from research and problem framing to concept, validation, and delivery.',
               'Worked in remote contexts and embedded at client sites, ensuring stakeholder proximity and deep business understanding.',
