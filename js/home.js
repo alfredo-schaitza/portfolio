@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prev: 'Anterior',
         next: 'Próximo'
       },
-      menu: ['Sobre Mim', 'Trajetória', 'Cases de Sucesso', 'Samples', 'Publicações'],
+      menu: ['Trajetória', 'Cases de Sucesso', 'Samples', 'Publicações', 'Sobre Mim'],
       heroSubtitle: 'STAFF PRODUCT DESIGNER |\nTECHNICAL LEADERSHIP | DESIGN STRATEGY |\nDESIGN OPS | DESIGN SYSTEMS',
       heroBtn: 'MAIS SOBRE MIM',
       about: [
@@ -117,6 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
       publications: {
         eyebrow: 'PUBLICAÇÕES',
         title: 'UM POUCO SOBRE O QUE TENHO A DIZER'
+      },
+      aboutSection: {
+        eyebrow: 'SOBRE MIM',
+        title: 'O QUE EU FAÇO QUANDO NÃO ESTOU FAZENDO DESIGN'
       }
     },
     en: {
@@ -130,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
         prev: 'Previous',
         next: 'Next'
       },
-      menu: ['About Me', 'Journey', 'Success Cases', 'Samples', 'Publications'],
-      heroSubtitle: 'PRODUCT DESIGNER |\nEND-TO-END DELIVERY | DESIGN STRATEGY |\nDESIGN OPS | DESIGN SYSTEMS',
+      menu: ['Journey', 'Success Cases', 'Samples', 'Publications', 'About Me'],
+      heroSubtitle: 'Product Designer | End-to-end Design | Craft & Visual Design | Design Systems | Design Ops',
       heroBtn: 'MORE ABOUT ME',
       about: [
         { title: 'Father & Husband', subtitle: 'My best self' },
@@ -232,6 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
       publications: {
         eyebrow: 'PUBLICATIONS',
         title: 'A BIT ABOUT WHAT I HAVE TO SAY'
+      },
+      aboutSection: {
+        eyebrow: 'ABOUT ME',
+        title: 'WHAT I DO WHEN I\'M NOT DOING DESIGN'
       }
     }
   };
@@ -341,6 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setText('.publications .eyebrow', content.publications.eyebrow);
     setText('.publications h2', content.publications.title);
+
+    setText('.about .eyebrow', content.aboutSection.eyebrow);
+    setText('.about h2', content.aboutSection.title);
 
     const dotsNav = document.querySelector('.carousel-dots');
     if (dotsNav) dotsNav.setAttribute('aria-label', content.aria.carouselDots);
@@ -606,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : window.scrollY;
 
     let activeId = '';
-    ['#sobre-mim', '#trajetoria', '#case-sucesso', '#samples', '#publicacoes'].forEach((id) => {
+    ['#trajetoria', '#case-sucesso', '#samples', '#publicacoes', '#sobre-mim'].forEach((id) => {
       const section = document.querySelector(id);
       if (section && scrollTop + 120 >= section.offsetTop) {
         activeId = id;

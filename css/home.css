@@ -390,6 +390,20 @@ section {
   padding: 0;
 }
 
+.about > .eyebrow,
+.about > h2 {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.about > .eyebrow {
+  padding-top: 0;
+}
+
+.about > h2 {
+  margin-bottom: 64px;
+}
+
 .about-carousel {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -501,7 +515,8 @@ section {
 .trajectory h2,
 .case h2,
 .samples h2,
-.publications h2 {
+.publications h2,
+.about h2 {
   text-transform: uppercase;
   color: #fff;
   font-family: "IBM Plex Sans", sans-serif;
@@ -514,7 +529,8 @@ section {
 
 .case h2,
 .samples h2,
-.publications h2 {
+.publications h2,
+.about h2 {
   color: #000;
 }
 
@@ -541,6 +557,7 @@ section {
   padding-left: 128px;
   padding-right: 128px;
   transition: background-color 0.2s ease;
+  overflow: hidden;
 }
 
 .trajectory-item:last-child {
@@ -548,7 +565,7 @@ section {
 }
 
 .trajectory-item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: transparent;
 }
 
 .trajectory-header {
@@ -564,6 +581,49 @@ section {
   row-gap: 8px;
   align-items: center;
   cursor: pointer;
+  position: relative;
+  isolation: isolate;
+}
+
+.trajectory-header > span:not(.trajectory-blobs) {
+  position: relative;
+  z-index: 1;
+}
+
+.trajectory-blobs {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  filter: url('#goo');
+  z-index: 0;
+  pointer-events: none;
+}
+
+.trajectory-blob {
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  border-radius: 100%;
+  background: #000;
+  transform: translate3d(0, 155%, 0) scale(1.5);
+  transition: transform 0.45s ease;
+}
+
+.trajectory-blob:nth-child(1) { left: -3%;  transition-delay: 0s; }
+.trajectory-blob:nth-child(2) { left: 13%;  transition-delay: 0.06s; }
+.trajectory-blob:nth-child(3) { left: 29%;  transition-delay: 0.12s; }
+.trajectory-blob:nth-child(4) { left: 45%;  transition-delay: 0.18s; }
+.trajectory-blob:nth-child(5) { left: 61%;  transition-delay: 0.24s; }
+.trajectory-blob:nth-child(6) { left: 77%;  transition-delay: 0.30s; }
+.trajectory-blob:nth-child(7) { left: 83%;  transition-delay: 0.36s; }
+
+.trajectory-header:hover .trajectory-blob {
+  transform: translate3d(0, 0, 0) scale(1.5);
 }
 
 .trajectory-period {
@@ -1087,6 +1147,20 @@ section {
 
   .about {
     padding: 0;
+  }
+
+  .about > .eyebrow,
+  .about > h2 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .about > .eyebrow {
+    padding-top: 64px;
+  }
+
+  .about > h2 {
+    margin-bottom: 40px;
   }
 
   .about-carousel {
