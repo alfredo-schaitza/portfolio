@@ -6,20 +6,21 @@ import { MediumIcon } from "@components/icons/MediumIcon";
 import { DragScroll } from "@components/DragScroll";
 
 // ── Assets ────────────────────────────────────────────────────────────────────
-const imgProfile        = "/assets/img-profile.png";
-const imgBotiHome       = "/assets/cases/img-gb-home.png";
-const imgBotiCategoria  = "/assets/cases/img-gb-cat.png";
-const imgBeautyboxPhone = "/assets/cases/bbx-home.png";
-const imgBeautyboxDesktop = "/assets/cases/bbx-pdp.png";
-const imgPortoSeguro1   = "/assets/cases/porto-1.png";
-const imgPortoSeguro2   = "/assets/cases/porto-2.png";
-const imgMultiplus      = "/assets/cases/mplus.png";
-const imgOrchestra      = "/assets/publications/img-orchestra.png";
-const imgPlantas        = "/assets/publications/img-plantas.png";
-const imgAbout1         = "/assets/about/img-crossfit.png";
-const imgAbout2         = "/assets/about/img-crossfit-1.png";
-const imgAbout3         = "/assets/about/img-crossfit-2.png";
-const imgAbout4         = "/assets/about/img-crossfit-3.png";
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const imgProfile        = `${base}/assets/img-profile.png`;
+const imgBotiHome       = `${base}/assets/cases/img-gb-home.png`;
+const imgBotiCategoria  = `${base}/assets/cases/img-gb-cat.png`;
+const imgBeautyboxPhone = `${base}/assets/cases/bbx-home.png`;
+const imgBeautyboxDesktop = `${base}/assets/cases/bbx-pdp.png`;
+const imgPortoSeguro1   = `${base}/assets/cases/porto-1.png`;
+const imgPortoSeguro2   = `${base}/assets/cases/porto-2.png`;
+const imgMultiplus      = `${base}/assets/cases/mplus.png`;
+const imgOrchestra      = `${base}/assets/publications/img-orchestra.png`;
+const imgPlantas        = `${base}/assets/publications/img-plantas.png`;
+const imgAbout1         = `${base}/assets/about/img-crossfit.png`;
+const imgAbout2         = `${base}/assets/about/img-crossfit-1.png`;
+const imgAbout3         = `${base}/assets/about/img-crossfit-2.png`;
+const imgAbout4         = `${base}/assets/about/img-crossfit-3.png`;
 
 // ── Reusable primitives ────────────────────────────────────────────────────────
 
