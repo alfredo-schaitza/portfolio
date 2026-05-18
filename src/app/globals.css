@@ -1,0 +1,736 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  :root {
+    /* ================================================================
+       PRIMITIVOS — paleta de cor bruta
+       Não usar diretamente em componentes.
+       ================================================================ */
+
+    /* White e Black */
+    --primitive-white: #ffffff;
+    --primitive-black: #000000;
+
+    /* Neutral */
+    --primitive-neutral-50:  #f0f0f0;
+    --primitive-neutral-100: #c9c9c8;
+    --primitive-neutral-200: #bcbcbb;
+    --primitive-neutral-300: #aaaaa8;
+    --primitive-neutral-400: #9c9c9a;
+    --primitive-neutral-500: #8c8c89;
+    --primitive-neutral-600: #80807d;
+    --primitive-neutral-700: #6d6d69;
+    --primitive-neutral-800: #61615c;
+    --primitive-neutral-900: #51514c;
+    --primitive-neutral-950: #3d3d38;
+
+    /* Brand 1 — GB e Revendedores (azul) */
+    --primitive-brand1-50:  #d8e1ff;
+    --primitive-brand1-100: #aabbfa;
+    --primitive-brand1-200: #889ff6;
+    --primitive-brand1-300: #6280f2;
+    --primitive-brand1-400: #466aef;
+    --primitive-brand1-500: #2851ec;
+    --primitive-brand1-600: #2547ca;
+    --primitive-brand1-700: #253ea0;
+    --primitive-brand1-800: #243679;
+    --primitive-brand1-900: #232e55;
+    --primitive-brand1-950: #222223;
+
+    /* Brand 2 — O Boticário (verde) */
+    --primitive-brand2-50:  #dcf7ee;
+    --primitive-brand2-100: #8acfb8;
+    --primitive-brand2-200: #6ac2a5;
+    --primitive-brand2-300: #4cb693;
+    --primitive-brand2-400: #2faa82;
+    --primitive-brand2-500: #119e70;
+    --primitive-brand2-600: #089378;
+    --primitive-brand2-700: #00847d;
+    --primitive-brand2-800: #00766f;
+    --primitive-brand2-900: #01665f;
+    --primitive-brand2-950: #00504a;
+
+    /* Brand 3 — Beleza na Web (roxo) */
+    --primitive-brand3-50:  #f6ddff;
+    --primitive-brand3-100: #e7aefc;
+    --primitive-brand3-200: #d982f8;
+    --primitive-brand3-300: #cc5bf5;
+    --primitive-brand3-400: #bf30f2;
+    --primitive-brand3-500: #b206ef;
+    --primitive-brand3-600: #900ac7;
+    --primitive-brand3-700: #7c0caf;
+    --primitive-brand3-800: #650f93;
+    --primitive-brand3-900: #50127a;
+    --primitive-brand3-950: #3a1461;
+
+    /* Reds — status error */
+    --primitive-red-50:  #ffcbcb;
+    --primitive-red-100: #ff9b9b;
+    --primitive-red-200: #ff7272;
+    --primitive-red-300: #ff4747;
+    --primitive-red-400: #ff2525;
+    --primitive-red-500: #fb0000;
+    --primitive-red-600: #dc0101;
+    --primitive-red-700: #b20101;
+    --primitive-red-800: #8e0101;
+    --primitive-red-900: #690101;
+    --primitive-red-950: #370101;
+
+    /* Greens — status success */
+    --primitive-green-50:  #d1fad0;
+    --primitive-green-100: #9ce8a2;
+    --primitive-green-200: #73d97e;
+    --primitive-green-300: #4fcc5f;
+    --primitive-green-400: #26be3b;
+    --primitive-green-500: #01ae1a;
+    --primitive-green-600: #019817;
+    --primitive-green-700: #018112;
+    --primitive-green-800: #01690e;
+    --primitive-green-900: #01560a;
+    --primitive-green-950: #003705;
+
+    /* Yellows — status warning e focus ring */
+    --primitive-yellow-50:  #fef4cb;
+    --primitive-yellow-100: #fde698;
+    --primitive-yellow-200: #fbdd74;
+    --primitive-yellow-300: #fad24d;
+    --primitive-yellow-400: #f9c723;
+    --primitive-yellow-500: #f5bc01;
+    --primitive-yellow-600: #d19f01;
+    --primitive-yellow-700: #ae8300;
+    --primitive-yellow-800: #8c6801;
+    --primitive-yellow-900: #674b01;
+    --primitive-yellow-950: #422d01;
+
+    /* ================================================================
+       DOMINANT
+       ================================================================ */
+    --d_bg: #ffffff;
+
+    --d_sf-subtle: #f5f5f5;
+    --d_sf-default: #011e38;
+
+    --d_action-on-bg: #264fec;
+    --d_action-on-sf-subtle: #264fec;
+    --d_action-on-sf-default: #ffffff;
+
+    --d_fg-primary-on-bg: #171717;
+    --d_fg-secondary-on-bg: #666666;
+    --d_border-on-bg: #bababa;
+
+    --d_fg-primary-on-sf-subtle: #171717;
+    --d_fg-secondary-on-sf-subtle: #666666;
+    --d_border-on-sf-subtle: #bababa;
+
+    --d_fg-primary-on-sf-default: #ffffff;
+    --d_fg-secondary-on-sf-default: #bcbcbc;
+    --d_border-on-sf-default: #2f4a64;
+
+    --d_fg-primary-on-action: #ffffff;
+    --d_border-on-action: #ffffff;
+
+    /* ================================================================
+       AUXILIARY
+       ================================================================ */
+    --a_bg: #222222;
+
+    --a_sf-subtle: #3e3e3e;
+    --a_sf-default: #ffffff;
+
+    --a_action-on-bg: #ffffff;
+    --a_action-on-sf-subtle: #ffffff;
+    --a_action-on-sf-default: #264fec;
+
+    --a_fg-primary-on-bg: #ffffff;
+    --a_fg-secondary-on-bg: #bdbdbd;
+    --a_border-on-bg: #767676;
+
+    --a_fg-primary-on-sf-subtle: #ffffff;
+    --a_fg-secondary-on-sf-subtle: #bebebe;
+    --a_border-on-sf-subtle: #767676;
+
+    --a_fg-primary-on-sf-default: #000000;
+    --a_fg-secondary-on-sf-default: #616161;
+    --a_border-on-sf-default: #bababa;
+
+    --a_fg-primary-on-action: #264fec;
+    --a_border-on-action: #264fec;
+
+    /* ================================================================
+       ACCENT
+       ================================================================ */
+    --ac_bg: #264fec;
+
+    --ac_sf-subtle: #002ec9;
+    --ac_sf-default: #ffffff;
+
+    --ac_action-on-bg: #ffffff;
+    --ac_action-on-sf-subtle: #ffffff;
+    --ac_action-on-sf-default: #264fec;
+
+    --ac_fg-primary-on-bg: #ffffff;
+    --ac_fg-secondary-on-bg: #dbe3ff;
+    --ac_border-on-bg: #4969db;
+
+    --ac_fg-primary-on-sf-subtle: #ffffff;
+    --ac_fg-secondary-on-sf-subtle: #dbe3ff;
+    --ac_border-on-sf-subtle: #4969db;
+
+    --ac_fg-primary-on-sf-default: #000000;
+    --ac_fg-secondary-on-sf-default: #616161;
+    --ac_border-on-sf-default: #bababa;
+
+    --ac_fg-primary-on-action: #264fec;
+    --ac_border-on-action: #264fec;
+
+    /* ================================================================
+       MUTED
+       ================================================================ */
+    --m_bg: #f5f5f5;
+
+    --m_sf-subtle: #ffffff;
+    --m_sf-default: #222222;
+
+    --m_action-on-bg: #264fec;
+    --m_action-on-sf-subtle: #264fec;
+    --m_action-on-sf-default: #274fec;
+
+    --m_fg-primary-on-bg: #000000;
+    --m_fg-secondary-on-bg: #616161;
+    --m_border-on-bg: #bababa;
+
+    --m_fg-primary-on-sf-subtle: #000000;
+    --m_fg-secondary-on-sf-subtle: #616161;
+    --m_border-on-sf-subtle: #bababa;
+
+    --m_fg-primary-on-sf-default: #ffffff;
+    --m_fg-secondary-on-sf-default: #bebebe;
+    --m_border-on-sf-default: #767676;
+
+    --m_fg-primary-on-action: #ffffff;
+    --m_border-on-action: #ffffff;
+
+    /* ================================================================
+       STATUS SUCCESS
+       ================================================================ */
+    --ss_sf-subtle: #f0f9f4;
+    --ss_sf-default: #dff6e8;
+
+    --ss_action-on-sf-subtle: #c2f0d3;
+    --ss_action-on-sf-default: #c2f0d3;
+
+    --ss_fg-primary-on-sf-subtle: #0f2e1b;
+    --ss_fg-secondary-on-sf-subtle: #366346;
+    --ss_border-on-sf-subtle: #1a9e4a;
+
+    --ss_fg-primary-on-sf-default: #0f2e1b;
+    --ss_fg-secondary-on-sf-default: #366346;
+    --ss_border-on-sf-default: #97d8af;
+
+    --ss_fg-primary-on-action: #0f2e1b;
+    --ss_border-on-action: #97d8af;
+
+    /* ================================================================
+       STATUS WARNING
+       ================================================================ */
+    --sw_sf-subtle: #fdf9f2;
+    --sw_sf-default: #fcf1de;
+
+    --sw_action-on-sf-subtle: #fbe4bb;
+    --sw_action-on-sf-default: #fbe4bb;
+
+    --sw_fg-primary-on-sf-subtle: #291e0a;
+    --sw_fg-secondary-on-sf-subtle: #644f2b;
+    --sw_border-on-sf-subtle: #f59f0a;
+
+    --sw_fg-primary-on-sf-default: #291e0a;
+    --sw_fg-secondary-on-sf-default: #644f2b;
+    --sw_border-on-sf-default: #eac586;
+
+    --sw_fg-primary-on-action: #291e0a;
+    --sw_border-on-action: #eac586;
+
+    /* ================================================================
+       STATUS ERROR
+       ================================================================ */
+    --se_sf-subtle: #fcf3f3;
+    --se_sf-default: #fbe0e0;
+
+    --se_action-on-sf-subtle: #f8c3c3;
+    --se_action-on-sf-default: #f8c3c3;
+
+    --se_fg-primary-on-sf-subtle: #391313;
+    --se_fg-secondary-on-sf-subtle: #673232;
+    --se_border-on-sf-subtle: #ef4343;
+
+    --se_fg-primary-on-sf-default: #391313;
+    --se_fg-secondary-on-sf-default: #673232;
+    --se_border-on-sf-default: #e99696;
+
+    --se_fg-primary-on-action: #391313;
+    --se_border-on-action: #e99696;
+
+    /* ================================================================
+       INTERACTION
+       ================================================================ */
+    --interaction-hover:      rgb(0 0 0 / 0.06);
+    --interaction-pressed:    rgb(0 0 0 / 0.12);
+    --interaction-disabled:   rgb(255 255 255 / 0.60);
+    --interaction-focus-ring: #edca02;
+
+    /* ================================================================
+       CHART
+       ================================================================ */
+    --chart-categorical-1: #edca02;
+    --chart-categorical-2: #20a5b6;
+    --chart-categorical-3: #8e4acf;
+    --chart-categorical-4: #7d9f56;
+    --chart-categorical-5: #db5799;
+    --chart-categorical-6: #f47b25;
+    --chart-categorical-7: #29a399;
+    --chart-categorical-8: #9482c9;
+
+    --chart-sequential-1: #fef1a4;
+    --chart-sequential-2: #fde453;
+    --chart-sequential-3: #fcd703;
+    --chart-sequential-4: #bd9805;
+    --chart-sequential-5: #7e5e07;
+
+    --chart-status-success: #1a9e4a;
+    --chart-status-warning: #f59f0a;
+    --chart-status-error:   #ef4343;
+
+    --chart-axis:       #c7c6b8;
+    --chart-grid:       #ebeae5;
+    --chart-label:      #595959;
+    --chart-background: #f7f6f3;
+
+    /* ================================================================
+       TECHNICAL
+       ================================================================ */
+    --radius: 0.75rem;
+
+    /* ================================================================
+       SHADCN BACKWARD-COMPAT ALIASES
+       ================================================================ */
+    --background:             var(--d_bg);
+    --foreground:             var(--d_fg-primary-on-bg);
+    --card:                   var(--d_sf-default);
+    --card-foreground:        var(--d_fg-primary-on-sf-default);
+    --popover:                var(--d_sf-default);
+    --popover-foreground:     var(--d_fg-primary-on-sf-default);
+    --primary:                var(--d_action-on-bg);
+    --primary-foreground:     var(--d_fg-primary-on-action);
+    --secondary:              var(--d_sf-subtle);
+    --secondary-foreground:   var(--d_fg-primary-on-sf-subtle);
+    --muted:                  var(--m_sf-subtle);
+    --muted-foreground:       var(--m_fg-secondary-on-sf-subtle);
+    --accent:                 var(--d_action-on-sf-subtle);
+    --accent-foreground:      var(--d_fg-primary-on-action);
+    --destructive:            var(--se_action-on-sf-default);
+    --destructive-foreground: var(--se_fg-primary-on-action);
+    --border:                 var(--d_border-on-bg);
+    --input:                  var(--d_border-on-sf-subtle);
+    --ring:                   var(--interaction-focus-ring);
+    --chart-1: var(--chart-categorical-1);
+    --chart-2: var(--chart-categorical-2);
+    --chart-3: var(--chart-categorical-3);
+    --chart-4: var(--chart-categorical-4);
+    --chart-5: var(--chart-categorical-5);
+  }
+
+  .dark {
+    /* ================================================================
+       DOMINANT
+       ================================================================ */
+    --d_bg: #171717;
+
+    --d_sf-subtle: #1c1c1c;
+    --d_sf-default: #1f1f1f;
+
+    --d_action-on-bg: #2e2e2e;
+    --d_action-on-sf-subtle: #2e2e2e;
+    --d_action-on-sf-default: #2e2e2e;
+
+    --d_fg-primary-on-bg: #f2f2ed;
+    --d_fg-secondary-on-bg: #999999;
+    --d_border-on-bg: #3b3b3b;
+
+    --d_fg-primary-on-sf-subtle: #f2f2ed;
+    --d_fg-secondary-on-sf-subtle: #999999;
+    --d_border-on-sf-subtle: #3b3b3b;
+
+    --d_fg-primary-on-sf-default: #f2f2ed;
+    --d_fg-secondary-on-sf-default: #a6a6a6;
+    --d_border-on-sf-default: #404040;
+
+    --d_fg-primary-on-action: #f2f2ed;
+    --d_border-on-action: #474747;
+
+    /* ================================================================
+       AUXILIARY
+       ================================================================ */
+    --a_bg: #1f1f1f;
+
+    --a_sf-subtle: #212121;
+    --a_sf-default: #2e2e2e;
+
+    --a_action-on-bg: #383838;
+    --a_action-on-sf-subtle: #383838;
+    --a_action-on-sf-default: #383838;
+
+    --a_fg-primary-on-bg: #f2f2ed;
+    --a_fg-secondary-on-bg: #999999;
+    --a_border-on-bg: #383838;
+
+    --a_fg-primary-on-sf-subtle: #f2f2ed;
+    --a_fg-secondary-on-sf-subtle: #999999;
+    --a_border-on-sf-subtle: #383838;
+
+    --a_fg-primary-on-sf-default: #f2f2ed;
+    --a_fg-secondary-on-sf-default: #a6a6a6;
+    --a_border-on-sf-default: #404040;
+
+    --a_fg-primary-on-action: #f2f2ed;
+    --a_border-on-action: #454545;
+
+    /* ================================================================
+       ACCENT
+       ================================================================ */
+    --ac_bg: #fdd90d;
+
+    --ac_sf-subtle: #423e24;
+    --ac_sf-default: #645b2b;
+
+    --ac_action-on-bg: #edca02;
+    --ac_action-on-sf-subtle: #edca02;
+    --ac_action-on-sf-default: #edca02;
+
+    --ac_fg-primary-on-bg: #171717;
+    --ac_fg-secondary-on-bg: #4d4d4d;
+    --ac_border-on-bg: #7c723c;
+
+    --ac_fg-primary-on-sf-subtle: #e5e4dc;
+    --ac_fg-secondary-on-sf-subtle: #a6a6a6;
+    --ac_border-on-sf-subtle: #7c723c;
+
+    --ac_fg-primary-on-sf-default: #e9e9e2;
+    --ac_fg-secondary-on-sf-default: #adadad;
+    --ac_border-on-sf-default: #9b8d3b;
+
+    --ac_fg-primary-on-action: #171717;
+    --ac_border-on-action: #e3c102;
+
+    /* ================================================================
+       MUTED
+       ================================================================ */
+    --m_bg: #2e2e2e;
+
+    --m_sf-subtle: #262626;
+    --m_sf-default: #333333;
+
+    --m_action-on-bg: #3d3d3d;
+    --m_action-on-sf-subtle: #3d3d3d;
+    --m_action-on-sf-default: #3d3d3d;
+
+    --m_fg-primary-on-bg: #f2f2ed;
+    --m_fg-secondary-on-bg: #949494;
+    --m_border-on-bg: #404040;
+
+    --m_fg-primary-on-sf-subtle: #f2f2ed;
+    --m_fg-secondary-on-sf-subtle: #949494;
+    --m_border-on-sf-subtle: #404040;
+
+    --m_fg-primary-on-sf-default: #f2f2ed;
+    --m_fg-secondary-on-sf-default: #a1a1a1;
+    --m_border-on-sf-default: #454545;
+
+    --m_fg-primary-on-action: #f2f2ed;
+    --m_border-on-action: #4d4d4d;
+
+    /* ================================================================
+       STATUS SUCCESS
+       ================================================================ */
+    --ss_sf-subtle: #1b281f;
+    --ss_sf-default: #1f3326;
+
+    --ss_action-on-sf-subtle: #24422f;
+    --ss_action-on-sf-default: #24422f;
+
+    --ss_fg-primary-on-sf-subtle: #cef3dc;
+    --ss_fg-secondary-on-sf-subtle: #b2b2b2;
+    --ss_border-on-sf-subtle: #3e7452;
+
+    --ss_fg-primary-on-sf-default: #cef3dc;
+    --ss_fg-secondary-on-sf-default: #b2b2b2;
+    --ss_border-on-sf-default: #3e7452;
+
+    --ss_fg-primary-on-action: #cef3dc;
+    --ss_border-on-action: #325d42;
+
+    /* ================================================================
+       STATUS WARNING
+       ================================================================ */
+    --sw_sf-subtle: #28231b;
+    --sw_sf-default: #332c1f;
+
+    --sw_action-on-sf-subtle: #423724;
+    --sw_action-on-sf-default: #423724;
+
+    --sw_fg-primary-on-sf-subtle: #f7e1ba;
+    --sw_fg-secondary-on-sf-subtle: #b2b2b2;
+    --sw_border-on-sf-subtle: #74603e;
+
+    --sw_fg-primary-on-sf-default: #f7e1ba;
+    --sw_fg-secondary-on-sf-default: #b2b2b2;
+    --sw_border-on-sf-default: #74603e;
+
+    --sw_fg-primary-on-action: #f7e1ba;
+    --sw_border-on-action: #5d4d32;
+
+    /* ================================================================
+       STATUS ERROR
+       ================================================================ */
+    --se_sf-subtle: #281b1b;
+    --se_sf-default: #331f1f;
+
+    --se_action-on-sf-subtle: #422424;
+    --se_action-on-sf-default: #422424;
+
+    --se_fg-primary-on-sf-subtle: #f6cbcb;
+    --se_fg-secondary-on-sf-subtle: #b2b2b2;
+    --se_border-on-sf-subtle: #743e3e;
+
+    --se_fg-primary-on-sf-default: #f6cbcb;
+    --se_fg-secondary-on-sf-default: #b2b2b2;
+    --se_border-on-sf-default: #743e3e;
+
+    --se_fg-primary-on-action: #f6cbcb;
+    --se_border-on-action: #5d3232;
+
+    /* ================================================================
+       INTERACTION
+       ================================================================ */
+    --interaction-hover:      rgb(255 255 255 / 0.06);
+    --interaction-pressed:    rgb(255 255 255 / 0.12);
+    --interaction-disabled:   rgb(255 255 255 / 0.30);
+    --interaction-focus-ring: #edca02;
+
+    /* ================================================================
+       CHART
+       ================================================================ */
+    --chart-categorical-1: #fddf35;
+    --chart-categorical-2: #3ccadd;
+    --chart-categorical-3: #a772da;
+    --chart-categorical-4: #8faf6a;
+    --chart-categorical-5: #e481b2;
+    --chart-categorical-6: #f69855;
+    --chart-categorical-7: #3bcec2;
+    --chart-categorical-8: #a99bd4;
+
+    --chart-sequential-1: #fef7cd;
+    --chart-sequential-2: #feeb81;
+    --chart-sequential-3: #fddf35;
+    --chart-sequential-4: #e5b806;
+    --chart-sequential-5: #a57b09;
+
+    --chart-status-success: #1fc15b;
+    --chart-status-warning: #f6ae31;
+    --chart-status-error:   #ae2929;
+
+    --chart-axis:       #666666;
+    --chart-grid:       #333333;
+    --chart-label:      #a6a6a6;
+    --chart-background: #171717;
+  }
+
+  /* ================================================================
+     TEMA: GB (Grupo Boticário base — padrão)
+     Brand: brand1 (azul)
+     ================================================================ */
+  :root,
+  [data-theme="gb"] {
+    --ac_bg:                         var(--primitive-brand1-500);
+    --ac_sf-subtle:                  var(--primitive-brand1-600);
+    --ac_sf-default:                 var(--primitive-white);
+    --ac_action-on-bg:               var(--primitive-white);
+    --ac_action-on-sf-subtle:        var(--primitive-white);
+    --ac_action-on-sf-default:       var(--primitive-brand1-500);
+    --ac_fg-primary-on-bg:           var(--primitive-white);
+    --ac_fg-secondary-on-bg:         var(--primitive-brand1-50);
+    --ac_border-on-bg:               var(--primitive-brand1-400);
+    --ac_fg-primary-on-sf-subtle:    var(--primitive-white);
+    --ac_fg-secondary-on-sf-subtle:  var(--primitive-brand1-50);
+    --ac_border-on-sf-subtle:        var(--primitive-brand1-400);
+    --ac_fg-primary-on-sf-default:   var(--primitive-black);
+    --ac_fg-secondary-on-sf-default: var(--primitive-neutral-800);
+    --ac_border-on-sf-default:       var(--primitive-brand1-800);
+    --ac_fg-primary-on-action:       var(--primitive-brand1-500);
+    --ac_border-on-action:           var(--primitive-brand1-500);
+
+    --a_bg:                          var(--primitive-brand1-950);
+    --a_sf-subtle:                   var(--primitive-neutral-950);
+    --a_action-on-sf-default:        var(--primitive-brand1-500);
+    --a_fg-primary-on-action:        var(--primitive-brand1-500);
+    --a_border-on-action:            var(--primitive-brand1-500);
+
+    --d_action-on-bg:                var(--primitive-brand1-500);
+    --d_action-on-sf-subtle:         var(--primitive-brand1-500);
+    --d_sf-default:                  var(--primitive-brand1-950);
+    --d_border-on-sf-default:        var(--primitive-brand1-800);
+
+    --m_action-on-bg:                var(--primitive-brand1-500);
+    --m_action-on-sf-subtle:         var(--primitive-brand1-500);
+    --m_action-on-sf-default:        var(--primitive-brand1-500);
+    --m_sf-default:                  var(--primitive-brand1-950);
+
+    --interaction-focus-ring:        var(--primitive-yellow-500);
+  }
+
+  /* ================================================================
+     TEMA: Boticário
+     Brand: brand2 (verde)
+     ================================================================ */
+  [data-theme="boticario"] {
+    --ac_bg:                         var(--primitive-brand2-500);
+    --ac_sf-subtle:                  var(--primitive-brand2-600);
+    --ac_sf-default:                 var(--primitive-white);
+    --ac_action-on-bg:               var(--primitive-white);
+    --ac_action-on-sf-subtle:        var(--primitive-white);
+    --ac_action-on-sf-default:       var(--primitive-brand2-500);
+    --ac_fg-primary-on-bg:           var(--primitive-white);
+    --ac_fg-secondary-on-bg:         var(--primitive-brand2-50);
+    --ac_border-on-bg:               var(--primitive-brand2-400);
+    --ac_fg-primary-on-sf-subtle:    var(--primitive-white);
+    --ac_fg-secondary-on-sf-subtle:  var(--primitive-brand2-50);
+    --ac_border-on-sf-subtle:        var(--primitive-brand2-400);
+    --ac_fg-primary-on-sf-default:   var(--primitive-black);
+    --ac_fg-secondary-on-sf-default: var(--primitive-neutral-800);
+    --ac_border-on-sf-default:       var(--primitive-brand2-800);
+    --ac_fg-primary-on-action:       var(--primitive-brand2-500);
+    --ac_border-on-action:           var(--primitive-brand2-500);
+
+    --a_bg:                          var(--primitive-brand2-950);
+    --a_sf-subtle:                   var(--primitive-neutral-950);
+    --a_action-on-sf-default:        var(--primitive-brand2-500);
+    --a_fg-primary-on-action:        var(--primitive-brand2-500);
+    --a_border-on-action:            var(--primitive-brand2-500);
+
+    --d_action-on-bg:                var(--primitive-brand2-500);
+    --d_action-on-sf-subtle:         var(--primitive-brand2-500);
+    --d_sf-default:                  var(--primitive-brand2-950);
+    --d_border-on-sf-default:        var(--primitive-brand2-800);
+
+    --m_action-on-bg:                var(--primitive-brand2-500);
+    --m_action-on-sf-subtle:         var(--primitive-brand2-500);
+    --m_action-on-sf-default:        var(--primitive-brand2-500);
+    --m_sf-default:                  var(--primitive-brand2-950);
+
+    --interaction-focus-ring:        var(--primitive-yellow-500);
+  }
+
+  /* ================================================================
+     TEMA: Revendedores Grupo Boticário
+     Brand: brand1 (azul) — mesmo que GB
+     ================================================================ */
+  [data-theme="revendedores"] {
+    --ac_bg:                         var(--primitive-brand1-500);
+    --ac_sf-subtle:                  var(--primitive-brand1-600);
+    --ac_sf-default:                 var(--primitive-white);
+    --ac_action-on-bg:               var(--primitive-white);
+    --ac_action-on-sf-subtle:        var(--primitive-white);
+    --ac_action-on-sf-default:       var(--primitive-brand1-500);
+    --ac_fg-primary-on-bg:           var(--primitive-white);
+    --ac_fg-secondary-on-bg:         var(--primitive-brand1-50);
+    --ac_border-on-bg:               var(--primitive-brand1-400);
+    --ac_fg-primary-on-sf-subtle:    var(--primitive-white);
+    --ac_fg-secondary-on-sf-subtle:  var(--primitive-brand1-50);
+    --ac_border-on-sf-subtle:        var(--primitive-brand1-400);
+    --ac_fg-primary-on-sf-default:   var(--primitive-black);
+    --ac_fg-secondary-on-sf-default: var(--primitive-neutral-800);
+    --ac_border-on-sf-default:       var(--primitive-brand1-800);
+    --ac_fg-primary-on-action:       var(--primitive-brand1-500);
+    --ac_border-on-action:           var(--primitive-brand1-500);
+
+    --a_bg:                          var(--primitive-brand1-950);
+    --a_sf-subtle:                   var(--primitive-neutral-950);
+    --a_action-on-sf-default:        var(--primitive-brand1-500);
+    --a_fg-primary-on-action:        var(--primitive-brand1-500);
+    --a_border-on-action:            var(--primitive-brand1-500);
+
+    --d_action-on-bg:                var(--primitive-brand1-500);
+    --d_action-on-sf-subtle:         var(--primitive-brand1-500);
+    --d_sf-default:                  var(--primitive-brand1-950);
+    --d_border-on-sf-default:        var(--primitive-brand1-800);
+
+    --m_action-on-bg:                var(--primitive-brand1-500);
+    --m_action-on-sf-subtle:         var(--primitive-brand1-500);
+    --m_action-on-sf-default:        var(--primitive-brand1-500);
+    --m_sf-default:                  var(--primitive-brand1-950);
+
+    --interaction-focus-ring:        var(--primitive-yellow-500);
+  }
+
+  /* ================================================================
+     TEMA: Beleza na Web
+     Brand: brand3 (roxo)
+     ================================================================ */
+  [data-theme="belezanaweb"] {
+    --ac_bg:                         var(--primitive-brand3-500);
+    --ac_sf-subtle:                  var(--primitive-brand3-600);
+    --ac_sf-default:                 var(--primitive-white);
+    --ac_action-on-bg:               var(--primitive-white);
+    --ac_action-on-sf-subtle:        var(--primitive-white);
+    --ac_action-on-sf-default:       var(--primitive-brand3-500);
+    --ac_fg-primary-on-bg:           var(--primitive-white);
+    --ac_fg-secondary-on-bg:         var(--primitive-brand3-50);
+    --ac_border-on-bg:               var(--primitive-brand3-400);
+    --ac_fg-primary-on-sf-subtle:    var(--primitive-white);
+    --ac_fg-secondary-on-sf-subtle:  var(--primitive-brand3-50);
+    --ac_border-on-sf-subtle:        var(--primitive-brand3-400);
+    --ac_fg-primary-on-sf-default:   var(--primitive-black);
+    --ac_fg-secondary-on-sf-default: var(--primitive-neutral-800);
+    --ac_border-on-sf-default:       var(--primitive-brand3-800);
+    --ac_fg-primary-on-action:       var(--primitive-brand3-500);
+    --ac_border-on-action:           var(--primitive-brand3-500);
+
+    --a_bg:                          var(--primitive-brand3-950);
+    --a_sf-subtle:                   var(--primitive-neutral-950);
+    --a_action-on-sf-default:        var(--primitive-brand3-500);
+    --a_fg-primary-on-action:        var(--primitive-brand3-500);
+    --a_border-on-action:            var(--primitive-brand3-500);
+
+    --d_action-on-bg:                var(--primitive-brand3-500);
+    --d_action-on-sf-subtle:         var(--primitive-brand3-500);
+    --d_sf-default:                  var(--primitive-brand3-950);
+    --d_border-on-sf-default:        var(--primitive-brand3-800);
+
+    --m_action-on-bg:                var(--primitive-brand3-500);
+    --m_action-on-sf-subtle:         var(--primitive-brand3-500);
+    --m_action-on-sf-default:        var(--primitive-brand3-500);
+    --m_sf-default:                  var(--primitive-brand3-950);
+
+    --interaction-focus-ring:        var(--primitive-yellow-500);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
